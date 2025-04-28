@@ -1,0 +1,6 @@
+{"parameters":[
+	{"type":"number", "description":"Temperature (K)", "value":310.15, "param": "-T"},
+	{"type":"number", "description":"Maximum Loop Size", "value":30, "param": "-L"},
+	{"type":"number", "description":"Differential SHAPE slope (kcal/mol)", "value":2.11, "param": "-dsm"}
+]}
+

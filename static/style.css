@@ -1,0 +1,537 @@
+/**********************************************************************
+*                           Default styles                           *
+**********************************************************************/
+* {
+	font-family: sans-serif;
+}
+
+body {
+	width: 95%;
+	margin: auto;
+}
+
+p {
+	margin: 0px 0px 0px 0px;
+}
+
+ul.examples {
+  margin: 5px 0px 5px 0px;
+}
+
+/**********************************************************************
+*                             Containers                             *
+**********************************************************************/
+fieldset { 
+	border: 1px solid #808080;
+	border-radius: 10px;
+	margin: 10px 10px 10px 10px;
+	padding: 10px 10px 10px 10px;
+}
+
+fieldset.filter_fieldset { 
+	overflow-y: scroll;
+	height: 150px;
+}
+
+legend { 
+	font-size: 20px;
+	background-color: #808080;
+	color: white;
+	padding: 5px;
+	border-radius: 10px;
+}
+
+/**********************************************************************
+*                           Sequence input                           *
+**********************************************************************/
+li.example {
+	word-wrap: break-word;
+}
+
+textarea {
+	margin: 5px 0px 5px 0px;
+	width: calc(100% - 10px);
+	word-wrap: break-word;
+}
+
+input[type="file"]::file-selector-button {
+	background-color: #008CFF;
+	color: white;
+	padding: 5px;
+	border-radius: 10px;
+	border: none;
+}
+
+div#seq_input_label_error {
+	display: flex;
+	gap: 50px;
+}
+
+div#rnacentral_button_container {
+	margin: 10px 0px 0px 0px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+div#rnacentral_sequence {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+/*div#rnacentral_sequence_label {
+  font-size: 18px;
+  font-weight: bold;
+}*/
+
+div#rnacentral_sequence_id {
+	/*font-size: 18px;*/
+  font-weight: bold;
+  /*font-style: italic;*/
+}
+
+/************
+*  Dialog  *
+************/
+dialog#rnacentral_dialog {
+	border: 1px solid #808080;
+	padding: 10px;
+	width: auto;
+	height: auto;
+}
+
+div#rnacentral_dialog_content {
+	display: flex;
+	gap: 10px;
+	flex-direction: row;
+}
+
+div#dialog_filters {
+	flex-basis: 20%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+div#dialog_filters_buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	align-items: center;
+	justify-content: center;
+}
+
+div#dialog_maincontent {
+	flex-basis: 80%;
+	width: auto;
+	height: 650px;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: 30px auto 30px;
+}
+
+input#dialog_search_input {
+	font-size: 17px;
+	width: calc(100% - 100px);
+}
+
+h1#dialog_result_title {
+	margin: 0px 0px 0px 0px;
+}
+
+small#dialog_results_count {
+	margin: 0px 0px 10px 0px;
+	font-weight: normal;
+	font-size: 20px;
+}
+
+div#dialog_results_content {
+	overflow-y: scroll;
+	height: 500px;
+}
+
+div.dialog_result_not_selected {
+	margin: 10px 0px 10px 0px;
+	padding: 10px;
+	border: 1px solid #808080;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+div.dialog_result_not_selected > p {
+	color: #000000;
+}
+
+.dialog_result_not_selected:hover {
+	cursor: pointer;
+	border: 1px solid #404040;
+}
+
+div.dialog_result_not_selected:hover > p {
+	color: #404040;
+}
+
+.dialog_result_not_selected:active {
+	cursor: pointer;
+	border: 1px solid #606060;
+}
+
+div.dialog_result_not_selected:active > p {
+	color: #606060;
+}
+
+div.dialog_result_selected {
+	margin: 10px 0px 10px 0px;
+	padding: 10px;
+	border: 1px solid #008CFF;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+div.dialog_result_selected > p {
+	color: #008CFF;
+}
+
+.dialog_result_selected:hover {
+	cursor: pointer;
+	border: 1px solid #0066CC;
+}
+
+div.dialog_result_selected:hover > p {
+	color: #0066CC;
+}
+
+.dialog_result_selected:active {
+	cursor: pointer;
+	border: 1px solid #004499;
+}
+
+div.dialog_result_selected:active > p {
+	color: #004499;
+}
+
+p.result_description {
+	font-size: 20px;
+}
+
+p.result_id {
+	font-size: 15px;
+	font-style: italic;
+}
+
+p.result_length {
+	font-size: 15px;
+}
+
+div#pagination_buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}
+
+div#rnacentral_dialog_buttons {
+	display: flex;
+	justify-content: right;
+}
+
+/**********************************************************************
+*                              Methods                               *
+**********************************************************************/
+#methods {
+	display: grid;
+	grid-template-columns: 200px auto;
+	gap: 10px;
+}
+
+/**********************
+*  Methods selector  *
+**********************/
+div#method_selector {
+	width: auto;
+}
+
+div#available_methods {
+	margin: 10px 0px 10px 0px;
+	width: auto;
+}
+
+div.method_row {
+	display: grid;
+	grid-template-columns: auto 25px;
+	align-items: center;
+}
+
+div.method_selected, div.method_unselected, div.editing_method {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin: 5px 0px 5px 0px;
+} 
+
+p.selected_label { 
+	color: black;
+	margin: 0px 0px 0px 5px;
+}
+
+p.unselected_label { 
+	color: #808080;
+	margin: 0px 0px 0px 5px;
+}
+
+p.editing_label { 
+	color: #008CFF;
+	margin: 0px 0px 0px 5px;
+}
+
+div#error-methods, div#error-sequence, div#error-file, div#dialog_nothing_selected_error {
+	color: #FF3A20;
+}
+
+/*******************
+*  Method editor  *
+*******************/
+div#method_editor {
+	width: auto;
+	height: auto;
+	border: 1px solid #808080;
+	padding: 10px;
+	display: flex;
+}
+
+div#parameters_editor_div {
+	margin: 0px 0px 0px 0px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+label#editor_label {
+	margin: 0px 0px 0px 0px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#method_editor_form { 
+	margin: 5px 0px 5px 0px;
+}
+
+/**********************************************************************
+*                               Submit                               *
+**********************************************************************/
+#submit_button_container {
+	margin: 10px 0px 10px 0px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+}
+
+#submit_message {
+	margin: 10px 0px 10px 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 10px;
+}
+
+/**********************************************************************
+*                              Buttons                               *
+**********************************************************************/
+div#method_editor_buttons {
+	margin: 0px 0px 0px 0px;
+	display: flex;
+	justify-content: right;
+}
+
+#cancel_edit_button, #save_edit_button, #rnacentral_button, #dialog_confirm_button,
+#dialog_cancel_button, #dialog_search_button, #apply_filters, #reset_filters {
+	color: white;
+	padding: 5px;
+	border-radius: 10px;
+	border: none;
+	font-size: 16px;
+	margin: 0px 0px 0px 10px;
+}
+
+#rnacentral_button {
+	margin: 0px 0px 0px 0px;
+}
+
+#cancel_edit_button, #dialog_cancel_button, #reset_filters {
+	background-color: #808080;
+}
+#cancel_edit_button:hover, #dialog_cancel_button:hover, #reset_filters:hover {
+	background-color: #666666;
+}
+#cancel_edit_button:active, #dialog_cancel_button:active, #reset_filters:active {
+	background-color: #404040;
+}
+
+#save_edit_button, #rnacentral_button, #dialog_confirm_button, #dialog_search_button,
+#apply_filters {
+	background-color: #008CFF;
+}
+
+#submit_button {
+	float: right;
+	margin: 10px;
+	background-color: #008CFF;
+	color: white;
+	padding: 5px;
+	border-radius: 10px;
+	border: none;
+	font-size: 18px;
+}
+
+#submit_button:hover, input[type="file"]::file-selector-button:hover, 
+#save_edit_button:hover, #rnacentral_button:hover, #dialog_confirm_button:hover,
+#dialog_search_button:hover, #apply_filters:hover {
+	background-color: #0066CC;
+}
+
+#submit_button:active, input[type="file"]::file-selector-button:active,
+#save_edit_button:active, #rnacentral_button:active, #dialog_confirm_button:active,
+#dialog_search_button:active, #apply_filters:active {
+	background-color: #004499;
+}
+
+#submit_button:disabled {
+	background-color: #007FFF;
+	color: #808080;
+}
+
+#dialog_previous_button, #dialog_next_button {
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #808080;
+}
+
+#dialog_previous_button:hover, #dialog_next_button:hover {
+	border: 1px solid #404040;
+	background-color: #E0E0E0;
+}
+
+#dialog_previous_button:active, #dialog_next_button:active {
+	border: 1px solid #404040;
+	background-color: #C0C0C0;
+}
+
+/******************************************************************************
+*                                  Results                                   *
+******************************************************************************/
+p.sequence {
+	overflow-wrap: break-word;
+}
+div#results {
+	margin: 10px 0px 10px 0px;
+	align-items: center;
+}
+
+/******************
+*  Methods grid  *
+******************/
+ul#methods_grid {
+	margin: 10px 0px 10px 0px;
+	padding: 0px 0px 0px 0px;
+	list-style-type: none;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+
+div.draggable {
+	border: 1px solid #808080;
+	padding: 10px;
+}
+
+div.draggable:hover {
+	border: 2px solid #008CFF;
+	padding: 10px;
+}
+
+div.images_container{
+  display: flex;
+  /*border: 1px solid #880000;*/
+  padding: 10px;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/**********************
+*  reference result  *
+**********************/
+div#Reference_stack{
+  border: 3px solid #808080;
+  padding: 10px;
+}
+div#Reference_stack:hover {
+  border: 3px solid #008CFF;
+  padding: 10px;
+}
+li#Reference {
+	color: #404040;
+}
+
+/*******************
+*  Size selector  *
+*******************/
+input#size_selector {
+	width: 50px;
+	margin: 10px 0px 10px 0px;
+}
+
+/******************
+*  Dot bracket  *
+******************/
+p.dot {
+	overflow-wrap: break-word;
+}
+
+p.f1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0px 5px 0px;
+}
+
+div.f1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0px 5px 0px;
+  display: flex;
+  align-items: right;
+  gap: 5px;
+}
+
+/****************
+*  Loader CSS  *
+****************/
+.loader_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+.loader {
+  border: 5px solid #D6D6D6;
+  border-top: 5px solid #008CFF;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

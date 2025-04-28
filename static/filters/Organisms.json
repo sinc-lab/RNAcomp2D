@@ -1,0 +1,23 @@
+{
+	"inputtype":"radio", "legend":"Organisms", "query":"TAXONOMY",
+	"values":[{"name":"Homo sapiens", "queryvalue":"9606"},{"name":"Mus musculus", "queryvalue":"10090"},{"name":"Arabidopsis thaliana","queryvalue":"3702"},
+		{"name":"Caenorhabditis elegans","queryvalue":"6239"},{"name":"Danio rerio","queryvalue":"7955"},{"name":"Drosophila melanogaster","queryvalue":"7227"},
+		{"name":"Schizosaccharomyces pombe","queryvalue":"4896"}, {"name":"Bacillus subtilis subsp. subtilis str. 168","queryvalue":"224308"},
+		{"name":"Saccharomyces cerevisiae S288C","queryvalue":"559292"}, {"name":"Escherichia coli str. K-12 substr. MG1655","queryvalue":"511145"},
+		{"name":"uncultured bacterium","queryvalue":"77133"}, {"name":"metagenome","queryvalue":"256318"}, {"name":"soil metagenome","queryvalue":"410658"},
+		{"name":"uncultured eukaryote","queryvalue":"100272"}, {"name":"Triticum aestivum","queryvalue":"4565"}, {"name":"uncultured organism","queryvalue":"155900"},
+		{"name":"plant metagenome","queryvalue":"1297885"}, {"name":"human gut metagenome","queryvalue":"408170"}, {"name":"uncultured prokaryote","queryvalue":"198431"},
+		{"name":"uncultured archaeon","queryvalue":"115547"}, {"name":"Hevea brasiliensis","queryvalue":"3981"}, {"name":"uncultured fungus","queryvalue":"175245"},
+		{"name":"Escherichia coli","queryvalue":"562"}, {"name":"Rattus norvegicus","queryvalue":"10116"}, {"name":"Marmota monax","queryvalue":"9995"},
+		{"name":"Pan troglodytes","queryvalue":"9598"}, {"name":"Sus scrofa","queryvalue":"9823"}, {"name":"Pongo abelii","queryvalue":"9601"},
+		{"name":"Elaeis guineensis","queryvalue":"51953"}, {"name":"fungal sp.","queryvalue":"1709941"}, {"name":"bacterium","queryvalue":"1869227"},
+		{"name":"uncultured Neocallimastigales","queryvalue":"325898"}, {"name":"Bos taurus","queryvalue":"9913"}, {"name":"Mytilus galloprovincialis","queryvalue":"29158"},
+		{"name":"Pelobates cultripes","queryvalue":"61616"}, {"name":"Salmonella enterica","queryvalue":"28901"}, {"name":"uncultured soil bacterium","queryvalue":"164851"},
+		{"name":"Vreelandella stevensii","queryvalue":"502821"}, {"name":"Dipodomys ordii","queryvalue":"10020"}, {"name":"Camelus ferus","queryvalue":"419612"},
+		{"name":"Cricetulus griseus","queryvalue":"10029"}, {"name":"Gallus gallus","queryvalue":"9031"}, {"name":"uncultured microorganism","queryvalue":"358574"},
+		{"name":"uncultured Glomeromycotina","queryvalue":"241622"}, {"name":"Bombyx mori","queryvalue":"7091"}, {"name":"Ovis aries","queryvalue":"9940"},
+		{"name":"Ananas comosus","queryvalue":"4615"}, {"name":"uncultured Glomus","queryvalue":"231055"}, {"name":"Felis catus","queryvalue":"9685"},
+		{"name":"Chloroflexota bacterium","queryvalue":"2026724"}, {"name":"Staphylococcus aureus","queryvalue":"1280"}, {"name":"Klebsiella pneumoniae","queryvalue":"573"},
+		{"name":"Nicotiana benthamiana","queryvalue":"4100"}, {"name":"Podarcis lilfordi","queryvalue":"74358"}, {"name":"Pisum sativum","queryvalue":"3888"},
+		{"name":"Equus caballus","queryvalue":"9796"}, {"name":"Salmo salar","queryvalue":"8030"}]
+}

@@ -1,0 +1,11 @@
+services:
+  rna2dstructure-dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+    - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    volumes: 
+      - .:/Project

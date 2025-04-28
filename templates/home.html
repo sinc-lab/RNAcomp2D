@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+ 
+{% block body %}
+<!-- Brief description of the application -->
+<h1>RNA Secondary Structure Comparator</h1>
+<p> 
+This tool can compare RNA secondary structures from several computational methods. 
+</p>
+<p>
+Please enter one sequence by typing it into the input box or by uploading a file in 
+FASTA format or searching it in RNAcentral. 
+</p>
+<p>
+Then select the methods to compare. You can edit the parameters for each method by 
+using the corresponding menu at the right of each method.
+</p>
+<br />
+<p>
+To test the tool, you can use one of the following examples:
+</p>
+<ul class="examples">
+	<li class="example">AACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAA</li>
+	<li class="example">GGGCUAUUAGCUCAGUUGGUUAGAGCGCACCCCUGAUAAGGGUGAGGUCGCUGAUUCGAAUUCAGCAUAGCCCA</li>
+	<li class="example">AUCCUUUUGUAGUUCAUGGGCAUGAUGAUGGGGUGUUCCUGAGCAUGCGUAAGAUGUGCCGCCCUCAAAUCUUGUCAAGAUGUUGGCACAUUACCCAUCUGACA</li>
+</ul>
+<form action="/show_results" method="POST" accept-charset="utf-8" 
+	id="myForm">
+	<fieldset>
+		<!-- Fieldset for sequence input -->
+		<legend>Sequence</legend>
+		<div id="seq_input_label_error">
+		<label for="seq_string">Paste or type your sequence here:</label>
+		<div id="error-sequence" style="display: none"></div></div>
+		<textarea name="seq_string" id="seq_string" rows=3 
+			value=""></textarea><br />
+		Or upload a FASTA format file:
+		<input type="file" name="seq_file" id="seq_file" 
+		accept=".fasta,.txt"><div id="error-file" style="display: none"></div>
+		<div id="rnacentral_button_container">
+			Or select one from RNAcentral database:
+			<button id="rnacentral_button">Browse</button>
+			<div id="rnacentral_sequence">
+				<div id="rnacentral_sequence_label" 
+					hidden>Sequence selected:</div>
+				<div id="rnacentral_sequence_id"></div></div>
+		</div>
+		<dialog id="rnacentral_dialog" class="hidden">
+			<div id="rnacentral_dialog_content"></div>
+			<div id="rnacentral_dialog_buttons">
+				<div id="dialog_nothing_selected_error" hidden>
+					Please select a result.
+				</div>
+				<button id="dialog_cancel_button">Cancel</button>
+				<button id="dialog_confirm_button">Select</button>
+		</div>
+    </div>
+		</dialog>
+	</fieldset>
+	<fieldset id="methods">
+		<!-- Fieldset for methods selection -->
+		<legend>Methods</legend>
+		<div id="method_selector">
+			<p>Select methods here:</p>
+			<div id="available_methods"></div>
+		</div>
+		<div id="method_editor" class="hidden" style="display: none">
+		</div><div id="error-methods" style="display: none"></div>
+	</fieldset>
+	<div id="submit_button_container">
+		<div id="submit_message" style="display: none"></div>
+		<button id="submit_button" type="submit">Submit</button>
+	</div>
+</form>
+<script src="../static/src/main.js" type="module" defer></script>
+{% endblock %}

@@ -1,0 +1,6 @@
+{"parameters":[
+	{"type": "number", "description": "Temperature (C)", "value":37, "param": "-T"},
+	{"type": "number", "description": "Salt concentration (M)", "value":1.021, "param": "--salt"},
+	{"type": "checkbox", "description": "Produce structures without lonely pairs", "value": true, "param": "--noLP"}
+]}
+

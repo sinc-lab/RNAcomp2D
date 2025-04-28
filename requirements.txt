@@ -1,0 +1,13 @@
+Flask
+Jinja2
+MarkupSafe
+matplotlib
+networkx
+numpy
+pandas
+requests
+scikit-learn
+scipy
+sincfold
+sympy
+tqdm

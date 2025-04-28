@@ -1,0 +1,4 @@
+{"parameters":[
+	{"type": "checkbox", "description": "LinearPartition-C (using Contrafold)", "value":true}
+]}
+

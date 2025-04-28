@@ -1,0 +1,19 @@
+{
+	"inputtype":"checkbox", "legend":"Experts databases", "query":"expert_db",
+	"values":[{"name":"ENA","queryvalue":"ENA"}, {"name":"SILVA","queryvalue":"SILVA"}, {"name":"Rfam","queryvalue":"Rfam"}, {"name":"Ensembl","queryvalue":"Ensembl"}, 
+		{"name":"Greengenes","queryvalue":"Greengenes"}, {"name":"PLncDB","queryvalue":"PLncDB"}, {"name":"Ensembl Metazoa","queryvalue":"Ensembl Metazoa"},
+		{"name":"GeneCards","queryvalue":"GeneCards"}, {"name":"LncBook","queryvalue":"LncBook"}, {"name":"GtRNAdb","queryvalue":"GtRNAdb"},
+		{"name":"NONCODE","queryvalue":"NONCODE"}, {"name":"PirBase","queryvalue":"PirBase"}, {"name":"RiboCentre","queryvalue":"RiboCentre"},
+		{"name":"MGNIFY","queryvalue":"MGNIFY"}, {"name":"LNCipedia","queryvalue":"LNCipedia"}, {"name":"RefSeq","queryvalue":"RefSeq"},
+		{"name":"tmRNA Website","queryvalue":"tmRNA Website"}, {"name":"miRBase","queryvalue":"miRBase"}, {"name":"Ensembl Plants","queryvalue":"Ensembl Plants"},
+		{"name":"Ensembl/GENCODE","queryvalue":"Ensembl/GENCODE"}, {"name":"MalaCards","queryvalue":"MalaCards"}, {"name":"ZWD","queryvalue":"ZWD"},
+		{"name":"MirGeneDB","queryvalue":"MirGeneDB"}, {"name":"WormBase","queryvalue":"WormBase"}, {"name":"Ensembl Fungi","queryvalue":"Ensembl Fungi"},
+		{"name":"MGI","queryvalue":"MGI"}, {"name":"5SrRNAdb","queryvalue":"5SrRNAdb"}, {"name":"RGD","queryvalue":"RGD"},
+		{"name":"Expression Atlas","queryvalue":"Expression Atlas"}, {"name":"HGNC","queryvalue":"HGNC"}, {"name":"PomBase","queryvalue":"PomBase"},
+		{"name":"RDP","queryvalue":"RDP"}, {"name":"Ensembl Protists","queryvalue":"Ensembl Protists"}, {"name":"PDBe","queryvalue":"PDBe"},
+		{"name":"TAIR","queryvalue":"TAIR"}, {"name":"FlyBase","queryvalue":"FlyBase"}, {"name":"snOPY","queryvalue":"snOPY"},
+		{"name":"snoDB","queryvalue":"snoDB"}, {"name":"TarBase","queryvalue":"TarBase"}, {"name":"LncBase","queryvalue":"LncBase"},
+		{"name":"Zfin","queryvalue":"Zfin"}, {"name":"CRW","queryvalue":"CRW"}, {"name":"EVlncRNAs","queryvalue":"EVlncRNAs"}, {"name":"SRPDB","queryvalue":"SRPDB"},
+		{"name":"snoRNA Database","queryvalue":"snoRNA Database"}, {"name":"IntAct","queryvalue":"IntAct"}, {"name":"Modomics","queryvalue":"Modomics"},
+		{"name":"SGD","queryvalue":"SGD"}, {"name":"DictyBase","queryvalue":"DictyBase"}, {"name":"PSICQUIC","queryvalue":"PSICQUIC"}]
+}
