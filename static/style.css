@@ -1,12 +1,16 @@
 /**********************************************************************
 *                           Default styles                           *
 **********************************************************************/
+.root {
+  --dialog-buttons-height: 40px;
+}
+
 * {
 	font-family: sans-serif;
 }
 
 body {
-	width: 95%;
+	width: 100%;
 	margin: auto;
 }
 
@@ -14,15 +18,49 @@ p {
 	margin: 0px 0px 0px 0px;
 }
 
+p.description {
+	margin: 0px 10px 0px 10px;
+}
+
 ul.examples {
   margin: 5px 0px 5px 0px;
+}
+
+h1.title {
+  margin: 10px;
+}
+
+/*******************
+ *     Colors     *
+ *******************/
+:root {
+  --primary: #008CFF;
+  --primary-font: #FFFFFF;
+  --primary-hover: #0066CC;
+  --primary-active: #004499;
+  --primary-disabled: #004F8F;
+  --primary-disabled-font: #808080;
+  --primary-light: #4086C0;
+  --primary-light-font: #FFFFFF;
+  --primary-light-hover: #3876A8;
+  --primary-light-active: #2E608A;
+  --secondary: #808080;
+  --secondary-font: #FFFFFF;
+  --secondary-hover: #666666;
+  --secondary-active: #404040;
+  --secondary-light: #E0E0E0;
+  --secondary-light-font: #000000;
+  --secondary-light-hover: #C9C9C9;
+  --secondary-light-active: #A9A9A9;
+  --secondary-light-disabled: #C2C2C2;
+  --secondary-light-disabled-font: #606060;
 }
 
 /**********************************************************************
 *                             Containers                             *
 **********************************************************************/
 fieldset { 
-	border: 1px solid #808080;
+	border: 1px solid var(--secondary);
 	border-radius: 10px;
 	margin: 10px 10px 10px 10px;
 	padding: 10px 10px 10px 10px;
@@ -35,7 +73,7 @@ fieldset.filter_fieldset {
 
 legend { 
 	font-size: 20px;
-	background-color: #808080;
+	background-color: var(--secondary);
 	color: white;
 	padding: 5px;
 	border-radius: 10px;
@@ -55,11 +93,19 @@ textarea {
 }
 
 input[type="file"]::file-selector-button {
-	background-color: #008CFF;
-	color: white;
+	background-color: var(--primary-light);
+	color: var(--primary-light-font);
 	padding: 5px;
 	border-radius: 10px;
 	border: none;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: var(--primary-light-hover);
+}
+
+input[type="file"]::file-selector-button:active {
+  background-color: var(--primary-light-active);
 }
 
 div#seq_input_label_error {
@@ -95,10 +141,11 @@ div#rnacentral_sequence_id {
 *  Dialog  *
 ************/
 dialog#rnacentral_dialog {
-	border: 1px solid #808080;
+	border: 1px solid var(--secondary);
 	padding: 10px;
 	width: auto;
-	height: auto;
+	height: fit-content;
+    margin-top: 10px;
 }
 
 div#rnacentral_dialog_content {
@@ -125,7 +172,7 @@ div#dialog_filters_buttons {
 div#dialog_maincontent {
 	flex-basis: 80%;
 	width: auto;
-	height: 650px;
+	height: 100vh - 50px;
 	display: grid;
 	grid-template-columns: auto;
 	grid-template-rows: 30px auto 30px;
@@ -154,7 +201,7 @@ div#dialog_results_content {
 div.dialog_result_not_selected {
 	margin: 10px 0px 10px 0px;
 	padding: 10px;
-	border: 1px solid #808080;
+	border: 1px solid var(--secondary);
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
@@ -166,51 +213,51 @@ div.dialog_result_not_selected > p {
 
 .dialog_result_not_selected:hover {
 	cursor: pointer;
-	border: 1px solid #404040;
+	border: 1px solid var(--secondary-hover);
 }
 
 div.dialog_result_not_selected:hover > p {
-	color: #404040;
+	color: var(--secondary-hover);
 }
 
 .dialog_result_not_selected:active {
 	cursor: pointer;
-	border: 1px solid #606060;
+	border: 1px solid var(--secondary-active);
 }
 
 div.dialog_result_not_selected:active > p {
-	color: #606060;
+	color: var(--secondary-active);
 }
 
 div.dialog_result_selected {
 	margin: 10px 0px 10px 0px;
 	padding: 10px;
-	border: 1px solid #008CFF;
+	border: 1px solid var(--primary);
 	display: flex;
 	flex-direction: column;
 	gap: 5px;
 }
 
 div.dialog_result_selected > p {
-	color: #008CFF;
+	color: var(--primary);
 }
 
 .dialog_result_selected:hover {
 	cursor: pointer;
-	border: 1px solid #0066CC;
+	border: 1px solid var(--primary-hover);
 }
 
 div.dialog_result_selected:hover > p {
-	color: #0066CC;
+	color: var(--primary-hover);
 }
 
 .dialog_result_selected:active {
 	cursor: pointer;
-	border: 1px solid #004499;
+	border: 1px solid var(--primary-active);
 }
 
 div.dialog_result_selected:active > p {
-	color: #004499;
+	color: var(--primary-active);
 }
 
 p.result_description {
@@ -234,6 +281,7 @@ div#pagination_buttons {
 }
 
 div#rnacentral_dialog_buttons {
+    height: var(--dialog_buttons_height);
 	display: flex;
 	justify-content: right;
 }
@@ -278,12 +326,12 @@ p.selected_label {
 }
 
 p.unselected_label { 
-	color: #808080;
+	color: var(--secondary);
 	margin: 0px 0px 0px 5px;
 }
 
 p.editing_label { 
-	color: #008CFF;
+	color: var(--primary);
 	margin: 0px 0px 0px 5px;
 }
 
@@ -297,7 +345,7 @@ div#error-methods, div#error-sequence, div#error-file, div#dialog_nothing_select
 div#method_editor {
 	width: auto;
 	height: auto;
-	border: 1px solid #808080;
+	border: 1px solid var(--secondary);
 	padding: 10px;
 	display: flex;
 }
@@ -349,8 +397,9 @@ div#method_editor_buttons {
 	justify-content: right;
 }
 
-#cancel_edit_button, #save_edit_button, #rnacentral_button, #dialog_confirm_button,
-#dialog_cancel_button, #dialog_search_button, #apply_filters, #reset_filters {
+#cancel_edit_button, #save_edit_button, #rnacentral_button, 
+#dialog_confirm_button, #dialog_cancel_button, #dialog_search_button, 
+#apply_filters, #reset_filters{
 	color: white;
 	padding: 5px;
 	border-radius: 10px;
@@ -361,155 +410,86 @@ div#method_editor_buttons {
 
 #rnacentral_button {
 	margin: 0px 0px 0px 0px;
+    background-color: var(--primary-light);
+}
+
+#rnacentral_button:hover {
+    background-color: var(--primary-light-hover);
+}
+
+#rnacentral_button:active {
+    background-color: var(--primary-light-active);
 }
 
 #cancel_edit_button, #dialog_cancel_button, #reset_filters {
-	background-color: #808080;
-}
-#cancel_edit_button:hover, #dialog_cancel_button:hover, #reset_filters:hover {
-	background-color: #666666;
-}
-#cancel_edit_button:active, #dialog_cancel_button:active, #reset_filters:active {
-	background-color: #404040;
+	background-color: var(--secondary);
 }
 
-#save_edit_button, #rnacentral_button, #dialog_confirm_button, #dialog_search_button,
-#apply_filters {
-	background-color: #008CFF;
+#cancel_edit_button:hover, #dialog_cancel_button:hover, 
+#reset_filters:hover {
+	background-color: var(--secondary-hover);
+}
+
+#cancel_edit_button:active, #dialog_cancel_button:active, 
+#reset_filters:active {
+	background-color: var(--secondary-active);
+}
+
+#save_edit_button, #dialog_confirm_button, #dialog_search_button, 
+#apply_filters{
+	background-color: var(--primary);
 }
 
 #submit_button {
 	float: right;
 	margin: 10px;
-	background-color: #008CFF;
+	background-color: var(--primary);
 	color: white;
-	padding: 5px;
-	border-radius: 10px;
+	padding: 10px;
+	border-radius: 20px;
 	border: none;
-	font-size: 18px;
+	font-size: 32px;
 }
 
-#submit_button:hover, input[type="file"]::file-selector-button:hover, 
-#save_edit_button:hover, #rnacentral_button:hover, #dialog_confirm_button:hover,
-#dialog_search_button:hover, #apply_filters:hover {
-	background-color: #0066CC;
+#submit_button:hover, #save_edit_button:hover,
+#dialog_confirm_button:hover, #dialog_search_button:hover, 
+#apply_filters:hover{
+	background-color: var(--primary-hover);
 }
 
-#submit_button:active, input[type="file"]::file-selector-button:active,
-#save_edit_button:active, #rnacentral_button:active, #dialog_confirm_button:active,
-#dialog_search_button:active, #apply_filters:active {
-	background-color: #004499;
+#submit_button:active, #save_edit_button:active,
+#dialog_confirm_button:active, #dialog_search_button:active, 
+#apply_filters:active{
+	background-color: var(--primary-active);
 }
 
 #submit_button:disabled {
-	background-color: #007FFF;
-	color: #808080;
+	background-color: var(--primary-disabled);
+	color: var(--primary-disabled-font);
 }
 
 #dialog_previous_button, #dialog_next_button {
 	padding: 5px;
 	border-radius: 5px;
-	border: 1px solid #808080;
+    color: var(--secondary-light-font);
+	border: 1px solid var(--secondary);
+    background-color: var(--secondary-light);
 }
 
 #dialog_previous_button:hover, #dialog_next_button:hover {
-	border: 1px solid #404040;
-	background-color: #E0E0E0;
+    border: 1px solid var(--secondary-hover);
+	background-color: var(--secondary-light-hover);
 }
 
 #dialog_previous_button:active, #dialog_next_button:active {
-	border: 1px solid #404040;
-	background-color: #C0C0C0;
+    border: 1px solid var(--secondary-active);
+	background-color: var(--secondary-light-active);
 }
 
-/******************************************************************************
-*                                  Results                                   *
-******************************************************************************/
-p.sequence {
-	overflow-wrap: break-word;
-}
-div#results {
-	margin: 10px 0px 10px 0px;
-	align-items: center;
-}
-
-/******************
-*  Methods grid  *
-******************/
-ul#methods_grid {
-	margin: 10px 0px 10px 0px;
-	padding: 0px 0px 0px 0px;
-	list-style-type: none;
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	gap: 20px;
-}
-
-div.draggable {
-	border: 1px solid #808080;
-	padding: 10px;
-}
-
-div.draggable:hover {
-	border: 2px solid #008CFF;
-	padding: 10px;
-}
-
-div.images_container{
-  display: flex;
-  /*border: 1px solid #880000;*/
-  padding: 10px;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-/**********************
-*  reference result  *
-**********************/
-div#Reference_stack{
-  border: 3px solid #808080;
-  padding: 10px;
-}
-div#Reference_stack:hover {
-  border: 3px solid #008CFF;
-  padding: 10px;
-}
-li#Reference {
-	color: #404040;
-}
-
-/*******************
-*  Size selector  *
-*******************/
-input#size_selector {
-	width: 50px;
-	margin: 10px 0px 10px 0px;
-}
-
-/******************
-*  Dot bracket  *
-******************/
-p.dot {
-	overflow-wrap: break-word;
-}
-
-p.f1 {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 5px 0px 5px 0px;
-}
-
-div.f1 {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 5px 0px 5px 0px;
-  display: flex;
-  align-items: right;
-  gap: 5px;
+#dialog_previous_button:disabled, #dialog_next_button:disabled {
+    border: 1px solid var(--secondary-light-disabled-font);
+    background-color: var(--secondary-light-disabled);
+    color: var(--secondary-light-disabled-font);
 }
 
 /****************
@@ -522,14 +502,13 @@ div.f1 {
 	gap: 10px;
 }
 .loader {
-  border: 5px solid #D6D6D6;
-  border-top: 5px solid #008CFF;
+  border: 5px solid var(--secondary-light);
+  border-top: 5px solid var(--primary);
   border-radius: 50%;
   width: 20px;
   height: 20px;
   animation: spin 2s linear infinite;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

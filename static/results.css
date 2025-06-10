@@ -1,0 +1,307 @@
+/**********************************************************************
+*                           Default styles                           *
+**********************************************************************/
+:root {
+  --toolbar-height: 40px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0px;
+    height: 100%;
+    font-family: sans-serif;
+    width: 100vw;
+}
+
+body {
+    display: grid;
+    grid-template-rows: var(--toolbar-height) 1fr auto;
+}
+
+p {
+	margin: 0px;
+}
+
+/*************************************************************
+*                          Toolbar                          *
+*************************************************************/
+header {
+  width: 100vw;
+  margin: 0px;
+  padding: 5px 10px 5px 10px;
+  border-bottom: 1px solid #808080;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input#size_selector {
+	width: 50px;
+	margin: 0px;
+}
+
+div#radio_buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+input[type="radio"] {
+  margin: 0px;
+  align-items: center;
+}
+
+div#dot_checkbox {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+#download_button {
+	color: white;
+	padding: 5px;
+	border-radius: 10px;
+	border: none;
+	font-size: 16px;
+	margin: 0px 0px 0px 10px;
+	background-color: #008CFF;
+}
+
+button#download_button:hover {
+	background-color: #0066CC;
+}
+
+button#download_button:active {
+  background-color: #004499;
+}
+
+button#download_button:disabled {
+  background-color: #808080;
+}
+
+/******************************************************************
+*                          Methods grid                          *
+******************************************************************/
+main {
+	display: flex;
+    overflow: hidden;
+}
+
+/*********************************
+*      Pinned method panel      *
+*********************************/
+
+div#pinned_method_panel {
+  border-right: 3px solid #808080;
+  background-color: #FFFFFF;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+div#pinned_method {
+  border: 1px solid #808080;
+  padding: 10px;
+  margin: 10px;
+}
+
+li.pinned_method {
+  display: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.pinned {
+  background: #008CFF;
+  width: 15px;
+  aspect-ratio: 1;
+  padding: 6px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  mask:
+    linear-gradient(#0000 0 0) content-box intersect,
+    conic-gradient(#000 360deg,#0000 0);
+}
+
+.pinned:hover {
+  background: #0066CC;
+}
+
+/*********************************
+*         Methods panel          *
+*********************************/
+div#methods_container {
+  overflow-y: auto;
+  background-color: #FFFFFF;
+}
+
+ul#methods_grid {
+	margin: 10px;
+	padding: 0px;
+	list-style-type: none;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0px;
+}
+
+li.unpinned_method {
+  display: block;
+  padding: 0px;
+  margin: 10px;
+}
+
+div.draggable {
+	border: 1px solid #808080;
+	padding: 10px;
+}
+
+div.draggable:hover {
+	border: 2px solid #008CFF;
+	padding: 9px;
+}
+
+.dragbox {
+  cursor: move;
+}
+
+.unpinned {
+  width: 24px;
+  aspect-ratio: 1;
+  background:
+    linear-gradient(
+      45deg,
+      #808080 0%,
+      #808080 35%,
+      #008CFF 35%,
+      #008CFF 100%
+    );
+  clip-path: path("M19.1835 7.80516L16.2188 4.83755C14.1921 2.8089 13.1788 1.79457 12.0904 2.03468C11.0021 2.2748 10.5086 3.62155 9.5217 6.31506L8.85373 8.1381C8.59063 8.85617 8.45908 9.2152 8.22239 9.49292C8.11619 9.61754 7.99536 9.72887 7.86251 9.82451C7.56644 10.0377 7.19811 10.1392 6.46145 10.3423C4.80107 10.8 3.97088 11.0289 3.65804 11.5721C3.5228 11.8069 3.45242 12.0735 3.45413 12.3446C3.45809 12.9715 4.06698 13.581 5.28476 14.8L6.69935 16.2163L2.22345 20.6964C1.92552 20.9946 1.92552 21.4782 2.22345 21.7764C2.52138 22.0746 3.00443 22.0746 3.30236 21.7764L7.77841 17.2961L9.24441 18.7635C10.4699 19.9902 11.0827 20.6036 11.7134 20.6045C11.9792 20.6049 12.2404 20.5358 12.4713 20.4041C13.0192 20.0914 13.2493 19.2551 13.7095 17.5825C13.9119 16.8472 14.013 16.4795 14.2254 16.1835C14.3184 16.054 14.4262 15.9358 14.5468 15.8314C14.8221 15.593 15.1788 15.459 15.8922 15.191L17.7362 14.4981C20.4 13.4973 21.7319 12.9969 21.9667 11.9115C22.2014 10.826 21.1954 9.81905 19.1835 7.80516Z");
+}
+
+.unpinned:hover {
+  background:
+    linear-gradient(
+      45deg,
+      #404040 0%,
+      #404040 35%,
+      #0066CC 35%,
+      #0066CC 100%
+    );
+}
+
+div.name_container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+div.images_container {
+  display: flex;
+  /*border: 1px solid #880000;*/
+  padding: 10px;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+div.download_button {
+  height: 20px;
+  aspect-ratio: 1;
+  background: #008CFF;
+  cursor: pointer;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 80%, 50% 80%, 
+  100% 40%, 70% 40%, 70% 0%, 30% 0%, 30% 40%, 0% 40%, 
+  50% 80%, 0% 80%);
+}
+
+div.download_button:hover {
+  background: #0066CC;
+}
+
+div.download_button:active {
+  background: #404040;
+}
+
+/**********************
+*  reference result  *
+**********************/
+div#Reference_stack{
+  border: 3px solid #808080;
+  padding: 10px;
+}
+
+div#Reference_stack:hover {
+  border: 3px solid #008CFF;
+  padding: 10px;
+}
+
+li#Reference {
+	color: #404040;
+}
+
+/******************
+*  Dot bracket  *
+******************/
+p.dot {
+	overflow-wrap: break-word;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+p.f1 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+div.f1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0px 5px 0px;
+  display: flex;
+  align-items: right;
+  gap: 5px;
+}
+
+/****************
+*  Loader CSS  *
+****************/
+.loader_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+.loader {
+  border: 5px solid #D6D6D6;
+  border-top: 5px solid #008CFF;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*****************************************************************
+ *                          Information                          *
+*****************************************************************/
+footer {
+  width: 100vw;
+  margin: 0px;
+  padding: 10px;
+  border-top: 1px solid #808080;
+  background-color: #FFFFFF;
+}
+
+p.sequence {
+	overflow-wrap: break-word;
+}
+

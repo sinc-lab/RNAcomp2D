@@ -18,17 +18,14 @@ export function formatQuery(input_value, filters, start, size) {
 		var inputs = document.getElementsByName(filter);
 		for (var input of inputs) {
 			if (input.checked) {
-				//console.log(input.value);
 				if (input.value!="all"){
 					query += ` AND ${filters[filter].query}:"${input.value}"`;
-					//console.log(input.value);
 				}
 			}
 		}
 	};
 
 	query += `&start=${start}`;//&size=${size}`
-	console.log(query);
 	return query;
 }
 
@@ -160,7 +157,6 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 				sequence_id.parentNode.children[0].hidden = false;
 				sequence_id.innerHTML = result.children[1].textContent
 					.trim();
-				console.log(sequence_id.innerHTML);
 				break;
 			}
 		}
@@ -191,7 +187,6 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 }
 
 export function showSearchResults(json, results, start, size) {
-	console.log(json);
 	var prev_button = results.parentElement.parentElement
 		.querySelector("#dialog_previous_button");
 	var next_button = results.parentElement.parentElement

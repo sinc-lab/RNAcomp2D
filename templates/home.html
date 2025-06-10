@@ -1,21 +1,31 @@
 {% extends 'index.html' %}
- 
+{% block head %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>RNAcomp2D</title>
+<link rel="stylesheet" href={{ url_for('static', filename='style.css') }} type="text/css">
+<!-- This works, but is hardcoded
+<link rel="stylesheet" href="/myapp/static/style.css" type="text/css">
+-->
+<link rel="shortcut icon" href="#">
+{% endblock %}
+
 {% block body %}
 <!-- Brief description of the application -->
-<h1>RNA Secondary Structure Comparator</h1>
-<p> 
+<h1 class="title">RNAcomp2D</h1>
+<p class="description"> 
 This tool can compare RNA secondary structures from several computational methods. 
 </p>
-<p>
+<p class="description">
 Please enter one sequence by typing it into the input box or by uploading a file in 
 FASTA format or searching it in RNAcentral. 
 </p>
-<p>
+<p class="description">
 Then select the methods to compare. You can edit the parameters for each method by 
 using the corresponding menu at the right of each method.
 </p>
 <br />
-<p>
+<p class="description">
 To test the tool, you can use one of the following examples:
 </p>
 <ul class="examples">
@@ -23,7 +33,7 @@ To test the tool, you can use one of the following examples:
 	<li class="example">GGGCUAUUAGCUCAGUUGGUUAGAGCGCACCCCUGAUAAGGGUGAGGUCGCUGAUUCGAAUUCAGCAUAGCCCA</li>
 	<li class="example">AUCCUUUUGUAGUUCAUGGGCAUGAUGAUGGGGUGUUCCUGAGCAUGCGUAAGAUGUGCCGCCCUCAAAUCUUGUCAAGAUGUUGGCACAUUACCCAUCUGACA</li>
 </ul>
-<form action="/show_results" method="POST" accept-charset="utf-8" 
+<form action={{ url_for('show_results') }} method="POST" accept-charset="utf-8" 
 	id="myForm">
 	<fieldset>
 		<!-- Fieldset for sequence input -->
@@ -52,8 +62,7 @@ To test the tool, you can use one of the following examples:
 				</div>
 				<button id="dialog_cancel_button">Cancel</button>
 				<button id="dialog_confirm_button">Select</button>
-		</div>
-    </div>
+            </div>
 		</dialog>
 	</fieldset>
 	<fieldset id="methods">
@@ -71,5 +80,5 @@ To test the tool, you can use one of the following examples:
 		<button id="submit_button" type="submit">Submit</button>
 	</div>
 </form>
-<script src="../static/src/main.js" type="module" defer></script>
+<script src={{ url_for('static', filename='src/main.js') }} type="module" defer></script>
 {% endblock %}

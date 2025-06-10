@@ -27,7 +27,7 @@ export function get_f1(ref_bp, pred_bp) {
     if (!Array.isArray(ref_bp) || !Array.isArray(pred_bp)) {
         return -1;
     }
-    console.log(ref_bp, pred_bp);
+    //console.log(ref_bp, pred_bp);
     var tp = 0;
     var fp = 0;
     var fn = 0;
@@ -59,7 +59,7 @@ export function get_f1(ref_bp, pred_bp) {
     }
     var precision = tp / (tp + fp);
     var recall = tp / (tp + fn);
-    console.log(tp, fp, fn, precision, recall, f1);
+    //console.log(tp, fp, fn, precision, recall, f1);
     if (tp == 0){
         return 0;
     }

@@ -86,7 +86,7 @@ function markMethodAsSelected(target) {
 	// This method will be computed. This function will be called when user 
 	// clicks on method selector (see selectMethod function)
 	target["className"] = "method_selected";
-	target.childNodes[1].src = "../static/imgs/box-checked.svg";
+	target.childNodes[1].src = `${APP_ROOT}/static/imgs/box-checked.svg`;
 	target.childNodes[3].className = "selected_label";
   if (target.parentNode.childNodes.length > 3) {
   	target.parentNode.childNodes[3].style.display = "block";
@@ -97,7 +97,7 @@ function markMethodAsUnselected(target) {
 	// This method will not be computed. This function will be called when 
 	// user clicks on method selector (see selectMethod function)
 	target["className"] = "method_unselected";
-	target.childNodes[1].src = "../static/imgs/box-empty.svg";
+	target.childNodes[1].src = `${APP_ROOT}/static/imgs/box-empty.svg`;
 	target.childNodes[3].className = "unselected_label";
   if (target.parentNode.childNodes.length > 3) {
   	target.parentNode.childNodes[3].style.display = "none";
@@ -108,9 +108,9 @@ function markMethodAsEditing(target) {
 	// This method is being edited by the user. This function will be called 
 	// when user clicks on edit button (see editMethod function)
 	target.childNodes[1]["className"] = "editing_method";
-	target.childNodes[1].childNodes[1].src = "../static/imgs/box-editing.svg";
+	target.childNodes[1].childNodes[1].src = `${APP_ROOT}/static/imgs/box-editing.svg`;
 	target.childNodes[1].childNodes[3].className = "editing_label";
-	target.childNodes[3].src = "../static/imgs/editing.svg";
+	target.childNodes[3].src = `${APP_ROOT}/static/imgs/editing.svg`;
 }
 
 function markMethodAsNotEditing(target) {
@@ -122,32 +122,32 @@ function markMethodAsNotEditing(target) {
 	// the image of the edit button. The other function turns on the edit 
 	// button, but doesn't change the image
 	target.childNodes[1].className = "method_selected";
-	target.childNodes[1].childNodes[1].src = "../static/imgs/box-checked.svg";
+	target.childNodes[1].childNodes[1].src = `${APP_ROOT}/static/imgs/box-checked.svg`;
 	target.childNodes[1].childNodes[3].className = "selected_label";
-	target.childNodes[3].src = "../static/imgs/edit.svg";
+	target.childNodes[3].src = `${APP_ROOT}/static/imgs/edit.svg`;
 }
 
 export function createMethodSelectors(met_div, methods, methods_parameters) {
 	// This function will create the method selector. It will be called when 
 	// user clicks on edit button (see editMethod function)
-  console.log(methods_parameters);
+  //console.log(methods_parameters);
 	for (var meth of methods) {
     if (meth in methods_parameters && methods_parameters[meth]["parameters"].length > 0) {
       met_div.innerHTML += `<div class="method_row" id="${meth}">
             <div class="method_selected">
-              <img src="../static/imgs/box-checked.svg"
+              <img src="${APP_ROOT}/static/imgs/box-checked.svg"
               style="width: 20px; height: 20px;">
               <p width=100% float=left 
               class="selected_label">${meth}</p>
             </div>
-            <img src="../static/imgs/edit.svg" 
+            <img src="${APP_ROOT}/static/imgs/edit.svg" 
               class="edit_img"
             style="width: 15px; height: 15px; ">
             </div>`;
     } else {
       met_div.innerHTML += `<div class="method_row" id="${meth}">
             <div class="method_selected">
-              <img src="../static/imgs/box-checked.svg"
+              <img src="${APP_ROOT}/static/imgs/box-checked.svg"
               style="width: 20px; height: 20px;">
               <p width=100% float=left 
               class="selected_label">${meth}</p>

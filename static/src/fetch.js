@@ -59,6 +59,7 @@ export async function fetchRnacentral(rnacentral_id) {
 		return res.json();
 		})
 		.then((json) => {
+			console.log("json from rnacentral", json);
 			return json
 		})
 		.catch((error) => {
@@ -71,7 +72,7 @@ export async function fetchRnacentral(rnacentral_id) {
 		return res.json();
 		})
 		.then((json) => {
-			console.log(json);
+			console.log("json from rnacentral 2", json);
 			return json
 		})
 		.catch((error) => {
@@ -79,7 +80,7 @@ export async function fetchRnacentral(rnacentral_id) {
 		});
 
 	json_results["sequence"] = json.sequence;
-	if (json2.data.secondary_structure) {
+	if (json2 && json2.data && json2.data.secondary_structure) {
 		json_results["secondary_structure"] = json2.data.secondary_structure;
 	} else {
 		json_results["secondary_structure"] = "";

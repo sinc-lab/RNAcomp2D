@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, Response
+from flask import Flask, render_template, request, redirect, session, Response, url_for
 from markupsafe import Markup
 import os, shutil
 import json
@@ -7,7 +7,23 @@ import threading
 import time
 
 app = Flask(__name__)
+app_root = '/rna2dstructure'
+app.config['APPLICATION_ROOT'] = app_root
 app.secret_key = 'some_secret_key_for_session'
+
+# Middleware para ajustar SCRIPT_NAME
+class PrefixMiddleware:
+    def __init__(self, app, prefix):
+        self.app = app
+        self.prefix = prefix
+
+    def __call__(self, environ, start_response):
+        environ['SCRIPT_NAME'] = self.prefix
+        return self.app(environ, start_response)
+
+
+# Envolver la app con el middleware (IMPORTANTE) 
+app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix=app_root)
 
 # Thread configuration: partial parallelization
 #config = "partial"
@@ -108,6 +124,7 @@ def show_results():
     """Redirects to the results page.
     """
     if request.method == 'POST':
+        print("Received data:", request.json)
         seq = request.json["sequence"]
         methods = request.json["methods"]
         secondary_structure = request.json["secondary_structure"]
@@ -123,13 +140,14 @@ def show_results():
                 f.write(seq + "\n")
                 f.write(secondary_structure + "\n")
         session.permanent = True
-        return redirect("/results")
+        return redirect(url_for('results'))
 
 
 @app.route('/results')
 def results():
     """Renders the results page with session data.
     """
+    print("Session data:", session)
     return render_template('show_results.html', seq=session["seq"],
                            methods=session["names"], 
                            rnacentral_id=session["rnacentral_id"])

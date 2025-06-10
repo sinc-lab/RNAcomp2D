@@ -4,6 +4,8 @@ import {createMethodSelectors, selectMethod, editMethod, selectToSubmit} from
 "./methods_selector.js";
 import {createRnacentralDialog, showSearchResults, formatQuery} from "./rnacentraldialog.js";
 
+console.log("Hello from", APP_ROOT);
+
 // Submit form
 async function submitForm(text_area, file_input, methods_parameters, rnacentral_id) {
 	var error = document.getElementById("error-sequence");
@@ -37,9 +39,9 @@ async function submitForm(text_area, file_input, methods_parameters, rnacentral_
 	document.getElementById("submit_button").disabled = true;
 
 	if (rnacentral_id != "") {
-		console.log(rnacentral_id);
+		//console.log(rnacentral_id);
 		var json = await fetchRnacentral(rnacentral_id);
-		console.log(json);
+		//console.log(json);
 		sequence = json["sequence"];
 		secondary_structure = json["secondary_structure"];
 	}
@@ -70,10 +72,10 @@ async function submitForm(text_area, file_input, methods_parameters, rnacentral_
 		"rnacentral_id": rnacentral_id,
 		"secondary_structure": secondary_structure
 	}
-	console.log(data);
+	//console.log(data);
 
 	// Send data to backend
-	fetch("/show_results", {
+	fetch("show_results", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -102,7 +104,7 @@ var methods_parameters = {};
 for (var meth of methods) {
 	// Read parameters from file
 	//var path = "../static/methods/" + meth + "/params.json";
-	var path = "../static/methods/" + meth + ".json";
+	var path = "static/methods/" + meth + ".json";
 	// open file
 	await fetchJSONdata(path, meth, methods_parameters);
 }
@@ -120,7 +122,7 @@ const dialog_no_selected_error = document.getElementById("dialog_nothing_selecte
 var filters = {};
 // Read filter options from file
 for (var filter of available_filters) {
-	var path = "../static/filters/" + filter + ".json";
+	var path = "static/filters/" + filter + ".json";
 	await fetchJSONdata(path, filter, filters);
 };
 createRnacentralDialog(rnacentral_dialog, filters, start, size, sequence_id);
@@ -169,7 +171,7 @@ rnacentral_button.addEventListener("click", function() {
 search_results.addEventListener("click", function(e) {
 	dialog_no_selected_error.hidden = true;
 	var selection = e.target;
-	console.log(selection.tagName);
+	//console.log(selection.tagName);
 	if (selection.tagName == "P") {
 		selection = selection.parentNode;
 	};
