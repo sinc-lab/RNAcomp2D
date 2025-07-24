@@ -5,6 +5,7 @@ import networkx as nx
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--method", dest="method", type=str)
+parser.add_argument("-t", "--temp_dir", dest="temp_dir", type=str)
 
 def get_pairs(dot):
     """Get the pairs from the dot-brackets
@@ -37,7 +38,7 @@ def get_pairs(dot):
     return pairs if not opening else False
 
 
-def draw_circ(method):
+def draw_circ(method, temp_dir):
     """Draw circular plot
 
     :param method: method name
@@ -46,7 +47,7 @@ def draw_circ(method):
     """
 
     print("Drawing", method)
-    with open(f"results/{method}.dot") as f:
+    with open(f"{temp_dir}/results/{method}.dot") as f:
         content = f.read().split("\n")
         seq = content[1]
         dot = content[2]
@@ -122,10 +123,10 @@ def draw_circ(method):
 
     plt.axis('equal')
     plt.axis('off')
-    plt.savefig(f"results/{method}_circ.svg", format='svg', transparent=True, 
-                bbox_inches='tight')
+    plt.savefig(f"{temp_dir}/results/{method}_circ.svg", format='svg', 
+                transparent=True, bbox_inches='tight')
     return 0
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    draw_circ(args.method)
+    draw_circ(args.method, args.temp_dir)

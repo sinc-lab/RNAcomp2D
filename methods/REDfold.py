@@ -3,7 +3,7 @@ import methods.utils as ut
 
 # Requires: redfold command line interface
 # Source: https://github.com/aky3100/REDfold
-def run_method(sequence, params):
+def run_method(sequence, params, temp_dir):
     """Calls REDfold method
     :param sequence: sequence to be folded
     :param params: method parameters
@@ -12,7 +12,7 @@ def run_method(sequence, params):
     """
     if len(sequence) > 720:
         return "Sequence too long for REDfold. Max 720 nucleotides."
-    inputfile = ut.generateFasta("REDfold", sequence)
+    inputfile = ut.generateFasta("REDfold", sequence, temp_dir)
     command = ["redfold", inputfile]
     val = subprocess.run(command, stdout = subprocess.PIPE, 
                          stderr = subprocess.PIPE, 
@@ -20,12 +20,12 @@ def run_method(sequence, params):
 
     if val.returncode == 0:
         dotfilelines = val.stdout.split('\n')
-        with open('results/REDfold.dot', 'w') as f:
+        with open(f"{temp_dir}/results/REDfold.dot", 'w') as f:
             f.write("REDfold\n")
             f.write(dotfilelines[1] + '\n')
             f.write(dotfilelines[2] + '\n')
-        draw_val1 = ut.draw("REDfold")
-        draw_val2 = ut.draw_circ("REDfold")
+        draw_val1 = ut.draw("REDfold", temp_dir)
+        draw_val2 = ut.draw_circ("REDfold", temp_dir)
         if draw_val1.returncode != 0 or draw_val2 != 0:
             return "Sequence folded, but drawing failed"
     else: 

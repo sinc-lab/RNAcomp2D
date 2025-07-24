@@ -2,6 +2,7 @@ FROM python:3.11
 
 # Install debian packages
 RUN apt-get update && apt-get install -y \
+	git \
 	build-essential \
 	default-jre
 
@@ -17,6 +18,7 @@ RUN pip install --default-timeout=100 -r requirements.txt
 # Install methods
 ## RNAfold
 #COPY ./methods/RNAfold/viennarna_2.7.0-1_amd64.deb /Project/methods/RNAfold/viennarna_2.7.0-1_amd64.deb
+RUN apt-get update -y
 RUN apt install -y ./methods/RNAfold/viennarna_2.7.0-1_amd64.deb
 
 ## REDfold
@@ -38,7 +40,9 @@ RUN cp -r methods/REDfold/redfold/ /usr/local/lib/python3.11/site-packages/
 ## Python script and model will be accessible when the volume is mounted
 
 ## SincFold
-## Python package was installed with pip in line 16
+## Install sincfold from github
+RUN git clone https://github.com/sinc-lab/sincFold
+RUN pip install ./sincFold
 
 # Port for Flask
 EXPOSE 8000

@@ -7,6 +7,7 @@ import numpy as np
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('inputfile')
+    p.add_argument('outputdir')
     p.add_argument('--png', action='store_true')
     p.add_argument('--movie_mode', action='store_true')
     p.add_argument('--large_mode',action='store_true')
@@ -46,13 +47,15 @@ def main():
                 if ext_color_file:
                     d.draw_rna(seq, secstruct, color_vec, name, line=args.line, ext_color_file=True, 
                         cmap_name=args.colormap, large_mode=args.large_mode,
-                        movie_mode=args.movie_mode, svg_mode=True)
+                        movie_mode=args.movie_mode, svg_mode=True, outfile=args.outputdir)
                 elif color_string:
                     d.draw_rna(seq, secstruct, color_string, name, line=args.line, cmap_name = args.colormap,
-                     large_mode = args.large_mode, movie_mode=args.movie_mode, svg_mode=True)
+                     large_mode = args.large_mode, movie_mode=args.movie_mode,
+                               svg_mode=True, outfile=args.outputdir)
                 else:
                     d.draw_rna(seq, secstruct, seq2col(seq), name, line=args.line, cmap_name = args.colormap,
-                     large_mode = args.large_mode, movie_mode=args.movie_mode, svg_mode=True)
+                     large_mode = args.large_mode, movie_mode=args.movie_mode,
+                               svg_mode=True, outfile=args.outputdir)
                 
                 if args.png:
                     if 'INKSCAPEDIR' not in os.environ:

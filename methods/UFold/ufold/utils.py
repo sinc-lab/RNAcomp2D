@@ -67,6 +67,8 @@ def get_args():
         help='training file name list.')
     argparser.add_argument('--test_files', required=False,nargs='?',default='ArchiveII',choices=['ArchiveII','TS0','bpnew','TS1','TS2','TS3'],
         help='test file name')
+    argparser.add_argument('--out_dir', type=str, required=True,
+        help='output directory')
     args = argparser.parse_args()
     return args
 

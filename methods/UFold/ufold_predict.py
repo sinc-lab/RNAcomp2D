@@ -85,7 +85,7 @@ def get_ct_dict_fast(predict_matrix,batch_num,ct_dict,dot_file_dict,seq_embeddin
     ct_dict[batch_num] = [(seq[0][i],seq[1][i]) for i in np.arange(len(seq[0])) if seq[0][i] != 0]
     dot_file_dict[batch_num] = [(seq_name.replace('/','_'),seq_letter,dot_list[:len(seq_letter)])]
     #pdb.set_trace()
-    ct_file_output(ct_dict[batch_num],seq_letter,seq_name,'results')
+    ct_file_output(ct_dict[batch_num],seq_letter,seq_name,f"{args.out_dir}/results")
     _,_,noncanonical_pairs = type_pairs(ct_dict[batch_num],seq_letter)
     tertiary_bp = [list(x) for x in set(tuple(x) for x in noncanonical_pairs)]
     str_tertiary = []
@@ -228,7 +228,7 @@ def model_eval_all_test(contact_net,test_generator):
     #subprocess.getstatusoutput('sed -s \'$G\' '+' '.join(ct_file_name_list)+' > results/UFold_ct_file_merge.ct')
     #dot_ct_file = open('results/dot_ct_file.txt','w')
 
-    dot_ct_file = open('results/UFold.dot','w')
+    dot_ct_file = open(f"{args.out_dir}/results/UFold.dot",'w')
     for i in range(batch_n):
         dot_ct_file.write('%s\n'%(dot_file_dict[i+1][0][0]))
         dot_ct_file.write('%s\n'%(dot_file_dict[i+1][0][1]))
@@ -285,6 +285,7 @@ def main():
     #    os.makedirs('results/save_varna_fig')
     config_file = args.config
     test_file = args.test_files
+    out_dir = args.out_dir
 
     config = process_config(config_file)
     
@@ -304,7 +305,7 @@ def main():
 
     seed_torch()
         
-    test_data = RNASSDataGenerator_input('results/', 'UFold')
+    test_data = RNASSDataGenerator_input(f"{out_dir}/results/", 'UFold')
     
     params = {'batch_size': BATCH_SIZE,
               'shuffle': True,

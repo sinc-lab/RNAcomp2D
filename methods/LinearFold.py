@@ -1,7 +1,7 @@
 import subprocess
 import methods.utils as ut
 
-def run_method(sequence, params):
+def run_method(sequence, params, temp_dir):
     """Calls LinearFold method from LinearFold folder.
     :param sequence: sequence to be folded
     :param params: method parameters
@@ -19,12 +19,12 @@ def run_method(sequence, params):
     if val.returncode == 0:
         lines = val.stdout.splitlines()
         #print(f" ### Lines: {lines}\n\n ###")
-        with open('results/LinearFold.dot', 'w') as f:
+        with open(f"{temp_dir}/results/LinearFold.dot", 'w') as f:
             f.write("LinearFold\n")
             f.write(lines[0] + "\n")
             f.write(lines[1].split(" ")[0] + "\n")
-        draw_val1 = ut.draw("LinearFold")
-        draw_val2 = ut.draw_circ("LinearFold")
+        draw_val1 = ut.draw("LinearFold", temp_dir)
+        draw_val2 = ut.draw_circ("LinearFold", temp_dir)
         if draw_val1.returncode != 0 or draw_val2 != 0:
             return "Sequence folded, but drawing failed"
     else:

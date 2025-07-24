@@ -61,7 +61,7 @@ for (var method in methods_divs) {
 var ref_bp = [];
 
 // Initialize SSE (Server Sent Events)
-var source = new EventSource(APP_ROOT + "/stream_results");
+var source = new EventSource(APP_ROOT + "/stream_results/" + sessionId);
 var endConnection = true;
 methods_dots["Reference"] = -1;
 source.onmessage = (event) => {
