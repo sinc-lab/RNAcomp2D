@@ -1,5 +1,5 @@
 services:
-  rna2dstructure-dev:
+  RNAcomp2D-dev:
     build: 
       context: .
       dockerfile: Dockerfile.dev

@@ -1,9 +1,7 @@
-rna2dstructure:
-  build: 
-    context: .
-    dockerfile: Dockerfile
+RNAcomp2D:
+  build: .
   environment:
-  - PYTHONUNBUFFERED=1
+    - PYTHONUNBUFFERED=1
   ports:
     - "8000:8000"
   #volumes: 

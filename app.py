@@ -8,7 +8,7 @@ import threading
 import time
 
 app = Flask(__name__)
-app_root = '/rna2dstructure'
+app_root = '/RNAcomp2D'
 app.config['APPLICATION_ROOT'] = app_root
 
 SESSIONS = {}

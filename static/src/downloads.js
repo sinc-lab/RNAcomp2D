@@ -15,24 +15,23 @@ function convert_svg_to_png(svg, callback) {
   img.src = svgUrl;
 }
 
-function generate_content(div, sequence, title, max_width = 1000) {
+function generate_content(div, sequence, title, max_width) {
   console.log("Generating content for:", title);
-  console.log(div);
   const stem = div.querySelector(".stem");
 
   var imgs = [];
   if (stem.style.display != "none") {
     const st_obj = htmlToPdfmake(stem.innerHTML);
-    const stem_width = Math.min(stem.offsetWidth, max_width);
-    st_obj[0].width = stem_width;
+    //const stem_width = Math.min(stem.offsetWidth, max_width);
+    st_obj[0].width = max_width;
     imgs.push(st_obj);
   }
 
   let circ = div.querySelector(".circ");
   if (circ.style.display != "none") {
     const circ_obj = htmlToPdfmake(circ.innerHTML);
-    const circ_width = Math.min(circ.offsetWidth, max_width);
-    circ_obj[0].width = circ_width;
+    //const circ_width = Math.min(circ.offsetWidth, max_width);
+    circ_obj[0].width = max_width;
     imgs.push(circ_obj);
   }
 
@@ -61,15 +60,7 @@ function generate_content(div, sequence, title, max_width = 1000) {
 export function download_methods(methods, title, sequence, pinned_container, 
   methods_divs, size, rad_val, dot_val) {
   console.log("Downloading methods:", methods);
-  const margin = 10;
-  const page_width = 2480 - margin * 2;
-  const page_height = 3508 - margin * 2;
-  var use_columns = true;
-  var max_width = page_width / 4;
-  if (rad_val == "both" || size > page_width / 2) {
-    use_columns = false;
-    max_width = page_width/2;
-  }
+  var image_width = 200;
 
   var methodsContents = [];
   // Pinned method
@@ -78,7 +69,7 @@ export function download_methods(methods, title, sequence, pinned_container,
       .querySelector("#pinned_method_name").innerText;
     var pinned_method = methods_divs[pinned_method_name];
     var pinned_method_content = generate_content(pinned_container, sequence, 
-      pinned_method_name, max_width);
+      pinned_method_name, image_width);
     methodsContents.push(pinned_method_content);
     methodsContents.push({text: "\n\n"});
   }
@@ -88,48 +79,26 @@ export function download_methods(methods, title, sequence, pinned_container,
     console.log(methods[method]);
     var method_id = methods[method];
     var method_content = generate_content(methods_divs[method_id], sequence, 
-      method_id, max_width);
+      method_id, image_width);
     methodsContents.push(method_content);
+    methodsContents.push({text: "\n\n"});
   }
 
-  var docDefinition;
-  if (!use_columns) {
-    docDefinition = {
-      pageSize: {
-        width: page_width,
-        height: page_height
-      },
-      content: methodsContents,
-      styles: {
-        header: {
-            fontSize: 18,
-            bold: true
-        }
-      }
-    };
-  } else {
-    var columnsContent = [];
-    for (var i = 0; i < methodsContents.length; i=i+2) {
-      if (i+1 < methodsContents.length) {
-        columnsContent.push({columns: [methodsContents[i], methodsContents[i+1]]});
-      } else {
-        columnsContent.push({columns: [methodsContents[i]]});
+  var docDefinition = { 
+    pageSize: "A4",
+    pageMargins: [40, 60, 40, 60],
+    //pageSize: {
+    //  width: page_width,
+    //  height: page_height
+    //},
+    content: methodsContents,
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true
       }
     }
-    docDefinition = {
-      pageSize: {
-        width: page_width,
-        height: page_height
-      },
-      content: columnsContent,
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true
-        }
-      }
-    };
-  }
+  };
   pdfMake.createPdf(docDefinition).download(title + ".pdf");
   return;
 }
@@ -145,7 +114,7 @@ export function download_method(title, sequence, div) {
   const page_height = div_height + margin * 2 + 2 * text_lines * text_margin;
   console.log("page size:", page_width, page_height);
 
-  var pdfContent = generate_content(div, sequence, title);
+  var pdfContent = generate_content(div, sequence, title, div_width/2 - 2 * margin);
 
   //console.log(pdfContent);
   const docDefinition = {
