@@ -25,9 +25,32 @@ function getSequenceFromFasta(fasta) {
 			// Ignore more sequences
 			break;
 		}
-		sequence += lines[i];
+        if (lines[i] == "") {
+            // Ignore empty lines
+            continue;
+        }
+		sequence += lines[i].replace(/\s/g, "").replace(/\t/g, 
+          "").replace(/\n/g, "").toUpperCase().replace(/T/g, "U");
 	}
 	return sequence;
+}
+
+function cleanSequence(sequence) {
+  var seq_array = sequence.split("\n");
+  // Ignore fasta header
+  if (seq_array[0][0] == ">") {
+    seq_array = seq_array.slice(1, seq_array.length);
+  }
+  sequence = seq_array.join("")
+
+  // Remove spaces, tabs and newlines
+  sequence = sequence.replace(/\s/g, "");
+  sequence = sequence.replace(/\t/g, "");
+  sequence = sequence.replace(/\n/g, "");
+
+  // Replace T with U
+  sequence = sequence.toUpperCase().replace(/T/g, "U");
+  return sequence;
 }
 
 export async function submitSequence(text_area, file_input, rnacentral_id) {
@@ -55,7 +78,7 @@ export async function submitSequence(text_area, file_input, rnacentral_id) {
 	}
 	if (text_area_sequence != "") {
 		// Input from text area
-		var sequence = text_area_sequence;
+		var sequence = cleanSequence(text_area_sequence);
 		error = document.getElementById("error-sequence");
 	} else {
 		// Input from file

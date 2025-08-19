@@ -37,31 +37,48 @@ To test the tool, you can use one of the following examples:
 	id="myForm">
 	<fieldset>
 		<!-- Fieldset for sequence input -->
+        <!-- Sequence input text area -->
 		<legend>Sequence</legend>
 		<div id="seq_input_label_error">
 		<label for="seq_string">Paste or type your sequence here:</label>
+        <button id="clear_sequence" class="secondary small" hidden>Clear sequence</button>
 		<div id="error-sequence" style="display: none"></div></div>
 		<textarea name="seq_string" id="seq_string" rows=3 
 			value=""></textarea><br />
+        <!-- Sequence input file -->
 		Or upload a FASTA format file:
 		<input type="file" name="seq_file" id="seq_file" 
-		accept=".fasta,.txt"><div id="error-file" style="display: none"></div>
+		accept=".fasta,.txt,.fas,.fna,.fa">
+        <button id="clear_file" class="secondary small" hidden>Clear file</button>
+        <div id="error-file" style="display: none"></div>
+        <!-- Sequence input RNACentral -->
 		<div id="rnacentral_button_container">
 			Or select one from RNAcentral database:
-			<button id="rnacentral_button">Browse</button>
+			<button id="rnacentral_button" class="primary_light medium">Browse</button>
 			<div id="rnacentral_sequence">
 				<div id="rnacentral_sequence_label" 
 					hidden>Sequence selected:</div>
-				<div id="rnacentral_sequence_id"></div></div>
+				<div id="rnacentral_sequence_id"></div>
+            <button id="clear_rnacentral" class="secondary small" hidden>Clear</button></div>
 		</div>
+        <!-- RNACentral dialog -->
 		<dialog id="rnacentral_dialog" class="hidden">
 			<div id="rnacentral_dialog_content"></div>
 			<div id="rnacentral_dialog_buttons">
-				<div id="dialog_nothing_selected_error" hidden>
-					Please select a result.
-				</div>
-				<button id="dialog_cancel_button">Cancel</button>
-				<button id="dialog_confirm_button">Select</button>
+                <div id="ebi-search-acknowledgement">
+                    Powered by 
+                    <a id="ebi-search-link" href="http://www.ebi.ac.uk/ebisearch/"
+                      target="_blank" style="display:flex">EBI Search 
+                      <div class="external_link"> </div>
+                    </a>
+                </div>
+                <div id="rnacentral_dialog_buttons_container">
+                  <div id="dialog_nothing_selected_error" hidden>
+                      Please select a result.
+                  </div>
+                  <button id="dialog_cancel_button" class="secondary medium">Cancel</button>
+                  <button id="dialog_confirm_button" class="primary medium">Select</button>
+                </div>
             </div>
 		</dialog>
 	</fieldset>
@@ -77,7 +94,7 @@ To test the tool, you can use one of the following examples:
 	</fieldset>
 	<div id="submit_button_container">
 		<div id="submit_message" style="display: none"></div>
-		<button id="submit_button" type="submit">Submit</button>
+		<button id="submit_button" class="primary large" type="submit">Submit</button>
 	</div>
 </form>
 <script src={{ url_for('static', filename='src/main.js') }} type="module" defer></script>

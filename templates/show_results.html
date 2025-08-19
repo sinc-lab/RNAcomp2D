@@ -25,9 +25,9 @@ src="https://cdn.jsdelivr.net/npm/@shopify/draggable/build/umd/index.min.js">
   <div id="radio_buttons">
     <p>Show:</p>
   <input type="radio" id="both" name="format" value="both" checked>
-  <label for="both">Stem-loops and circular plots</label>
+  <label for="both">Secondary structures and circular plots</label>
   <input type="radio" id="svg" name="format" value="svg">
-  <label for="svg">Only stem-loops</label>
+  <label for="svg">Only secondary structures</label>
   <input type="radio" id="circ" name="format" value="circ">
   <label for="circ">Only circular plots</label>
   </div>
@@ -35,7 +35,7 @@ src="https://cdn.jsdelivr.net/npm/@shopify/draggable/build/umd/index.min.js">
     <input type="checkbox" id="dot_checkbox" checked>
     <label for="dot_checkbox">Show dot brackets</label>
   </div>
-  <button id="download_button" disabled>Download</button>
+  <button id="download_button" class="primary medium" disabled>Download</button>
 </header>
 <main>
     <div id="pinned_method_panel" style="display: none">
@@ -51,6 +51,8 @@ src="https://cdn.jsdelivr.net/npm/@shopify/draggable/build/umd/index.min.js">
           {% endfor %}
       </ul>
     </div>
+    <dialog id="download_dialog" class="hidden">
+    </dialog>
 </main>
 <footer>
     {% if rnacentral_id != "" %}

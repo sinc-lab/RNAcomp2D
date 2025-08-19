@@ -25,6 +25,36 @@ p {
 	margin: 0px;
 }
 
+/*******************
+ *     Colors     *
+ *******************/
+:root {
+  --primary: #008CFF;
+  --primary-font: #FFFFFF;
+  --primary-hover: #0066CC;
+  --primary-active: #004499;
+  --primary-disabled: #004F8F;
+  --primary-disabled-font: #808080;
+  --primary-light: #4086C0;
+  --primary-light-font: #FFFFFF;
+  --primary-light-hover: #3876A8;
+  --primary-light-active: #2E608A;
+  --primary-light-disabled: #004F8F;
+  --primary-light-disabled-font: #808080;
+  --secondary: #808080;
+  --secondary-font: #FFFFFF;
+  --secondary-hover: #666666;
+  --secondary-active: #404040;
+  --secondary-disabled: #C2C2C2;
+  --secondary-disabled-font: #606060;
+  --secondary-light: #E0E0E0;
+  --secondary-light-font: #000000;
+  --secondary-light-hover: #C9C9C9;
+  --secondary-light-active: #A9A9A9;
+  --secondary-light-disabled: #C2C2C2;
+  --secondary-light-disabled-font: #606060;
+}
+
 /*************************************************************
 *                          Toolbar                          *
 *************************************************************/
@@ -61,26 +91,80 @@ div#dot_checkbox {
   align-items: center;
 }
 
-#download_button {
-	color: white;
-	padding: 5px;
+/**********************************************************************
+*                              Buttons                               *
+**********************************************************************/
+button {
 	border-radius: 10px;
 	border: none;
-	font-size: 16px;
-	margin: 0px 0px 0px 10px;
-	background-color: #008CFF;
 }
-
-button#download_button:hover {
-	background-color: #0066CC;
+button.primary {
+  color: var(--primary-font);
+  background-color: var(--primary);
 }
-
-button#download_button:active {
-  background-color: #004499;
+button.primary:hover {
+  background-color: var(--primary-hover);
 }
-
-button#download_button:disabled {
-  background-color: #808080;
+button.primary:active {
+  background-color: var(--primary-active);
+}
+button.primary:disabled {
+  background-color: var(--primary-disabled);
+  color: var(--primary-disabled-font);
+}
+button.secondary {
+  color: var(--secondary-font);
+  background-color: var(--secondary);
+}
+button.secondary:hover {
+  background-color: var(--secondary-hover);
+}
+button.secondary:active {
+  background-color: var(--secondary-active);
+}
+button.secondary:disabled {
+  background-color: var(--secondary-disabled);
+  color: var(--secondary-disabled-font);
+}
+button.secondary_light {
+  color: var(--secondary-light-font);
+  background-color: var(--secondary-light);
+}
+button.secondary_light:hover {
+  background-color: var(--secondary-light-hover);
+}
+button.secondary_light:active {
+  background-color: var(--secondary-light-active);
+}
+button.secondary_light:disabled {
+  background-color: var(--secondary-light-disabled);
+  color: var(--secondary-light-disabled-font);
+}
+button.primary_light {
+  color: var(--primary-light-font);
+  background-color: var(--primary-light);
+}
+button.primary_light:hover {
+  background-color: var(--primary-light-hover);
+}
+button.primary_light:active {
+  background-color: var(--primary-light-active);
+}
+button.primary_light:disabled {
+  background-color: var(--primary-light-disabled);
+  color: var(--primary-light-disabled-font);
+}
+button.small {
+  padding: 5px;
+  font-size: 12px;
+}
+button.medium {
+  padding: 5px;
+  font-size: 16px;
+}
+button.large {
+  padding: 10px;
+  font-size: 32px;
 }
 
 /******************************************************************

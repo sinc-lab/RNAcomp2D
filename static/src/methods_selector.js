@@ -38,8 +38,8 @@ function openMethodEditor(editor, editing_method, methods_parameters) {
 			${editing_method} - Edit parameters</label><br>
 			<div id="method_editor_form"></div></div><br>
 			<div id="method_editor_buttons">
-			<button id="cancel_edit_button">Cancel</button>
-			<button id="save_edit_button">Save</button></div>
+			<button id="cancel_edit_button" class="secondary medium">Cancel</button>
+			<button id="save_edit_button" class="primary medium">Save</button></div>
 			</div>`;
 	createEditorForm(document.getElementById("method_editor_form"), 
 					 methods_parameters[editing_method]);
@@ -132,29 +132,36 @@ export function createMethodSelectors(met_div, methods, methods_parameters) {
 	// user clicks on edit button (see editMethod function)
   //console.log(methods_parameters);
 	for (var meth of methods) {
-    if (meth in methods_parameters && methods_parameters[meth]["parameters"].length > 0) {
-      met_div.innerHTML += `<div class="method_row" id="${meth}">
+      if (meth in methods_parameters) {
+        if ("maximum" in methods_parameters[meth]) {
+          var max_msg = "(max " + methods_parameters[meth]["maximum"] + "nt)";
+        } else {
+          var max_msg = "";
+        }
+        if (methods_parameters[meth]["parameters"].length > 0) {
+          met_div.innerHTML += `<div class="method_row" id="${meth}">
             <div class="method_selected">
               <img src="${APP_ROOT}/static/imgs/box-checked.svg"
               style="width: 20px; height: 20px;">
               <p width=100% float=left 
-              class="selected_label">${meth}</p>
+              class="selected_label">${meth} ${max_msg}</p>
             </div>
             <img src="${APP_ROOT}/static/imgs/edit.svg" 
               class="edit_img"
             style="width: 15px; height: 15px; ">
             </div>`;
-    } else {
-      met_div.innerHTML += `<div class="method_row" id="${meth}">
+        } else {
+          met_div.innerHTML += `<div class="method_row" id="${meth}">
             <div class="method_selected">
               <img src="${APP_ROOT}/static/imgs/box-checked.svg"
               style="width: 20px; height: 20px;">
               <p width=100% float=left 
-              class="selected_label">${meth}</p>
+              class="selected_label">${meth} ${max_msg}</p>
             </div>
             </div>`;
+        }
+      }
     }
-	}
 }
 
 export function selectToSubmit(methods_parameters) {

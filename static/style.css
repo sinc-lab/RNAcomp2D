@@ -44,10 +44,14 @@ h1.title {
   --primary-light-font: #FFFFFF;
   --primary-light-hover: #3876A8;
   --primary-light-active: #2E608A;
+  --primary-light-disabled: #004F8F;
+  --primary-light-disabled-font: #808080;
   --secondary: #808080;
   --secondary-font: #FFFFFF;
   --secondary-hover: #666666;
   --secondary-active: #404040;
+  --secondary-disabled: #C2C2C2;
+  --secondary-disabled-font: #606060;
   --secondary-light: #E0E0E0;
   --secondary-light-font: #000000;
   --secondary-light-hover: #C9C9C9;
@@ -164,7 +168,7 @@ div#dialog_filters {
 div#dialog_filters_buttons {
 	display: flex;
 	flex-direction: row;
-	gap: 5px;
+	gap: 10px;
 	align-items: center;
 	justify-content: center;
 }
@@ -280,10 +284,62 @@ div#pagination_buttons {
 	gap: 10px;
 }
 
+div#rnacentral_dialog_buttons_container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 div#rnacentral_dialog_buttons {
     height: var(--dialog_buttons_height);
+    padding: 0px 10px 0px 10px;
 	display: flex;
-	justify-content: right;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ebi-search-acknowledgement {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#ebi-search-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.external_link {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 2px;
+  box-shadow: -2px 2px 0 0, -4px -4px 0 -2px, 4px 4px 0 -2px;
+}
+.external_link::after,
+.external_link::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  right: -4px;
+}
+.external_link::before {
+  background: currentColor;
+  transform: rotate(-45deg);
+  width: 12px;
+  height: 2px;
+  top: 1px;
+}
+.external_link::after {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid;
+  border-top: 2px solid;
+  top: -4px;
 }
 
 /**********************************************************************
@@ -368,11 +424,18 @@ label#editor_label {
 	margin: 5px 0px 5px 0px;
 }
 
+div#method_editor_buttons {
+	margin: 0px 0px 0px 0px;
+	display: flex;
+	justify-content: right;
+    gap: 10px;
+}
+
 /**********************************************************************
 *                               Submit                               *
 **********************************************************************/
 #submit_button_container {
-	margin: 10px 0px 10px 0px;
+	margin: 10px;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -391,106 +454,86 @@ label#editor_label {
 /**********************************************************************
 *                              Buttons                               *
 **********************************************************************/
-div#method_editor_buttons {
-	margin: 0px 0px 0px 0px;
-	display: flex;
-	justify-content: right;
-}
-
-#cancel_edit_button, #save_edit_button, #rnacentral_button, 
-#dialog_confirm_button, #dialog_cancel_button, #dialog_search_button, 
-#apply_filters, #reset_filters{
-	color: white;
-	padding: 5px;
+button {
 	border-radius: 10px;
 	border: none;
-	font-size: 16px;
-	margin: 0px 0px 0px 10px;
 }
 
-#rnacentral_button {
-	margin: 0px 0px 0px 0px;
-    background-color: var(--primary-light);
+button.primary {
+  color: var(--primary-font);
+  background-color: var(--primary);
+}
+button.primary:hover {
+  background-color: var(--primary-hover);
+}
+button.primary:active {
+  background-color: var(--primary-active);
+}
+button.primary:disabled {
+  background-color: var(--primary-disabled);
+  color: var(--primary-disabled-font);
 }
 
-#rnacentral_button:hover {
-    background-color: var(--primary-light-hover);
+button.secondary {
+  color: var(--secondary-font);
+  background-color: var(--secondary);
+}
+button.secondary:hover {
+  background-color: var(--secondary-hover);
+}
+button.secondary:active {
+  background-color: var(--secondary-active);
+}
+button.secondary:disabled {
+  background-color: var(--secondary-disabled);
+  color: var(--secondary-disabled-font);
 }
 
-#rnacentral_button:active {
-    background-color: var(--primary-light-active);
+button.secondary_light {
+  color: var(--secondary-light-font);
+  background-color: var(--secondary-light);
+}
+button.secondary_light:hover {
+  background-color: var(--secondary-light-hover);
+}
+button.secondary_light:active {
+  background-color: var(--secondary-light-active);
+}
+button.secondary_light:disabled {
+  background-color: var(--secondary-light-disabled);
+  color: var(--secondary-light-disabled-font);
 }
 
-#cancel_edit_button, #dialog_cancel_button, #reset_filters {
-	background-color: var(--secondary);
+button.primary_light {
+  color: var(--primary-light-font);
+  background-color: var(--primary-light);
+}
+button.primary_light:hover {
+  background-color: var(--primary-light-hover);
+}
+button.primary_light:active {
+  background-color: var(--primary-light-active);
+}
+button.primary_light:disabled {
+  background-color: var(--primary-light-disabled);
+  color: var(--primary-light-disabled-font);
 }
 
-#cancel_edit_button:hover, #dialog_cancel_button:hover, 
-#reset_filters:hover {
-	background-color: var(--secondary-hover);
+button.small {
+  padding: 5px;
+  font-size: 12px;
 }
 
-#cancel_edit_button:active, #dialog_cancel_button:active, 
-#reset_filters:active {
-	background-color: var(--secondary-active);
+button.medium {
+  padding: 5px;
+  font-size: 16px;
 }
 
-#save_edit_button, #dialog_confirm_button, #dialog_search_button, 
-#apply_filters{
-	background-color: var(--primary);
+button.large {
+  padding: 10px;
+  font-size: 32px;
 }
 
-#submit_button {
-	float: right;
-	margin: 10px;
-	background-color: var(--primary);
-	color: white;
-	padding: 10px;
-	border-radius: 20px;
-	border: none;
-	font-size: 32px;
-}
-
-#submit_button:hover, #save_edit_button:hover,
-#dialog_confirm_button:hover, #dialog_search_button:hover, 
-#apply_filters:hover{
-	background-color: var(--primary-hover);
-}
-
-#submit_button:active, #save_edit_button:active,
-#dialog_confirm_button:active, #dialog_search_button:active, 
-#apply_filters:active{
-	background-color: var(--primary-active);
-}
-
-#submit_button:disabled {
-	background-color: var(--primary-disabled);
-	color: var(--primary-disabled-font);
-}
-
-#dialog_previous_button, #dialog_next_button {
-	padding: 5px;
-	border-radius: 5px;
-    color: var(--secondary-light-font);
-	border: 1px solid var(--secondary);
-    background-color: var(--secondary-light);
-}
-
-#dialog_previous_button:hover, #dialog_next_button:hover {
-    border: 1px solid var(--secondary-hover);
-	background-color: var(--secondary-light-hover);
-}
-
-#dialog_previous_button:active, #dialog_next_button:active {
-    border: 1px solid var(--secondary-active);
-	background-color: var(--secondary-light-active);
-}
-
-#dialog_previous_button:disabled, #dialog_next_button:disabled {
-    border: 1px solid var(--secondary-light-disabled-font);
-    background-color: var(--secondary-light-disabled);
-    color: var(--secondary-light-disabled-font);
-}
 
 /****************
 *  Loader CSS  *

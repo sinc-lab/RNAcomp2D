@@ -60,8 +60,8 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 
 	dialog.children[0].innerHTML = `<div id="dialog_filters">
 			<div id="dialog_filters_buttons">
-				<button id="apply_filters">Apply filters</button>
-				<button id="reset_filters">Reset filters</button>
+				<button id="apply_filters" class="primary medium">Apply filters</button>
+				<button id="reset_filters" class="secondary medium">Reset filters</button>
 			</div>
 		</div>`;
 	var dialog_filters = document.getElementById("dialog_filters");
@@ -93,7 +93,7 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 	dialog.children[0].innerHTML += `<div id="dialog_maincontent">
 			<div id=dialog_search> 
 				<input type="text" id="dialog_search_input"></input> 
-				<button id="dialog_search_button">Search</button>
+				<button id="dialog_search_button" class="primary medium">Search</button>
 			</div>
 			<div id="dialog_results">
 				<h1 id="dialog_results_title">Results 
@@ -103,10 +103,10 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 			</div>
 			<div id="pagination">
 				<div id="pagination_buttons">
-					<button id="dialog_previous_button" disabled>
+					<button id="dialog_previous_button" class="secondary small" disabled>
 						Previous</button>
 					<div id="dialog_page_number">${start/size+1}</div>
-					<button id="dialog_next_button">Next</button>
+					<button id="dialog_next_button" class="secondary small">Next</button>
 				</div>
 			</div>
 		</div>`;
@@ -145,6 +145,7 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 		sequence_id.innerHTML = "";
 		start = 0;
 		dialog.close();
+        document.getElementById("clear_rnacentral").hidden = true;
 	});
 
 	select_dialog.addEventListener("click", function() {
@@ -166,6 +167,7 @@ export function createRnacentralDialog(dialog, filters, start, size) {
 		}
 		start = 0;
 		dialog.close();
+        document.getElementById("clear_rnacentral").hidden = false;
 	});
 
 	const apply_filters = document.getElementById("apply_filters");
@@ -216,7 +218,6 @@ export function showSearchResults(json, results, start, size) {
 	}
 	page_number.innerHTML = `${start/size+1}`
 	for (var res of json.entries) {
-		// TODO:  Format results
 		results.innerHTML += `<div class="dialog_result_not_selected">
 				<p class="result_description">
 				${res.fields.description}</p><p class="result_id">

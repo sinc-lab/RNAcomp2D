@@ -1,6 +1,7 @@
 import { get_bp, get_f1 } from "./compute_metrics.js";
-import { pin_method, redraw_svgs } from "./edit_results_dom.js";
-import { download_method, download_methods } from "./downloads.js";
+import { pin_method, redraw_svgs, define_download_dialog } from "./edit_results_dom.js";
+import { download_method_pdf, download_method_fasta, download_method_png, download_method_svg,
+  download_method_jpg, download_methods_pdf, download_methods_fasta } from "./downloads.js";
 
 export const sequence = document.querySelector("p.sequence").innerHTML;
 
@@ -20,6 +21,9 @@ const radios = document.querySelectorAll("input[type='radio']");
 const dot_checkbox = document.getElementById("dot_checkbox");
 var rad_val = "both";
 var dot_val = true;
+
+// Download dialog
+const download_dialog = document.getElementById("download_dialog");
 
 // Initialize methods
 const methods_divs = {}
@@ -101,12 +105,22 @@ source.onmessage = (event) => {
           }
         )
         methods_divs[method].querySelector(".download_button").addEventListener(
-          "click",
-          (e) => { 
+          "click", (e) => { 
             let method_id = e.target.parentElement.parentElement.parentElement.id;
-            download_method(method_id, sequence, methods_divs[method_id]);
-          }
-        )
+            download_dialog.innerHTML = define_download_dialog(method_id);
+            document.getElementById("download_dialog_ok_button").addEventListener("click", 
+              (event) => {
+                downloadMethod(method_id, sequence, methods_divs[method_id]);
+                download_dialog.style.display = "none";
+                download_dialog.innerHTML = ""; 
+              })
+            document.getElementById("download_dialog_cancel_button").addEventListener("click", 
+              (event) => {
+                download_dialog.style.display = "none";
+                download_dialog.innerHTML = "";
+              })
+            download_dialog.style.display = "block";
+          });
       } else {
         // Method is Reference, add images only
         ref_bp = get_bp(data[method]["dot"]);
@@ -129,9 +143,21 @@ source.onmessage = (event) => {
           }
         )
         methods_divs[method].querySelector(".download_button").addEventListener(
-          "click",
-          (e) => {
-            download_method(method, sequence, methods_divs[method]);
+          "click", (e) => { 
+            let method_id = e.target.parentElement.parentElement.parentElement.id;
+            download_dialog.innerHTML = define_download_dialog(method_id);
+            document.getElementById("download_dialog_ok_button").addEventListener("click", 
+              (event) => {
+                downloadMethod(method_id, sequence, methods_divs[method_id]);
+                download_dialog.style.display = "none";
+                download_dialog.innerHTML = ""; 
+              })
+            document.getElementById("download_dialog_cancel_button").addEventListener("click", 
+              (event) => {
+                download_dialog.style.display = "none";
+                download_dialog.innerHTML = "";
+              })
+            download_dialog.style.display = "block";
           }
         )
         // Pin Reference by default
@@ -244,26 +270,84 @@ dot_checkbox.addEventListener("change", (event) => {
     pinned_container);
 });
 
+// Event listener for download button for single method
+export function downloadMethod(method_id, sequence, method_div) {
+  var format = document.querySelector('input[name="download"]:checked').value;
+  console.log("Format:", format);
+  if (format == "fasta") {
+    download_method_fasta(method_id, sequence, method_div);
+  } else if (format == "svg") {
+    download_method_svg(method_id, method_div, rad_val);
+  } else if (format == "png") {
+    download_method_png(method_id, method_div, rad_val);
+  } else if (format == "jpg") {
+    download_method_jpg(method_id, method_div, rad_val);
+  } else {
+    download_method_pdf(method_id, sequence, method_div);
+  }
+}
 
 // Event listener for download button
 function downloadMethods() {
+  var format = document.querySelector('input[name="download"]:checked').value;
+  var checked = document.querySelectorAll(".methods_checkbox:checked");
+  console.log("Format:", format);
   var methods_list = [];
-  for (var method in methods_divs) {
-    console.log(method);
-    if (methods_divs[method].style.display != "none") {
-      methods_list.push(method);
-    }
+  // TODO: append only selected methods
+  for (var method of checked) {
+    methods_list.push(method.id);
   }
   var title = "Results";
   console.log(methods_list);
   if (document.getElementById("rnacentral_id")) {
-    title = document.getElementById("rnacentral_id").value+"_Results";
+    title = document.getElementById("rnacentral_id").innerHTML+"_Results";
   }
-  download_methods(methods_list, title, sequence, pinned_container,
-    methods_divs, size, rad_val, dot_val);
+  if (format == "fasta") {
+    download_methods_fasta(methods_list, title, sequence, pinned_container,
+      methods_divs);
+  } else {
+    download_methods_pdf(methods_list, title, sequence, pinned_container,
+      methods_divs, size, rad_val, dot_val);
+  }
 }
 
 // Event listener for download button
 document.getElementById("download_button").addEventListener("click", (event) => {
-  downloadMethods();
+  var methods_checkbox = "";
+  if (method_pinned != "None") {
+    methods_checkbox += `<input type="checkbox" id="${method_pinned}" class="methods_checkbox" 
+    name="${method_pinned}" value="${method_pinned}" checked>
+    <label for="${method_pinned}">${method_pinned}</label><br>`;
+  }
+  for (var method in methods_divs) {
+    if (methods_divs[method].style.display != "none") {
+      methods_checkbox += `<input type="checkbox" id="${method}" name="${method}" 
+      class="methods_checkbox" value="${method}" checked>
+        <label for="${method}">${method}</label><br>`;
+    }
+  }
+  // Fill download dialog
+  download_dialog.innerHTML = `
+  <h1>Download results</h1>
+  <p>Select methods to download:</p>
+  ${methods_checkbox}<br>
+  <p>Select format:</p>
+  <input type="radio" id="pdf" name="download" value="pdf" checked>
+  <label for="pdf">PDF</label>
+  <input type="radio" id="fasta" name="download" value="fasta">
+  <label for="fasta">FASTA</label>
+  <div class="button_container">
+  <button id="download_dialog_cancel_button" class="secondary medium">Cancel</button>
+  <button id="download_dialog_ok_button" class="primary medium">Download</button>
+  </div>`;
+  document.getElementById("download_dialog_ok_button").addEventListener("click", (event) => {
+    downloadMethods();
+    download_dialog.style.display = "none";
+    download_dialog.innerHTML = "";
+  })
+  document.getElementById("download_dialog_cancel_button").addEventListener("click", (event) => {
+    download_dialog.style.display = "none";
+    download_dialog.innerHTML = "";
+  })
+  download_dialog.style.display = "block";
 });

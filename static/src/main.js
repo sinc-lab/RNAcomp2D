@@ -2,12 +2,14 @@ import {fetchJSONdata, searchOnRnacentral, fetchRnacentral} from "./fetch.js";
 import {submitSequence} from "./sequence_input.js";
 import {createMethodSelectors, selectMethod, editMethod, selectToSubmit} from 
 "./methods_selector.js";
-import {createRnacentralDialog, showSearchResults, formatQuery} from "./rnacentraldialog.js";
+import {createRnacentralDialog, showSearchResults, formatQuery} from 
+"./rnacentraldialog.js";
 
 console.log("Hello from", APP_ROOT);
 
 // Submit form
-async function submitForm(text_area, file_input, methods_parameters, rnacentral_id) {
+async function submitForm(text_area, file_input, methods_parameters, 
+  rnacentral_id) {
 	var error = document.getElementById("error-sequence");
 	error.style.display = "none";
 	error = document.getElementById("error-file");
@@ -135,6 +137,9 @@ const text_area  = document.getElementById("seq_string");
 const file_input = document.getElementById("seq_file");
 const form = document.getElementById("myForm");
 var editor = document.getElementById("method_editor");
+const clear_sequence = document.getElementById("clear_sequence");
+const clear_file = document.getElementById("clear_file");
+const clear_rnacentral = document.getElementById("clear_rnacentral");
 
 // TODO: Create list of methods programmatically //
 var met_div = document.getElementById("available_methods");
@@ -156,9 +161,13 @@ for (var img of edit_img) {
 rnacentral_button.addEventListener("click", function() {
 	document.getElementById("error-sequence").style.display = "none";
 	document.getElementById("error-file").style.display = "none";
+    document.getElementById("seq_string").value = "";
+    document.getElementById("clear_sequence").hidden = true;
+    document.getElementById("seq_file").value = "";
+    document.getElementById("clear_file").hidden = true;
+    
 	start = 0;
 	size = 15;
-	// TODO: Reset filters
 	var query = formatQuery(document.getElementById("dialog_search_input").value, 
 				filters, start, size);
 	rnacentral_dialog.showModal();
@@ -166,6 +175,33 @@ rnacentral_button.addEventListener("click", function() {
 		showSearchResults(json, search_results, start, size);
 	})
 });
+
+// Events for clear buttons
+clear_sequence.addEventListener("click", () => {
+  text_area.value = "";
+  document.getElementById("error-sequence").style.display = "none";
+  clear_sequence.hidden = true;
+});
+clear_file.addEventListener("click", () => {
+  file_input.value = "";
+  document.getElementById("error-file").style.display = "none";
+  document.getElementById("error-sequence").style.display = "none";
+  clear_file.hidden = true;
+});
+clear_rnacentral.addEventListener("click", () => {
+  document.getElementById("rnacentral_sequence_id").textContent = "";
+  document.getElementById("error-file").style.display = "none";
+  document.getElementById("error-sequence").style.display = "none";
+  document.getElementById("rnacentral_sequence_label").hidden = true;
+  clear_rnacentral.hidden = true;
+})
+text_area.addEventListener("input", () => {
+  clear_sequence.hidden = text_area.value.length == 0;
+})
+file_input.addEventListener("input", () => {
+  clear_file.hidden = false;
+})
+
 
 // Events for select sequence from RNAcentral
 search_results.addEventListener("click", function(e) {
@@ -181,7 +217,7 @@ search_results.addEventListener("click", function(e) {
 		for (var resultdiv of selection.parentNode.childNodes) {
 			if (resultdiv.className == "dialog_result_selected") {
 				resultdiv.className = "dialog_result_not_selected";
-			}	
+			}
 		};
 		selection.className = "dialog_result_selected";	
 	};

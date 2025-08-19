@@ -1,5 +1,24 @@
-import { download_method } from "./downloads.js";
-import { sequence } from "./show_results.js";
+import { sequence, downloadMethod } from "./show_results.js";
+
+export function define_download_dialog(method_id) {
+  return ` 
+  <h1>Download ${method_id}</h1>
+  <p>Format:</p>
+  <input type="radio" id="pdf" name="download" value="pdf" checked>
+  <label for="pdf">PDF</label><br />
+  <input type="radio" id="fasta" name="download" value="fasta">
+  <label for="fasta">FASTA</label><br />
+  <input type="radio" id="svg" name="download" value="svg">
+  <label for="svg">SVG (images only)</label><br />
+  <input type="radio" id="png" name="download" value="png">
+  <label for="png">PNG (images only)</label><br />
+  <input type="radio" id="jpg" name="download" value="jpg">
+  <label for="jpg">JPG (images only)</label><br />
+  <div class="button_container">
+  <button id="download_dialog_cancel_button" class="secondary medium">Cancel</button>
+  <button id="download_dialog_ok_button" class="primary medium">Download</button>
+  </div>`;
+}
 
 export function pin_method(method, method_pinned, pinned_container, 
   methods_divs) {
@@ -47,7 +66,21 @@ export function pin_method(method, method_pinned, pinned_container,
       method_pinned = pin_method(method_pinned, method_pinned, pinned_container, methods_divs);
     })
     pinned_container.querySelector(".download_button").addEventListener("click", (e) => {
-      download_method(method, sequence, pinned_container);
+      let method_id = e.target.parentElement.querySelector(".method_name").innerText;
+      download_dialog.innerHTML = define_download_dialog(method_id);
+      var pinned_method_div = document.getElementById("pinned_method");
+      document.getElementById("download_dialog_ok_button").addEventListener("click", 
+        (event) => {
+          downloadMethod(method_id, sequence, pinned_method_div);
+          download_dialog.style.display = "none";
+          download_dialog.innerHTML = ""; 
+        })
+      document.getElementById("download_dialog_cancel_button").addEventListener("click", 
+        (event) => {
+          download_dialog.style.display = "none";
+          download_dialog.innerHTML = "";
+        })
+      download_dialog.style.display = "block";
     })
     methods_divs[method].style.display = "none";
     method_pinned = method;
