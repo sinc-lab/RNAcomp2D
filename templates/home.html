@@ -14,19 +14,25 @@
 <!-- Brief description of the application -->
 <h1 class="title">RNAcomp2D</h1>
 <p class="description"> 
-This tool can compare RNA secondary structures from several computational methods. 
+This tool obtains RNA secondary structures from several computational methods
+and compares them visually on a single page.
 </p>
 <p class="description">
-Please enter one sequence by typing it into the input box or by uploading a file in 
-FASTA format or searching it in RNAcentral. 
+To compare methods predictions, enter one sequence by typing it into the input
+box and click the Submit button. Alternatively, a FASTA file can be uploaded.
 </p>
 <p class="description">
-Then select the methods to compare. You can edit the parameters for each method by 
-using the corresponding menu at the right of each method.
+The sequence and reference structure can be selected also by searching in
+RNAcentral.
+</p>
+<p class="description">
+Then select the methods to compare. The parameters for each method can be
+edited by using the menu at the right.
 </p>
 <br />
 <p class="description">
-To test the tool, you can use one of the following examples:
+To try the tool, you can use one of the following examples (click sequence to
+paste it in the input box):
 </p>
 <ul class="examples">
 	<li class="example">AACCGGGUCAGGUCCGGAAGGAAGCAGCCCUAA</li>
@@ -35,10 +41,9 @@ To test the tool, you can use one of the following examples:
 </ul>
 <form action={{ url_for('show_results') }} method="POST" accept-charset="utf-8" 
 	id="myForm">
-	<fieldset>
+	<div id="sequence_input_container" class="fieldset_container">
 		<!-- Fieldset for sequence input -->
         <!-- Sequence input text area -->
-		<legend>Sequence</legend>
 		<div id="seq_input_label_error">
 		<label for="seq_string">Paste or type your sequence here:</label>
         <button id="clear_sequence" class="secondary small" hidden>Clear sequence</button>
@@ -81,21 +86,28 @@ To test the tool, you can use one of the following examples:
                 </div>
             </div>
 		</dialog>
-	</fieldset>
-	<fieldset id="methods">
+	</div>
+	<div id="methods" class="fieldset_container">
 		<!-- Fieldset for methods selection -->
-		<legend>Methods</legend>
 		<div id="method_selector">
 			<p>Select methods here:</p>
 			<div id="available_methods"></div>
 		</div>
 		<div id="method_editor" class="hidden" style="display: none">
 		</div><div id="error-methods" style="display: none"></div>
-	</fieldset>
+	</div>
 	<div id="submit_button_container">
-		<div id="submit_message" style="display: none"></div>
 		<button id="submit_button" class="primary large" type="submit">Submit</button>
 	</div>
+    <div id="bottom_message">
+      <div id="cite_message">If you use this tool, please cite us: 
+        <a id="cite_link" href="https://github.com/RosarioVitale/RNAcomp2D" 
+          style="display:flex" target="_blank">
+          INSERT CITATION <div class="external_link"> </div>
+        </a>
+      </div>
+      <div id="submit_message" style="display: none"></div>
+    </div>
 </form>
 <script src={{ url_for('static', filename='src/main.js') }} type="module" defer></script>
 {% endblock %}

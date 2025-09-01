@@ -2,7 +2,7 @@
 *                           Default styles                           *
 **********************************************************************/
 :root {
-  --toolbar-height: 40px;
+  --toolbar-height: 50px;
 }
 
 * {
@@ -53,6 +53,25 @@ p {
   --secondary-light-active: #A9A9A9;
   --secondary-light-disabled: #C2C2C2;
   --secondary-light-disabled-font: #606060;
+  --background: #F0F8FF;
+  --secondary-background: #FFFFFF;
+  --shadow: #B0B0B0;
+  --selected-background: #E0F1FF;
+  --selected-font: #004680;
+  --selected-font-hover: #008CFF;
+  --selected-font-active: #002340;
+  --unselected-background: #FFFFFF;
+  --unselected-font: #000000;
+  --unselected-font-hover: #666666;
+  --unselected-font-active: #404040;
+}
+
+body {
+  background-color: var(--secondary-background);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  color: var(--unselected-font);
 }
 
 /*************************************************************
@@ -62,10 +81,16 @@ header {
   width: 100vw;
   margin: 0px;
   padding: 5px 10px 5px 10px;
-  border-bottom: 1px solid #808080;
-  background-color: #FFFFFF;
+  /*border-bottom: 1px solid #808080;*/
+  background-color: var(--background);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+div#tools_container {
+  display: flex;
+  gap: 10px;
   align-items: center;
 }
 
@@ -171,8 +196,9 @@ button.large {
 *                          Methods grid                          *
 ******************************************************************/
 main {
-	display: flex;
-    overflow: hidden;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px 0px var(--shadow);
 }
 
 /*********************************
@@ -180,8 +206,9 @@ main {
 *********************************/
 
 div#pinned_method_panel {
-  border-right: 3px solid #808080;
-  background-color: #FFFFFF;
+  /*border-right: 3px solid #808080;*/
+  background-color: var(--secondary-background);
+  box-shadow: inset -1px 0px 5px 0px var(--shadow);
   padding: 10px;
   display: flex;
   justify-content: flex-start;
@@ -189,7 +216,7 @@ div#pinned_method_panel {
 }
 
 div#pinned_method {
-  border: 1px solid #808080;
+  border: 1px solid var(--shadow);
   padding: 10px;
   margin: 10px;
 }
@@ -201,7 +228,7 @@ li.pinned_method {
 }
 
 .pinned {
-  background: #008CFF;
+  background: var(--primary);
   width: 15px;
   aspect-ratio: 1;
   padding: 6px;
@@ -213,7 +240,7 @@ li.pinned_method {
 }
 
 .pinned:hover {
-  background: #0066CC;
+  background: var(--primary-hover);
 }
 
 /*********************************
@@ -221,7 +248,9 @@ li.pinned_method {
 *********************************/
 div#methods_container {
   overflow-y: auto;
-  background-color: #FFFFFF;
+  background-color: var(--secondary-background);
+  box-shadow: inset -1px 0px 5px 0px var(--shadow);
+  width: 100%;
 }
 
 ul#methods_grid {
@@ -241,12 +270,12 @@ li.unpinned_method {
 }
 
 div.draggable {
-	border: 1px solid #808080;
+	border: 1px solid var(--shadow);
 	padding: 10px;
 }
 
 div.draggable:hover {
-	border: 2px solid #008CFF;
+	border: 2px solid var(--primary);
 	padding: 9px;
 }
 
@@ -260,10 +289,10 @@ div.draggable:hover {
   background:
     linear-gradient(
       45deg,
-      #808080 0%,
-      #808080 35%,
-      #008CFF 35%,
-      #008CFF 100%
+      var(--secondary) 0%,
+      var(--secondary) 35%,
+      var(--primary) 35%,
+      var(--primary) 100%
     );
   clip-path: path("M19.1835 7.80516L16.2188 4.83755C14.1921 2.8089 13.1788 1.79457 12.0904 2.03468C11.0021 2.2748 10.5086 3.62155 9.5217 6.31506L8.85373 8.1381C8.59063 8.85617 8.45908 9.2152 8.22239 9.49292C8.11619 9.61754 7.99536 9.72887 7.86251 9.82451C7.56644 10.0377 7.19811 10.1392 6.46145 10.3423C4.80107 10.8 3.97088 11.0289 3.65804 11.5721C3.5228 11.8069 3.45242 12.0735 3.45413 12.3446C3.45809 12.9715 4.06698 13.581 5.28476 14.8L6.69935 16.2163L2.22345 20.6964C1.92552 20.9946 1.92552 21.4782 2.22345 21.7764C2.52138 22.0746 3.00443 22.0746 3.30236 21.7764L7.77841 17.2961L9.24441 18.7635C10.4699 19.9902 11.0827 20.6036 11.7134 20.6045C11.9792 20.6049 12.2404 20.5358 12.4713 20.4041C13.0192 20.0914 13.2493 19.2551 13.7095 17.5825C13.9119 16.8472 14.013 16.4795 14.2254 16.1835C14.3184 16.054 14.4262 15.9358 14.5468 15.8314C14.8221 15.593 15.1788 15.459 15.8922 15.191L17.7362 14.4981C20.4 13.4973 21.7319 12.9969 21.9667 11.9115C22.2014 10.826 21.1954 9.81905 19.1835 7.80516Z");
 }
@@ -272,10 +301,10 @@ div.draggable:hover {
   background:
     linear-gradient(
       45deg,
-      #404040 0%,
-      #404040 35%,
-      #0066CC 35%,
-      #0066CC 100%
+      var(--secondary-hover) 0%,
+      var(--secondary-hover) 35%,
+      var(--primary-hover) 35%,
+      var(--primary-hover) 100%
     );
 }
 
@@ -287,7 +316,6 @@ div.name_container {
 
 div.images_container {
   display: flex;
-  /*border: 1px solid #880000;*/
   padding: 10px;
   gap: 20px;
   align-items: center;
@@ -297,7 +325,7 @@ div.images_container {
 div.download_button {
   height: 20px;
   aspect-ratio: 1;
-  background: #008CFF;
+  background: var(--primary);
   cursor: pointer;
   clip-path: polygon(0% 100%, 100% 100%, 100% 80%, 50% 80%, 
   100% 40%, 70% 40%, 70% 0%, 30% 0%, 30% 40%, 0% 40%, 
@@ -305,28 +333,28 @@ div.download_button {
 }
 
 div.download_button:hover {
-  background: #0066CC;
+  background: var(--primary-hover);
 }
 
 div.download_button:active {
-  background: #404040;
+  background: var(--primary-active);
 }
 
 /**********************
 *  reference result  *
 **********************/
 div#Reference_stack{
-  border: 3px solid #808080;
+  border: 3px solid var(--primary-light);
   padding: 10px;
 }
 
 div#Reference_stack:hover {
-  border: 3px solid #008CFF;
+  border: 3px solid var(--primary-light-hover);
   padding: 10px;
 }
 
 li#Reference {
-	color: #404040;
+	color: var(--primary-light);
 }
 
 /******************
@@ -362,8 +390,8 @@ div.f1 {
 	gap: 10px;
 }
 .loader {
-  border: 5px solid #D6D6D6;
-  border-top: 5px solid #008CFF;
+  border: 5px solid var(--secondary-light);
+  border-top: 5px solid var(--primary);
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -380,12 +408,84 @@ div.f1 {
 footer {
   width: 100vw;
   margin: 0px;
+  padding: 0px;
+  /*border-top: 1px solid var(--shadow);*/
+  background-color: var(--background);
+  box-shadow: 0px 0px 10px 0px var(--shadow);
+  display: grid;
+  grid-template-columns: 79vw 19vw;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+div#sequence_info {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
   padding: 10px;
-  border-top: 1px solid #808080;
-  background-color: #FFFFFF;
 }
 
-p.sequence {
-	overflow-wrap: break-word;
+div#rnacentral_id_div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
 }
 
+div#sequence_div {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+div#sequence {
+  width: 90%;
+  overflow-wrap: break-word;
+}
+
+.external_link {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 2px;
+  box-shadow: -2px 2px 0 0, -4px -4px 0 -2px, 4px 4px 0 -2px;
+}
+.external_link::after,
+.external_link::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  right: -4px;
+}
+.external_link::before {
+  background: currentColor;
+  transform: rotate(-45deg);
+  width: 12px;
+  height: 2px;
+  top: 1px;
+}
+.external_link::after {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid;
+  border-top: 2px solid;
+  top: -4px;
+}
+
+#cite_message {
+  padding: 10px;
+  background-color: var(--secondary-background);
+  box-shadow: 0px 0px 5px 0px var(--shadow);
+}
+
+#cite_link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

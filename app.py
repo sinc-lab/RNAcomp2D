@@ -7,9 +7,18 @@ import methods as mt
 import threading
 import time
 
+import argparse as ap
+
+parser = ap.ArgumentParser()
+parser.add_argument("--use_proxy", action="store_true", default=False)
+args = parser.parse_args()
+
 app = Flask(__name__)
-app_root = '/RNAcomp2D'
-app.config['APPLICATION_ROOT'] = app_root
+if args.use_proxy:
+    app_root = '/RNAcomp2D'
+    app.config['APPLICATION_ROOT'] = app_root
+else:
+    app_root = ''
 
 SESSIONS = {}
 BASE_TEMP_DIR = 'sessions_temp'
@@ -29,7 +38,8 @@ class PrefixMiddleware:
 
 
 # Apply the middleware
-app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix=app_root)
+if app_root != '':
+    app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix=app_root)
 
 # Thread configuration: partial parallelization
 #config = "partial"

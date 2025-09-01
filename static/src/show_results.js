@@ -3,7 +3,11 @@ import { pin_method, redraw_svgs, define_download_dialog } from "./edit_results_
 import { download_method_pdf, download_method_fasta, download_method_png, download_method_svg,
   download_method_jpg, download_methods_pdf, download_methods_fasta } from "./downloads.js";
 
-export const sequence = document.querySelector("p.sequence").innerHTML;
+export const sequence = document.querySelector("div#sequence").innerHTML;
+
+document.getElementById("home_button").addEventListener("click", () => {
+  window.location.href = APP_ROOT + "/";
+});
 
 // Initialize methods grid to be sortable
 const methods = document.getElementById("methods_grid");

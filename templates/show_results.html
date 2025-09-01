@@ -19,21 +19,24 @@ src="https://cdn.jsdelivr.net/npm/@shopify/draggable/build/umd/index.min.js">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html-to-pdfmake/browser.js"></script>
 <header>
-  <div id="imgs_size_div"><label for="size_selector">Image size:</label>
-	<input type="number" id="size_selector" value="250" step="50">
-  </div>
-  <div id="radio_buttons">
-    <p>Show:</p>
-  <input type="radio" id="both" name="format" value="both" checked>
-  <label for="both">Secondary structures and circular plots</label>
-  <input type="radio" id="svg" name="format" value="svg">
-  <label for="svg">Only secondary structures</label>
-  <input type="radio" id="circ" name="format" value="circ">
-  <label for="circ">Only circular plots</label>
-  </div>
-  <div id="dot_checkbox">
-    <input type="checkbox" id="dot_checkbox" checked>
-    <label for="dot_checkbox">Show dot brackets</label>
+  <button id="home_button" class="primary medium">Home</button>
+  <div id="tools_container">
+    <div id="imgs_size_div"><label for="size_selector">Image size:</label>
+      <input type="number" id="size_selector" value="250" step="50">
+    </div>
+    <div id="radio_buttons">
+      <p>Show:</p>
+      <input type="radio" id="both" name="format" value="both" checked>
+      <label for="both">Secondary structures and circular plots</label>
+      <input type="radio" id="svg" name="format" value="svg">
+      <label for="svg">Only secondary structures</label>
+      <input type="radio" id="circ" name="format" value="circ">
+      <label for="circ">Only circular plots</label>
+    </div>
+    <div id="dot_checkbox">
+      <input type="checkbox" id="dot_checkbox" checked>
+      <label for="dot_checkbox">Show dot brackets</label>
+    </div>
   </div>
   <button id="download_button" class="primary medium" disabled>Download</button>
 </header>
@@ -55,11 +58,20 @@ src="https://cdn.jsdelivr.net/npm/@shopify/draggable/build/umd/index.min.js">
     </dialog>
 </main>
 <footer>
+  <div id="sequence_info">
     {% if rnacentral_id != "" %}
-    <p><b>RNACentral ID:</b> <div id="rnacentral_id">{{rnacentral_id}}</div></p>
+    <div id="rnacentral_id_div"><b>RNACentral ID:</b>
+    <div id="rnacentral_id">{{rnacentral_id}}</div></div>
     {% endif %}
-    <p><b>Sequence:</b> </p>
-    <p class="sequence">{{seq}}</p>
+    <div id="sequence_div"><b>Sequence:</b> <div id="sequence">{{seq}}</div>
+    </div>
+  </div>
+  <div id="cite_message">If you use this tool, please cite us: 
+    <a id="cite_link" href="https://github.com/RosarioVitale/RNAcomp2D" 
+                      style="display:flex" target="_blank">
+      INSERT CITATION <div id="cite_link_div" class="external_link"> </div>
+    </a>
+  </div>
 </footer>
 <script src={{ url_for('static', filename='src/show_results.js') }} type="module" defer></script>
 {% endblock %}

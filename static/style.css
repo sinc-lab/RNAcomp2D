@@ -1,25 +1,26 @@
 /**********************************************************************
-*                           Default styles                           *
-**********************************************************************/
+ *                           Default styles                           *
+ **********************************************************************/
 .root {
   --dialog-buttons-height: 40px;
 }
 
 * {
-	font-family: sans-serif;
+  font-family: sans-serif;
 }
 
 body {
-	width: 100%;
-	margin: auto;
+  width: 90%;
+  margin: 50px auto;
+  padding: 0px 0px 0px 0px;
 }
 
 p {
-	margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
 }
 
 p.description {
-	margin: 0px 10px 0px 10px;
+  margin: 0px 10px 0px 10px;
 }
 
 ul.examples {
@@ -28,6 +29,10 @@ ul.examples {
 
 h1.title {
   margin: 10px;
+}
+
+form {
+  width: 50%;
 }
 
 /*******************
@@ -58,50 +63,92 @@ h1.title {
   --secondary-light-active: #A9A9A9;
   --secondary-light-disabled: #C2C2C2;
   --secondary-light-disabled-font: #606060;
+  --fieldset-background: #F0F8FF;
+  --fieldset-secondary-background: #FFFFFF;
+  --shadow: #B0B0B0;
+  --selected-background: #E0F1FF;
+  --selected-font: #004680;
+  --selected-font-hover: #008CFF;
+  --selected-font-active: #002340;
+  --unselected-background: #FFFFFF;
+  --unselected-font: #000000;
+  --unselected-font-hover: #666666;
+  --unselected-font-active: #404040;
+}
+body, dialog {
+  background-color: var(--fieldset-secondary-background);
 }
 
 /**********************************************************************
-*                             Containers                             *
-**********************************************************************/
-fieldset { 
-	border: 1px solid var(--secondary);
-	border-radius: 10px;
-	margin: 10px 10px 10px 10px;
-	padding: 10px 10px 10px 10px;
+ *                             Containers                             *
+ **********************************************************************/
+div.fieldset_container, div.filter_fieldset{
+  border-radius: 10px;
+  margin: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  background-color: var(--fieldset-background);
+  box-shadow: 0px 0px 10px 0px var(--shadow);
 }
 
-fieldset.filter_fieldset { 
-	overflow-y: scroll;
-	height: 150px;
+div.filter_radios {
+  height: 10px;
+  overflow-y: scroll;
 }
 
-legend { 
-	font-size: 20px;
-	background-color: var(--secondary);
-	color: white;
-	padding: 5px;
-	border-radius: 10px;
+p.filter_legend { 
+  font-weight: bold;
+  font-size: 20px;
+  /*background-color: var(--secondary);*/
+  /*color: var(--secondary-font);*/
+  padding: 5px;
+  border-radius: 10px;
+  /*border: 1px solid var(--secondary);*/
+  /*box-shadow: 0px 0px 10px 0px var(--secondary);*/
+}
+
+div#cite_message {
+  background-color: var(--fieldset-secondary-background);
+  /*box-shadow: 0px 0px 10px 0px var(--shadow);*/
+  padding: 10px;
+  margin: 10px 10px 10px 10px;
+}
+
+p, h1, h2, h3, h4, h5, h6, dialog {
+  color: var(--unselected-font);
 }
 
 /**********************************************************************
-*                           Sequence input                           *
-**********************************************************************/
+ *                           Sequence input                           *
+ **********************************************************************/
 li.example {
-	word-wrap: break-word;
+  cursor: pointer;
+  word-wrap: break-word;
+  color: #000000;
+  shadow: 0px 0px 10px 0px var(--shadow);
+}
+
+li.example:hover {
+  color: var(--secondary);
+}
+
+li.example:active {
+  color: var(--secondary-active);
 }
 
 textarea {
-	margin: 5px 0px 5px 0px;
-	width: calc(100% - 10px);
-	word-wrap: break-word;
+  margin: 5px 0px 5px 0px;
+  width: calc(100% - 10px);
+  word-wrap: break-word;
+  border: 1px solid var(--secondary-light);
 }
 
 input[type="file"]::file-selector-button {
-	background-color: var(--primary-light);
-	color: var(--primary-light-font);
-	padding: 5px;
-	border-radius: 10px;
-	border: none;
+  background-color: var(--primary-light);
+  color: var(--primary-light-font);
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
 }
 
 input[type="file"]::file-selector-button:hover {
@@ -113,175 +160,183 @@ input[type="file"]::file-selector-button:active {
 }
 
 div#seq_input_label_error {
-	display: flex;
-	gap: 50px;
+  display: flex;
+  gap: 50px;
 }
 
 div#rnacentral_button_container {
-	margin: 10px 0px 0px 0px;
-	display: flex;
-	align-items: center;
-	gap: 5px;
+  margin: 10px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 div#rnacentral_sequence {
-	display: flex;
-	align-items: center;
-	gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /*div#rnacentral_sequence_label {
-  font-size: 18px;
-  font-weight: bold;
+font-size: 18px;
+font-weight: bold;
 }*/
 
 div#rnacentral_sequence_id {
-	/*font-size: 18px;*/
+  /*font-size: 18px;*/
   font-weight: bold;
   /*font-style: italic;*/
 }
 
 /************
-*  Dialog  *
-************/
+ *  Dialog  *
+ ************/
 dialog#rnacentral_dialog {
-	border: 1px solid var(--secondary);
-	padding: 10px;
-	width: auto;
-	height: fit-content;
-    margin-top: 10px;
+  border: 1px solid var(--secondary);
+  /*display: flex;*/
+  flex-direction: column;
+  padding: 10px;
+  width: auto;
+  height: auto;
 }
 
 div#rnacentral_dialog_content {
-	display: flex;
-	gap: 10px;
-	flex-direction: row;
+  flex-grow: 1;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+}
+
+div#dialog_filters_section {
+  display: flex;
+  flex-basis: 20%;
+  flex-direction: column;
+  gap: 5px;
 }
 
 div#dialog_filters {
-	flex-basis: 20%;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+  flex-grow: 1;
+  display: grid;
+  gap: 5px;
 }
 
 div#dialog_filters_buttons {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 div#dialog_maincontent {
-	flex-basis: 80%;
-	width: auto;
-	height: 100vh - 50px;
-	display: grid;
-	grid-template-columns: auto;
-	grid-template-rows: 30px auto 30px;
+  flex-basis: 80%;
+  width: auto;
+  height: 100vh - 50px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 30px auto 30px;
 }
 
 input#dialog_search_input {
-	font-size: 17px;
-	width: calc(100% - 100px);
+  font-size: 17px;
+  width: calc(100% - 100px);
+  border: 1px solid var(--secondary-light);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px var(--shadow);
+  margin: 0px 10px 0px 10px;
+  padding: 5px;
+}
+
+div#dialog_results{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 h1#dialog_result_title {
-	margin: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
 }
 
 small#dialog_results_count {
-	margin: 0px 0px 10px 0px;
-	font-weight: normal;
-	font-size: 20px;
+  margin: 0px 0px 10px 0px;
+  font-weight: normal;
+  font-size: 20px;
 }
 
 div#dialog_results_content {
-	overflow-y: scroll;
-	height: 500px;
+  overflow-y: scroll;
+  max-height: 100px;
 }
 
 div.dialog_result_not_selected {
-	margin: 10px 0px 10px 0px;
-	padding: 10px;
-	border: 1px solid var(--secondary);
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  background-color: var(--unselected-background);
+  box-shadow: 0px 0px 5px 0px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
-
 div.dialog_result_not_selected > p {
-	color: #000000;
+  color: var(--unselected-font);
 }
-
 .dialog_result_not_selected:hover {
-	cursor: pointer;
-	border: 1px solid var(--secondary-hover);
+  cursor: pointer;
 }
-
 div.dialog_result_not_selected:hover > p {
-	color: var(--secondary-hover);
+  color: var(--unselected-font-hover);
 }
-
-.dialog_result_not_selected:active {
-	cursor: pointer;
-	border: 1px solid var(--secondary-active);
-}
-
 div.dialog_result_not_selected:active > p {
-	color: var(--secondary-active);
+  color: var(--unselected-font-active);
+}
+.dialog_result_not_selected:active {
+  cursor: pointer;
 }
 
 div.dialog_result_selected {
-	margin: 10px 0px 10px 0px;
-	padding: 10px;
-	border: 1px solid var(--primary);
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  background-color: var(--selected-background);
+  box-shadow: 0px 0px 5px 0px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
-
 div.dialog_result_selected > p {
-	color: var(--primary);
+  color: var(--selected-font);
 }
-
 .dialog_result_selected:hover {
-	cursor: pointer;
-	border: 1px solid var(--primary-hover);
+  cursor: pointer;
 }
-
 div.dialog_result_selected:hover > p {
-	color: var(--primary-hover);
+  color: var(--selected-font-hover);
 }
-
 .dialog_result_selected:active {
-	cursor: pointer;
-	border: 1px solid var(--primary-active);
+  cursor: pointer;
 }
-
 div.dialog_result_selected:active > p {
-	color: var(--primary-active);
+  color: var(--selected-font-active);
 }
 
 p.result_description {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 p.result_id {
-	font-size: 15px;
-	font-style: italic;
+  font-size: 15px;
+  font-style: italic;
 }
 
 p.result_length {
-	font-size: 15px;
+  font-size: 15px;
 }
 
 div#pagination_buttons {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 div#rnacentral_dialog_buttons_container {
@@ -291,11 +346,11 @@ div#rnacentral_dialog_buttons_container {
 }
 
 div#rnacentral_dialog_buttons {
-    height: var(--dialog_buttons_height);
-    padding: 0px 10px 0px 10px;
-	display: flex;
-    justify-content: space-between;
-    align-items: center;
+  height: var(--dialog_buttons_height);
+  padding: 0px 10px 0px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #ebi-search-acknowledgement {
@@ -304,7 +359,7 @@ div#rnacentral_dialog_buttons {
   gap: 5px;
 }
 
-#ebi-search-link {
+#ebi-search-link, #cite_link {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -343,120 +398,119 @@ div#rnacentral_dialog_buttons {
 }
 
 /**********************************************************************
-*                              Methods                               *
-**********************************************************************/
+ *                              Methods                               *
+ **********************************************************************/
 #methods {
-	display: grid;
-	grid-template-columns: 200px auto;
-	gap: 10px;
+  display: grid;
+  grid-template-columns: 30% auto;
+  gap: 10px;
 }
 
 /**********************
-*  Methods selector  *
-**********************/
+ *  Methods selector  *
+ **********************/
 div#method_selector {
-	width: auto;
+  width: auto;
 }
 
 div#available_methods {
-	margin: 10px 0px 10px 0px;
-	width: auto;
+  margin: 10px 0px 10px 0px;
+  width: auto;
 }
 
 div.method_row {
-	display: grid;
-	grid-template-columns: auto 25px;
-	align-items: center;
+  display: grid;
+  grid-template-columns: auto 25px;
+  align-items: center;
 }
 
 div.method_selected, div.method_unselected, div.editing_method {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	margin: 5px 0px 5px 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 5px 0px 5px 0px;
 } 
 
 p.selected_label { 
-	color: black;
-	margin: 0px 0px 0px 5px;
+  color: black;
+  margin: 0px 0px 0px 5px;
 }
 
 p.unselected_label { 
-	color: var(--secondary);
-	margin: 0px 0px 0px 5px;
+  color: var(--secondary);
+  margin: 0px 0px 0px 5px;
 }
 
 p.editing_label { 
-	color: var(--primary);
-	margin: 0px 0px 0px 5px;
+  color: var(--primary);
+  margin: 0px 0px 0px 5px;
 }
 
 div#error-methods, div#error-sequence, div#error-file, div#dialog_nothing_selected_error {
-	color: #FF3A20;
+  color: #FF3A20;
 }
 
 /*******************
-*  Method editor  *
-*******************/
+ *  Method editor  *
+ *******************/
 div#method_editor {
-	width: auto;
-	height: auto;
-	border: 1px solid var(--secondary);
-	padding: 10px;
-	display: flex;
+  width: auto;
+  height: auto;
+  /*border: 1px solid var(--secondary);*/
+  box-shadow: 0px 0px 10px 0px var(--shadow);
+  background-color: var(--fieldset-secondary-background);
+  padding: 10px;
+  display: flex;
 }
 
 div#parameters_editor_div {
-	margin: 0px 0px 0px 0px;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  margin: 0px 0px 0px 0px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 label#editor_label {
-	margin: 0px 0px 0px 0px;
-	font-size: 16px;
-	font-weight: bold;
+  margin: 0px 0px 0px 0px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #method_editor_form { 
-	margin: 5px 0px 5px 0px;
+  margin: 5px 0px 5px 0px;
 }
 
 div#method_editor_buttons {
-	margin: 0px 0px 0px 0px;
-	display: flex;
-	justify-content: right;
-    gap: 10px;
+  margin: 0px 0px 0px 0px;
+  display: flex;
+  justify-content: right;
+  gap: 10px;
 }
 
 /**********************************************************************
-*                               Submit                               *
-**********************************************************************/
+ *                               Submit                               *
+ **********************************************************************/
 #submit_button_container {
-	margin: 10px;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 10px;
+  display: flex;
+  align-items: center;
 }
 
 #submit_message {
-	margin: 10px 0px 10px 0px;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 10px;
+  margin: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
 /**********************************************************************
-*                              Buttons                               *
-**********************************************************************/
+ *                              Buttons                               *
+ **********************************************************************/
 button {
-	border-radius: 10px;
-	border: none;
+  border-radius: 10px;
+  border: none;
 }
 
 button.primary {
@@ -530,19 +584,20 @@ button.medium {
 }
 
 button.large {
+  width: 100%;
   padding: 10px;
   font-size: 32px;
 }
 
 
 /****************
-*  Loader CSS  *
-****************/
+ *  Loader CSS  *
+ ****************/
 .loader_container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 .loader {
   border: 5px solid var(--secondary-light);
@@ -555,5 +610,16 @@ button.large {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/***************
+ *  Bottom     *
+ ***************/
+div#bottom_message {
+  margin: 10px 0px 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }
 

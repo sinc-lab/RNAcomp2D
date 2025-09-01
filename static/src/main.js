@@ -170,7 +170,21 @@ rnacentral_button.addEventListener("click", function() {
 	size = 15;
 	var query = formatQuery(document.getElementById("dialog_search_input").value, 
 				filters, start, size);
-	rnacentral_dialog.showModal();
+	//rnacentral_dialog.showModal();
+    rnacentral_dialog.style.display = "flex";
+    document.getElementById("cite_link").style.display = "none";
+    var margin_size = Math.min(window.innerWidth*0.01, window.innerHeight*0.01);
+    rnacentral_dialog.style.top = parseInt(margin_size) + "px";
+    rnacentral_dialog.style.left = parseInt(margin_size) + "px";
+    rnacentral_dialog.style.bottom = parseInt(margin_size) + "px";
+    rnacentral_dialog.style.right = parseInt(margin_size) + "px";
+    var filter_height = document.querySelectorAll(".filter_fieldset")[0].clientHeight;
+    var filter_header = document.querySelectorAll(".filter_legend")[0].clientHeight;
+    var filter_radios_height = filter_height-filter_header-20;
+    var filter_radios = document.querySelectorAll(".filter_radios");
+    for (var filter of filter_radios) {
+        filter.style.height = filter_radios_height + "px";
+    }
 	searchOnRnacentral(search_results, query).then((json) => {
 		showSearchResults(json, search_results, start, size);
 	})
@@ -201,6 +215,14 @@ text_area.addEventListener("input", () => {
 file_input.addEventListener("input", () => {
   clear_file.hidden = false;
 })
+
+var examples = document.getElementsByClassName("example");
+for (var example of examples) {
+  example.addEventListener("click", (e) => {
+    text_area.value = e.target.textContent;
+    clear_sequence.hidden = false;
+  })
+}
 
 
 // Events for select sequence from RNAcentral

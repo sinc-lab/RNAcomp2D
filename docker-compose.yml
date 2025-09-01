@@ -1,4 +1,4 @@
-RNAcomp2D:
+rnacomp2d:
   build: .
   environment:
     - PYTHONUNBUFFERED=1
