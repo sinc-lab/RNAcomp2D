@@ -13,6 +13,7 @@
 {% block body %}
 <!-- Brief description of the application -->
 <h1 class="title">RNAcomp2D</h1>
+<div class="description_container">
 <p class="description"> 
 This tool obtains RNA secondary structures from several computational methods
 and compares them visually on a single page.
@@ -39,6 +40,7 @@ paste it in the input box):
 	<li class="example">GGGCUAUUAGCUCAGUUGGUUAGAGCGCACCCCUGAUAAGGGUGAGGUCGCUGAUUCGAAUUCAGCAUAGCCCA</li>
 	<li class="example">AUCCUUUUGUAGUUCAUGGGCAUGAUGAUGGGGUGUUCCUGAGCAUGCGUAAGAUGUGCCGCCCUCAAAUCUUGUCAAGAUGUUGGCACAUUACCCAUCUGACA</li>
 </ul>
+</div>
 <form action={{ url_for('show_results') }} method="POST" accept-charset="utf-8" 
 	id="myForm">
 	<div id="sequence_input_container" class="fieldset_container">

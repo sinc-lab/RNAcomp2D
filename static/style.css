@@ -10,13 +10,18 @@
 }
 
 body {
-  width: 90%;
-  margin: 50px auto;
-  padding: 0px 0px 0px 0px;
+  align-items: center;
+  width: 50%;
 }
-
-p {
-  margin: 0px 0px 0px 0px;
+@media only screen and (max-width: 1200px) {
+  body {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body {
+    width: 100%;
+  }
 }
 
 p.description {
@@ -27,12 +32,12 @@ ul.examples {
   margin: 5px 0px 5px 0px;
 }
 
-h1.title {
+h1.title, div.description_container {
   margin: 10px;
 }
 
 form {
-  width: 50%;
+  width: 100%;
 }
 
 /*******************
@@ -74,6 +79,13 @@ form {
   --unselected-font: #000000;
   --unselected-font-hover: #666666;
   --unselected-font-active: #404040;
+}
+
+h1.title, div.description_container {
+  background-color: var(--fieldset-background);
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0px 0px 10px 0px var(--shadow);
 }
 body, dialog {
   background-color: var(--fieldset-secondary-background);
@@ -587,6 +599,7 @@ button.large {
   width: 100%;
   padding: 10px;
   font-size: 32px;
+  margin: 10px;
 }
 
 
