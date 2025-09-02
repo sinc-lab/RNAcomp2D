@@ -4,5 +4,7 @@ rnacomp2d:
     - PYTHONUNBUFFERED=1
   ports:
     - "8000:8000"
+  entrypoint: ["python", "app.py"]
+  command: ["--use_proxy"]
   #volumes: 
   #  - .:/Project
