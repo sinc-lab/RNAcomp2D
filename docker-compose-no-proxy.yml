@@ -1,11 +1,9 @@
 services:
-  rnacomp2d-dev:
+  rnacomp2d:
     build: 
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile-no-proxy
     environment:
     - PYTHONUNBUFFERED=1
     ports:
       - "8000:8000"
-    volumes: 
-      - .:/Project

@@ -240,6 +240,14 @@ div#dialog_filters_buttons {
   justify-content: center;
 }
 
+h1#dialog_results_title {
+  margin: 20px 0px 0px 0px;
+}
+
+p.filter_legend {
+  margin: 0px;
+}
+
 div#dialog_maincontent {
   flex-basis: 80%;
   width: auto;
@@ -333,15 +341,18 @@ div.dialog_result_selected:active > p {
 
 p.result_description {
   font-size: 20px;
+  margin: 0px;
 }
 
 p.result_id {
   font-size: 15px;
   font-style: italic;
+  margin: 0px;
 }
 
 p.result_length {
   font-size: 15px;
+  margin: 0px;
 }
 
 div#pagination_buttons {
