@@ -12,18 +12,7 @@
 body {
   align-items: center;
   width: 99%;
-  /*width: 50%;*/
 }
-/*@media only screen and (max-width: 1200px) {
-  body {
-    width: 80%;
-  }
-}
-@media only screen and (max-width: 600px) {
-  body {
-    width: 100%;
-  }
-}*/
 
 p.description {
   margin: 0px 10px 0px 10px;
@@ -111,12 +100,8 @@ div.filter_radios {
 p.filter_legend { 
   font-weight: bold;
   font-size: 20px;
-  /*background-color: var(--secondary);*/
-  /*color: var(--secondary-font);*/
   padding: 5px;
   border-radius: 10px;
-  /*border: 1px solid var(--secondary);*/
-  /*box-shadow: 0px 0px 10px 0px var(--secondary);*/
 }
 
 div#cite_message {
@@ -190,15 +175,8 @@ div#rnacentral_sequence {
   gap: 5px;
 }
 
-/*div#rnacentral_sequence_label {
-font-size: 18px;
-font-weight: bold;
-}*/
-
 div#rnacentral_sequence_id {
-  /*font-size: 18px;*/
   font-weight: bold;
-  /*font-style: italic;*/
 }
 
 /************
@@ -206,7 +184,6 @@ div#rnacentral_sequence_id {
  ************/
 dialog#rnacentral_dialog {
   border: 1px solid var(--secondary);
-  /*display: flex;*/
   flex-direction: column;
   padding: 10px;
   width: auto;
@@ -258,14 +235,21 @@ div#dialog_maincontent {
   grid-template-rows: 30px auto 30px;
 }
 
+div#dialog_search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 input#dialog_search_input {
   font-size: 17px;
-  width: calc(100% - 100px);
   border: 1px solid var(--secondary-light);
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px var(--shadow);
   margin: 0px 10px 0px 10px;
   padding: 5px;
+  flex-grow: 1;
 }
 
 div#dialog_results{
