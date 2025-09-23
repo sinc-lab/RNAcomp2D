@@ -3,7 +3,10 @@
 **RNAcomp2D** is a web application for RNA secondary structure prediction and
 comparison using multiple methods. You can try it out at the [web
 server](https://webdemos.sinc.unl.edu.ar/RNAcomp2D/). For more information,
-check out our [paper](ADD LINK TO PAPER).
+check out and cite our [paper](ADD LINK TO PAPER):
+"RNAcomp2D: a visual tool to compare multiple predictions of RNA secondary
+structure," Rosario Vitale, Diego H. Milone, Georgina Stegmayer, (under review)
+2025.
 
 RNAcomp2D allows you to upload a sequence or search it on
 [RNAcentral](https://rnacentral.org/). Then, you can select one or more methods to predict the
@@ -18,7 +21,7 @@ moment, the following methods are available:
 - UFold ([paper](https://doi.org/10.1093/nar/gkab1074))
 - REDfold ([paper](https://doi.org/10.1186/s12859-023-05238-8))
 
-If reference structure is available at RNAcentral, it will be shown in the
+If reference structure is available, it will be shown in the
 results page with the predicted structures of the selected methods.
 
 This repository contains the source code for the web application and
@@ -46,7 +49,7 @@ Then, run the following command to build and run the web application:
 docker-compose -f docker-compose-no-proxy.yml up -d
 ```
 
-This may take a few minutes. Once it's done, you can access the web application at
+This may take a few minutes. Once it is done, you can access the web application at
 [http://localhost:8000](http://localhost:8000).
 
 ## Help

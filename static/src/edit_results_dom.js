@@ -2,18 +2,18 @@ import { sequence, downloadMethod } from "./show_results.js";
 
 export function define_download_dialog(method_id) {
   return ` 
-  <h1>Download ${method_id}</h1>
-  <p>Format:</p>
+  <h1>${method_id}</h1>
+  <p>Select to download:</p>
   <input type="radio" id="pdf" name="download" value="pdf" checked>
-  <label for="pdf">PDF</label><br />
-  <input type="radio" id="fasta" name="download" value="fasta">
-  <label for="fasta">FASTA</label><br />
+  <label for="pdf">Structure image in PDF</label><br />
   <input type="radio" id="svg" name="download" value="svg">
-  <label for="svg">SVG (images only)</label><br />
+  <label for="svg">Structure image in SVG</label><br />
   <input type="radio" id="png" name="download" value="png">
-  <label for="png">PNG (images only)</label><br />
+  <label for="png">Structure image in PNG</label><br />
   <input type="radio" id="jpg" name="download" value="jpg">
-  <label for="jpg">JPG (images only)</label><br />
+  <label for="jpg">Structure image in JPG</label><br />
+  <input type="radio" id="fasta" name="download" value="fasta">
+  <label for="fasta">Prediction in FASTA</label><br />
   <div class="button_container">
   <button id="download_dialog_cancel_button" class="secondary medium">Cancel</button>
   <button id="download_dialog_ok_button" class="primary medium">Download</button>

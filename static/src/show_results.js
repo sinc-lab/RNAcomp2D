@@ -37,6 +37,13 @@ const methods_f1 = {}
 var method_pinned = "None";
 const pinned_container = document.getElementById("pinned_method");
 
+// Check if reference is provided by RNACentral
+var ref = document.getElementById("rnacentral_id");
+var is_rnacentral = false;
+if (ref) {
+  is_rnacentral = true;
+}
+
 // Initialize methods divs
 for (var method of methods.children) {
     var id = method.id;
@@ -59,8 +66,13 @@ for (var method in methods_divs) {
     if (method == "Reference") { // if method is Reference
         compute_f1 = true;
         wait_ref = true;
+      if (is_rnacentral) {
         methods_divs[method].children[0].children[1].innerHTML = `<b>Secondary 
 		structure retrieved from RNACentral</b>`;
+      } else {
+        methods_divs[method].children[0].children[1].innerHTML = `<b>Secondary 
+    structure provided by user</b>`;
+      }
     }else { // if method is not Reference
       methods_f1[method] = -1;
     }
@@ -129,6 +141,10 @@ source.onmessage = (event) => {
         // Method is Reference, add images only
         ref_bp = get_bp(data[method]["dot"]);
         wait_ref = false;
+        var name = "Reference structure retrieved from RNACentral";
+        if (!is_rnacentral) {
+          name = "Reference structure provided by user";
+        }
         methods_divs[method].innerHTML = `<div class="dragbox">
         <div class="drag_img" alt="drag" width="15px"></div>
                 <div class="images_container">
@@ -137,7 +153,7 @@ source.onmessage = (event) => {
                 </div></div><br />
               <div class="name_container"><div class="unpinned">
               </div><div class="download_button"></div>
-                <b class="method_name">Reference structure from RNACentral</b></div>
+                <b class="method_name">${name}</b></div>
                 <p class="dot">${data[method]["dot"]}</p>`;
         methods_divs[method].querySelector(".unpinned").addEventListener(
           "click",
@@ -332,14 +348,14 @@ document.getElementById("download_button").addEventListener("click", (event) => 
   }
   // Fill download dialog
   download_dialog.innerHTML = `
-  <h1>Download results</h1>
-  <p>Select methods to download:</p>
+  <h1>All results</h1>
+  <p>Methods to download:</p>
   ${methods_checkbox}<br>
-  <p>Select format:</p>
+  <p>Select to download:</p>
   <input type="radio" id="pdf" name="download" value="pdf" checked>
-  <label for="pdf">PDF</label>
+  <label for="pdf">Structure images (PDF)</label>
   <input type="radio" id="fasta" name="download" value="fasta">
-  <label for="fasta">FASTA</label>
+  <label for="fasta">Predictions (FASTA)</label>
   <div class="button_container">
   <button id="download_dialog_cancel_button" class="secondary medium">Cancel</button>
   <button id="download_dialog_ok_button" class="primary medium">Download</button>

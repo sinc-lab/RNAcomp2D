@@ -157,6 +157,8 @@ export function createRnacentralDialog(dialog, filters, start, size) {
     dialog.style.display = "none";
     document.getElementById("clear_rnacentral").hidden = true;
     document.getElementById("cite_link").style.display = "flex";
+    document.getElementById("cite_message").style.display = "block";
+    document.getElementById("submit_button").disabled = false;
   });
 
   select_dialog.addEventListener("click", function() {
@@ -186,6 +188,8 @@ export function createRnacentralDialog(dialog, filters, start, size) {
     dialog.style.display = "none";
     document.getElementById("clear_rnacentral").hidden = false;
     document.getElementById("cite_link").style.display = "flex";
+    document.getElementById("cite_message").style.display = "block";
+    document.getElementById("submit_button").disabled = false;
   });
 
 	const apply_filters = document.getElementById("apply_filters");

@@ -59,6 +59,8 @@ met_thr = [["Reference"],                                     # Thread 0
            ["sincFold"],                                      # Thread 5
            ["UFold"],                                         # Thread 6
            ["REDfold"]]                                       # Thread 7
+def_met = ["Reference", "LinearFold", "LinearPartition", "RNAfold",
+           "RNAstructure", "sincFold", "UFold", "REDfold"]
 
 # Thread configuration: testing
 #config = "testing"
@@ -82,7 +84,8 @@ def createMethodsList(names, methods):
 
     """
     sel_met_thr = [{} for i in range(len(met_thr))]
-    #print("Creating methods list:", sel_met_thr)
+    #print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    #print("Creating methods list:", names, methods, met_thr)
     for m in names:
         for i in range(len(met_thr)):
             if m in met_thr[i]:
@@ -91,6 +94,10 @@ def createMethodsList(names, methods):
     for i in range(len(sel_met_thr)):
         if len(sel_met_thr[i]) > 0:
             cln_sel_met_thr.append(sel_met_thr[i])
+    for m in names:
+        if m not in def_met:
+            #print("Method", m, "not found, adding it to the list")
+            cln_sel_met_thr.append({m: methods[m]})
     #print("Created methods list:", cln_sel_met_thr)
     return cln_sel_met_thr
 
@@ -102,7 +109,7 @@ def runMethods(seq, methods, session_id):
     :param methods: method parameters
 
     """
-    #print("running methods")
+    print("running methods")
     TEMP_DIR = os.path.join(BASE_TEMP_DIR, session_id)
     methods_list = list(methods.keys())
     if "Reference" in methods_list:
@@ -110,11 +117,16 @@ def runMethods(seq, methods, session_id):
         methods_list.insert(0, "Reference")
     for method in methods_list:
         params = methods[method]
-        #print(f"running {method}")
+        print(f"running {method}")
         with open(f"{TEMP_DIR}/temps/{method}_status.txt", "w") as f:
             f.write("running")
         start = time.time()
-        val = getattr(mt, method).run_method(seq, params, TEMP_DIR)
+        func = getattr(mt, method, None)
+        if func is not None:
+            val = func.run_method(seq, params, TEMP_DIR)
+        else:
+            print(f"Method {method} not found")
+            val = mt.Other.run_method(seq, params, TEMP_DIR)
         end = time.time()
         # Append method stats
         #with open(f"stats/{method}.csv", "a") as f:
@@ -144,7 +156,10 @@ def show_results():
         #print("Received data:", request.json)
         seq = request.json["sequence"]
         methods = request.json["methods"]
-        secondary_structure = request.json["secondary_structure"]
+        rnacentral_structure = request.json["rnacentral_structure"]
+        user_structure = request.json["user_structure"]
+        other_structures = request.json["other_structures"]
+        other_methods = request.json["other_methods"]
         session_id = secrets.token_hex(16)
         #print("Session ID:", session_id)
 
@@ -156,14 +171,38 @@ def show_results():
         SESSIONS[session_id]["seq"] = seq
         SESSIONS[session_id]["methods"] = methods
         SESSIONS[session_id]["names"] = list(methods.keys())
+
         SESSIONS[session_id]["rnacentral_id"] = request.json["rnacentral_id"]
-        if secondary_structure!="":
-            SESSIONS[session_id]["names"] = ["Reference"] + list(methods.keys())
+        if rnacentral_structure!="":
+            SESSIONS[session_id]["names"].insert(0, "Reference")
             SESSIONS[session_id]["methods"]["Reference"] = {}
-            with open(f"{BASE_TEMP_DIR}/{session_id}/results/Reference.dot", "w") as f:
+            with open(f"{BASE_TEMP_DIR}/{session_id}/results/Reference.dot", 
+                      "w") as f:
                 f.write("Reference\n")
                 f.write(seq + "\n")
-                f.write(secondary_structure + "\n")
+                f.write(rnacentral_structure + "\n")
+
+        if user_structure!="":
+            SESSIONS[session_id]["names"].insert(0, "Reference")
+            SESSIONS[session_id]["methods"]["Reference"] = {}
+            with open(f"{BASE_TEMP_DIR}/{session_id}/results/Reference.dot", 
+                      "w") as f:
+                f.write("Reference\n")
+                f.write(seq + "\n")
+                f.write(user_structure + "\n")
+
+        if other_structures!="":
+            print(other_structures)
+            for i in range(len(other_structures)):
+                other_structure = other_structures[i]
+                other_method = other_methods[i]
+                SESSIONS[session_id]["names"].append(other_method)
+                SESSIONS[session_id]["methods"][other_method] = [other_method]
+                with open(f"{BASE_TEMP_DIR}/{session_id}/results/{other_method}.dot", 
+                          "w") as f:
+                    f.write(f"{other_method}\n")
+                    f.write(seq + "\n")
+                    f.write(other_structure + "\n")
         return redirect(url_for('results', session_id=session_id))
 
 
@@ -189,7 +228,6 @@ def stream_results(session_id):
     def generate_results():
         seq = session["seq"]
         methods = session["methods"]
-        #print("Generating results for session", session_id)
         basepath = f"{BASE_TEMP_DIR}/{session_id}/results/"
         names = list(methods.keys())
         met_list = createMethodsList(names, methods)
