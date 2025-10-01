@@ -9,7 +9,16 @@ structure," Rosario Vitale, Diego H. Milone, Georgina Stegmayer, (under review)
 2025.
 
 RNAcomp2D allows you to upload a sequence or search it on
-[RNAcentral](https://rnacentral.org/). Then, you can select one or more methods to predict the
+[RNAcentral](https://rnacentral.org/). If secondary structure is available on
+RNAcentral, it will be shown in the results page.
+
+You can also upload a FASTA file with
+multiple structures for comparison. If description contains the word
+"reference", it will be shown in the results page as a reference structure.
+Else, it will be shown as another method prediction. Some examples of FASTA files are 
+available [here](https://github.com/sinc-lab/RNAcomp2D/tree/main/examples).
+
+Then, you can select one or more methods to predict the
 secondary structure, compare the predictions, and download the results. At the
 moment, the following methods are available:
 
