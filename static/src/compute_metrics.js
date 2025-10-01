@@ -1,24 +1,48 @@
+// All possible matching brackets for base pairing
+const MATCHING_BRACKETS = [["(", ")"], ["[", "]"], ["{", "}"], ["<", ">"], ["A", "a"], ["B", "b"]];
+
 // Get base-pairs from dot
-export function get_bp(dot) {
-    var bp = [];
-    var open_bracket = [];
-    var close_bracket = [];
-    for (var i = 0; i < dot.length; i++) {
-        if (dot[i] == "(") {
-            open_bracket.push(i);
-        }
-        if (dot[i] == ")") {
-            close_bracket.push(i);
-        }
+export function get_bp(dotBracket) {
+  const openToClose = {};
+  const closeToOpen = {};
+
+  for (const [open, close] of MATCHING_BRACKETS) {
+    openToClose[open] = close;
+    closeToOpen[close] = open;
+  }
+  const stacks = {};
+  for (const [open] of MATCHING_BRACKETS) {
+    stacks[open] = [];
+  }
+
+  const pairs = [];
+
+  for (let i = 0; i < dotBracket.length; i++) {
+    const char = dotBracket[i];
+
+    if (openToClose.hasOwnProperty(char)) {
+      stacks[char].push(i);
     }
-    if (open_bracket.length != close_bracket.length) {
-        return -1;
+    else if (closeToOpen.hasOwnProperty(char)) {
+      const openChar = closeToOpen[char];
+      const stack = stacks[openChar];
+      if (!stack || stack.length === 0) {
+        throw new Error(`Unmatched closing symbol '${char}' at position ${i}`);
+      }
+      const openIndex = stack.pop();
+      pairs.push([openIndex, i]);
     }
-    close_bracket = close_bracket.reverse();
-    for (var i = 0; i < open_bracket.length; i++) {
-        bp.push([open_bracket[i], close_bracket[i]]);
+  }
+  for (const openChar in stacks) {
+    if (stacks[openChar].length > 0) {
+      throw new Error(`Unmatched opening symbol '${openChar}' at positions ${stacks[openChar].join(", ")}`);
     }
-    return bp;
+  }
+
+  pairs.sort((a, b) => a[0] - b[0]);
+
+  return pairs;
+
 }
 
 
@@ -27,7 +51,7 @@ export function get_f1(ref_bp, pred_bp) {
     if (!Array.isArray(ref_bp) || !Array.isArray(pred_bp)) {
         return -1;
     }
-    //console.log(ref_bp, pred_bp);
+    console.log(ref_bp, pred_bp);
     var tp = 0;
     var fp = 0;
     var fn = 0;

@@ -253,7 +253,7 @@ source.onmessage = (event) => {
       }
       // F1 not computed, are we waiting for reference?
       if (!wait_ref && compute_f1 && method != "Reference") {
-          //console.log(method, "Computing F1");
+          console.log(method, "Computing F1");
           var f1 = get_f1(ref_bp, get_bp(methods_dots[method]));
           methods_f1[method] = f1.toFixed(3);
           methods_divs[method].querySelector(".f1").innerHTML = `F1: ${methods_f1[method]}`;

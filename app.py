@@ -109,7 +109,7 @@ def runMethods(seq, methods, session_id):
     :param methods: method parameters
 
     """
-    print("running methods")
+    #print("running methods")
     TEMP_DIR = os.path.join(BASE_TEMP_DIR, session_id)
     methods_list = list(methods.keys())
     if "Reference" in methods_list:
@@ -117,7 +117,7 @@ def runMethods(seq, methods, session_id):
         methods_list.insert(0, "Reference")
     for method in methods_list:
         params = methods[method]
-        print(f"running {method}")
+        #print(f"running {method}")
         with open(f"{TEMP_DIR}/temps/{method}_status.txt", "w") as f:
             f.write("running")
         start = time.time()
@@ -125,7 +125,7 @@ def runMethods(seq, methods, session_id):
         if func is not None:
             val = func.run_method(seq, params, TEMP_DIR)
         else:
-            print(f"Method {method} not found")
+            #print(f"Method {method} not found")
             val = mt.Other.run_method(seq, params, TEMP_DIR)
         end = time.time()
         # Append method stats
@@ -192,7 +192,7 @@ def show_results():
                 f.write(user_structure + "\n")
 
         if other_structures!="":
-            print(other_structures)
+            #print(other_structures)
             for i in range(len(other_structures)):
                 other_structure = other_structures[i]
                 other_method = other_methods[i]
