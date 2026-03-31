@@ -11,7 +11,8 @@ def convert_color(color):
 		return "#{0:02x}{1:02x}{2:02x}".format(clamp(r), clamp(g), clamp(b))
 
 def seq2col(seq):
-    color = {'A': 'y', 'U':'b', 'G':'r', 'C':'g', 'T': 'b', 'N': 'k', ' ': 'w'}
+    color = {'A': 'a', 'U':'u', 'G':'g', 'C':'c', 'T': 'u', 'N': 'n', ' ': 's',
+             'r': 'r', 'w': 'w', 'f':'f'}
     col = []
     for c in seq:
         col.append(color[c])

@@ -4,27 +4,45 @@
 //                           Method editor                            //
 ////////////////////////////////////////////////////////////////////////
 function createEditorForm(form, options) {
-	// Add method parameters to editor form. This function is called when
-	// user clicks on edit button (see editMethod function)
-	form.innerHTML = "";
-	for (var param of options["parameters"]) {
-		if (param["type"] == "number") {
-			form.innerHTML += `<label>${param["description"]}: </label>
-						<input type="${param["type"]}" 
-						value=${param["value"]} 
-						style="width: 70px;"> <br />`;
-		} else if (param["type"] == "checkbox") {
-			if (param["value"] == true) {
-				var chk = "checked";
-			}else {
-				var chk = "unchecked";
-			}
-			form.innerHTML += `<label>${param["description"]}: </label>
-						<input type="${param["type"]}" ${chk}> 
-						<br />`;
-		}
-	}
-
+  // Add method parameters to editor form. This function is called when
+  // user clicks on edit button (see editMethod function)
+  form.innerHTML = "";
+  var count = 0;
+  for (var param of options["parameters"]) {
+    if (param["type"] == "number") {
+      form.innerHTML += `<div id="param_${count}" style="margin-bottom: 5px;">
+              <label>${param["description"]}: </label> 
+              <input type="${param["type"]}" value=${param["value"]} style="width: 70px;" 
+              class="number_input">
+            </div>`;
+    } else if (param["type"] == "checkbox") {
+      if (param["value"] == true) {
+        var chk = "checked";
+      }else {
+        var chk = "unchecked";
+      }
+      form.innerHTML += `<div class="parameter_container" id="param_${count}"
+      style="margin-bottom: 5px;">
+              <label>${param["description"]}: </label>
+              <input type="${param["type"]}" class="checkbox_input" ${chk}>
+            </div>`;
+    } else if (param["type"] == "radio") {
+      form.innerHTML += `<div class="parameter_container" id="param_${count}" 
+      style="margin-bottom: 5px;">
+            <label>${param["description"]}: </label><br /></div>`;
+      var param_container = form.querySelector(`#param_${count}`);
+      for (var value of param["options"]) {
+        if (value == param["value"]) {
+          var chk = "checked";
+        } else {
+          var chk = "unchecked";
+        }
+        param_container.innerHTML += `<input type="${param["type"]}" name="${param["description"]}" 
+            value="${value}" class="radio_input" ${chk}> ${value} <br />`;
+      }
+    }
+    count += 1;
+  }
 }
 
 function openMethodEditor(editor, editing_method, methods_parameters) {
@@ -57,19 +75,25 @@ function saveMethodButton(editing_method, row_target, editor,
 	                      methods_parameters) {
 	// This function is called when user clicks on save button. It saves the 
 	// edited parameters, returns to selected state and closes the editor.
-	var count = 2;
-	var form = document.getElementById("method_editor_form");
-	for (var param of methods_parameters[editing_method]["parameters"]) {
-		if (param["type"] == "number") {
-			param["value"] = Number(form.childNodes[count].value);
-		}
-		if (param["type"] == "checkbox") {
-			param["value"] = form.childNodes[count].checked;
-		}
-		count += 5;
-	}
-	markMethodAsNotEditing(row_target);
-	closeMethodEditor(editor);
+  var form = document.getElementById("method_editor_form");
+  var count = 0;
+  for (var param of methods_parameters[editing_method]["parameters"]) {
+    var param_container = form.querySelector(`#param_${count}`);
+    console.log("Parameter:", param_container);
+    if (param["type"] == "number") {
+      param["value"] = Number(param_container.querySelector(".number_input").value);
+    }
+    if (param["type"] == "checkbox") {
+      param["value"] = param_container.querySelector(".checkbox_input").checked;
+    }
+    if (param["type"] == "radio") {
+      param["value"] = param_container.querySelector(".radio_input:checked").value;
+    }
+    count += 1;
+  }
+  markMethodAsNotEditing(row_target);
+  console.log("saving", editing_method, methods_parameters);
+  closeMethodEditor(editor);
 }
 
 function cancelEditingButton(row_target, editor) {
@@ -130,13 +154,16 @@ function markMethodAsNotEditing(target) {
 export function createMethodSelectors(met_div, methods, methods_parameters) {
 	// This function will create the method selector. It will be called when 
 	// user clicks on edit button (see editMethod function)
-  //console.log(methods_parameters);
+  console.log(methods_parameters);
 	for (var meth of methods) {
       if (meth in methods_parameters) {
-        if ("maximum" in methods_parameters[meth]) {
-          var max_msg = "(max " + methods_parameters[meth]["maximum"] + "nt)";
-        } else {
-          var max_msg = "";
+        var max_msg = "";
+        //if ("maximum" in methods_parameters[meth]) {
+        //  max_msg = "(max " + methods_parameters[meth]["maximum"] + "nt)";
+        //} 
+        var warn_msg = "";
+        if ("warning" in methods_parameters[meth]) {
+          warn_msg = "(" + methods_parameters[meth]["warning"] + ")";
         }
         if (methods_parameters[meth]["parameters"].length > 0) {
           met_div.innerHTML += `<div class="method_row" id="${meth}">
@@ -156,7 +183,7 @@ export function createMethodSelectors(met_div, methods, methods_parameters) {
               <img src="${APP_ROOT}/static/imgs/box-checked.svg"
               style="width: 20px; height: 20px;">
               <p width=100% float=left 
-              class="selected_label">${meth} ${max_msg}</p>
+              class="selected_label">${meth} ${max_msg} ${warn_msg}</p>
             </div>
             </div>`;
         }

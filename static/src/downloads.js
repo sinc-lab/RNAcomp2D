@@ -1,10 +1,14 @@
 import { robotomono } from "./robotomono.js";
 
-function generate_content(div, sequence, title, max_width) {
+function generate_content(div, sequence, title, max_width, show_diff = false) {
   const max_lines_char = 70;
   console.log("Generating content for:", title);
-  const stem = div.querySelector(".stem");
 
+  if (show_diff) {
+    var stem = div.querySelector(".stem_c");
+  } else {
+    var stem = div.querySelector(".stem");
+  }
   var imgs = [];
   if (stem.style.display != "none") {
     const st_obj = htmlToPdfmake(stem.innerHTML);
@@ -13,7 +17,11 @@ function generate_content(div, sequence, title, max_width) {
     imgs.push(st_obj);
   }
 
-  let circ = div.querySelector(".circ");
+  if (show_diff) {
+    var circ = div.querySelector(".circ_c");
+  } else {
+    var circ = div.querySelector(".circ");
+  }
   if (circ.style.display != "none") {
     const circ_obj = htmlToPdfmake(circ.innerHTML);
     //const circ_width = Math.min(circ.offsetWidth, max_width);
@@ -116,9 +124,18 @@ export function download_methods_fasta(methods, title, sequence, pinned_containe
   return;
 }
 
-function merge_svgs(div) {
-  var stem = div.querySelector(".stem svg");
-  var circ = div.querySelector(".circ svg");
+function merge_svgs(div, show_diff) {
+  if (show_diff) {
+    var stem = div.querySelector(".stem_c svg"); 
+  } else {
+    var stem = div.querySelector(".stem svg");
+  }
+  if (show_diff) {
+    var circ = div.querySelector(".circ_c svg");
+  } else {
+    var circ = div.querySelector(".circ svg");
+  }
+
   if (stem == null && circ == null) {
     return null;
   } else if (stem == null) {
@@ -159,12 +176,26 @@ function merge_svgs(div) {
 
 export function download_method_svg(title, div, rad_val) {
   console.log("Downloading SVG for method:", title);
+
+  var show_diff = false;
+  var show_diff_chkbox = document.getElementById("comparison_checkbox");
+  if (show_diff_chkbox) {
+    show_diff = show_diff_chkbox.checked;
+  }
   if (rad_val == "svg") {
-    var svg = div.querySelector(".stem svg");
+    if (show_diff) {
+      var svg = div.querySelector(".stem_c svg"); 
+    } else {
+      var svg = div.querySelector(".stem svg");
+    }
   } else if (rad_val == "circ") {
-    var svg = div.querySelector(".circ svg");
+    if (show_diff) {
+      var svg = div.querySelector(".circ_c svg");
+    } else {
+      var svg = div.querySelector(".circ svg");
+    }
   } else {
-    var svg = merge_svgs(div);
+    var svg = merge_svgs(div, show_diff);
   }
   if (svg == null) {
     return;
@@ -182,12 +213,26 @@ export function download_method_svg(title, div, rad_val) {
 
 export function download_method_jpg(title, div, rad_val) {
   console.log("Downloading JPG for method:", title);
+
+  var show_diff = false;
+  var show_diff_chkbox = document.getElementById("comparison_checkbox");
+  if (show_diff_chkbox) {
+    show_diff = show_diff_chkbox.checked;
+  }
   if (rad_val == "svg") {
-    var svg = div.querySelector(".stem svg");
+    if (show_diff) {
+      var svg = div.querySelector(".stem_c svg"); 
+    } else {
+      var svg = div.querySelector(".stem svg");
+    }
   } else if (rad_val == "circ") {
-    var svg = div.querySelector(".circ svg");
+    if (show_diff) {
+      var svg = div.querySelector(".circ_c svg");
+    } else {
+      var svg = div.querySelector(".circ svg");
+    }
   } else {
-    var svg = merge_svgs(div);
+    var svg = merge_svgs(div, show_diff);
   }
   if (svg == null) {
     return;
@@ -219,12 +264,25 @@ export function download_method_jpg(title, div, rad_val) {
 
 export function download_method_png(title, div, rad_val) {
   console.log("Downloading PNG for method:", title);
+  var show_diff = false;
+  var show_diff_chkbox = document.getElementById("comparison_checkbox");
+  if (show_diff_chkbox) {
+    show_diff = show_diff_chkbox.checked;
+  }
   if (rad_val == "svg") {
-    var svg = div.querySelector(".stem svg");
+    if (show_diff) {
+      var svg = div.querySelector(".stem_c svg"); 
+    } else {
+      var svg = div.querySelector(".stem svg");
+    }
   } else if (rad_val == "circ") {
-    var svg = div.querySelector(".circ svg");
+    if (show_diff) {
+      var svg = div.querySelector(".circ_c svg");
+    } else {
+      var svg = div.querySelector(".circ svg");
+    }
   } else {
-    var svg = merge_svgs(div);
+    var svg = merge_svgs(div, show_diff);
   }
   if (svg == null) {
     return;
@@ -271,7 +329,13 @@ export function download_method_pdf(title, sequence, div) {
   var image_width = 200;
   const lines = sequence.length / 70;
   console.log("Downloading PDF for method:", title);
-  var pdfContent = generate_content(div, sequence, title, image_width);
+  var show_diff = false;
+  var diff_chkbox = document.getElementById("comparison_checkbox");
+  if (diff_chkbox) {
+    show_diff = diff_chkbox.checked;
+  }
+  var pdfContent = generate_content(div, sequence, title, image_width, 
+    show_diff);
   var page_width = image_width * 3;
   var page_height = image_width + 3 * 50 + Math.ceil(lines)*2 * 20;
   console.log("Page size:", page_width, page_height);
@@ -298,7 +362,7 @@ export function download_method_pdf(title, sequence, div) {
 }
 
 export function download_methods_pdf(methods, title, sequence, pinned_container, 
-  methods_divs, size, rad_val, dot_val) {
+  methods_divs, size, rad_val) {
   pdfMake.vfs["RobotoMono.ttf"] = robotomono;
   pdfMake.fonts = {
     Roboto: {
@@ -317,6 +381,12 @@ export function download_methods_pdf(methods, title, sequence, pinned_container,
   console.log("Downloading methods:", methods);
   var image_width = 200;
 
+  var show_diff = false;
+  var diff_chkbox = document.getElementById("comparison_checkbox");
+  if (diff_chkbox) {
+    show_diff = diff_chkbox.checked;
+  }
+
   var methodsContents = [];
   // Pinned method
   if (pinned_container.style.display != "none" && pinned_container.innerHTML != "") {
@@ -324,7 +394,7 @@ export function download_methods_pdf(methods, title, sequence, pinned_container,
       .querySelector("#pinned_method_name").innerText;
     var pinned_method = methods_divs[pinned_method_name];
     var pinned_method_content = generate_content(pinned_container, sequence, 
-      pinned_method_name, image_width);
+      pinned_method_name, image_width, show_diff);
   }
 
   // Other methods
@@ -333,7 +403,7 @@ export function download_methods_pdf(methods, title, sequence, pinned_container,
       console.log(methods[method]);
       var method_id = methods[method];
       var method_content = generate_content(methods_divs[method_id], sequence, 
-        method_id, image_width);
+        method_id, image_width, show_diff);
       methodsContents.push(method_content);
       methodsContents.push({text: "\n\n\n\n"});
     }else {

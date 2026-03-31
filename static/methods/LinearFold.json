@@ -1,5 +1,5 @@
 {"parameters":[
 	{"type": "number", "description": "Beam size", "value":100},
-	{"type": "checkbox", "description": "LinearFold-C (using Contrafold)", "value":true}
+    {"type": "radio", "description": "Model", "value": "LinearFold-C", "options": ["LinearFold-C", "LinearFold-V"]}
 ]}
 

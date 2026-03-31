@@ -7,3 +7,30 @@ services:
     - PYTHONUNBUFFERED=1
     ports:
       - "8000:8000"
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/RNAcomp2D_sessions:/tmp/RNAcomp2D_sessions
+
+  spot-rna2:
+    build:
+      context: methods/SPOT-RNA2
+      dockerfile: Dockerfile  
+    image: spot_rna2:latest
+
+  ipknot:
+    build:
+      context: methods/ipknot
+      dockerfile: Dockerfile.dev
+    image: ipknot:latest
+
+  rnaformer:
+    build:
+      context: methods/RNAformer
+      dockerfile: Dockerfile
+    image: rnaformer:latest
+
+  contrafold:
+    build:
+      context: methods/CONTRAfold
+      dockerfile: Dockerfile
+    image: contrafold:latest

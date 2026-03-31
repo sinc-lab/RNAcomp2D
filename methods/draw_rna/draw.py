@@ -18,27 +18,16 @@ TEXT_SIZE = 50
 
 RENDER_IN_LETTERS = True
 
-COLORS = {#"r": [255, 0, 0],
-          #"r": [255, 102, 102],
-          "r": [251, 132, 62],
-          #"g": [113, 188, 120],
-          "g": [35, 206, 107],
-          #"b": [51, 153, 255],
-          "b": [0, 140, 255],
-          "p": [255, 210, 200],
-          "k": [1, 0, 0],
-          #"y": [255, 211, 0],
-          "y": [247, 206, 91],
-          "c": [0, 255, 255],
-          "m": [255, 0, 255],
-          "w": [255, 255, 255],
-          "e": [100, 100, 100],
-          "f": [200, 200, 200],
-          "o": [231, 115, 0],
-          "i": [51, 204, 204],
-          "h": [51, 153, 255],
-          "u": [138, 43, 226]}
-          #"h": [46, 184, 46]}
+COLORS = {"a": [247, 206,  91], # A nucleotide
+          "u": [  0, 140, 255], # U nucleotide
+          "g": [243,  66,  19], # G nucleotide
+          "c": [131, 197, 190], # C nucleotide
+          "n": [  0,   0,   0], # N (???)
+          "s": [255, 255, 255], # Space
+          "e": [100, 100, 100], # Edge
+          "f": [200, 200, 200], # Can not mark as right or wrong
+          "r": [  0, 140, 255], # Right prediction
+          "w": [243,  66,  19]} # Wrong prediction
 
 def draw_rna(sequence, secstruct, color_list, filename="secstruct", line=False,
     cmap_name='viridis', rotation=0, alpha=None,
@@ -62,7 +51,8 @@ def draw_rna(sequence, secstruct, color_list, filename="secstruct", line=False,
     pairs = []
     for i in range(len(pairmap)):
         if pairmap[i] > i:
-            pairs.append({"from":i, "to":pairmap[i], "p":1.0, "color":COLORS["e"]})
+            pairs.append({"from":i, "to":pairmap[i], "p":1.0,
+                          "color":COLORS["e"]})
 
     r.setup_tree(secstruct, NODE_R, PRIMARY_SPACE, PAIR_SPACE, external_multiplier, external_offset)
 

@@ -20,7 +20,6 @@ export async function searchOnRnacentral(results, query) {
 	//var url = "https://www.ebi.ac.uk/ebisearch/ws/rest/rnacentral"
 	var url = "https://www.ebi.ac.uk/ebisearch/ws/rest/rnacentral?"
 	url += "query=" + query + "&fields=description,length&format=json"
-	// TODO: Add waiting message
 	results.innerHTML = `<div class="loader_container" 
 				style="justify-content: flex-start">
 				<div class="loader"></div>
@@ -52,7 +51,7 @@ export async function searchOnRnacentral(results, query) {
 
 export async function fetchRnacentral(rnacentral_id) {
 	var json_results = {};
-	var url = "https://rnacentral.org/api/v1/rna/" + rnacentral_id.split("_")[0];
+	var url = "https://rnacentral.org/api/v1/rna/" + rnacentral_id.split("_")[0] + "?format=json";
 	var json = await fetch(url)
 		.then((res) => {if (!res.ok) {
 			throw new Error(`HTTP error! Status: ${res.status}`);} 
@@ -65,7 +64,7 @@ export async function fetchRnacentral(rnacentral_id) {
 		.catch((error) => {
 			console.log(error);
 		});
-	var url2 = "https://rnacentral.org/api/v1/rna/"+rnacentral_id.split("_")[0]+"/2d/";
+	var url2 = "https://rnacentral.org/api/v1/rna/"+rnacentral_id.split("_")[0]+"/2d/?format=json";
 	var json2 = await fetch(url2)
 		.then((res) => {if (!res.ok) {
 			throw new Error(`HTTP error! Status: ${res.status}`);} 

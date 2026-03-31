@@ -90,29 +90,62 @@ export function pin_method(method, method_pinned, pinned_container,
   return method_pinned
 };
 
-export function redraw_svgs(methods_divs, size, rad_val, dot_val, method_pinned, pinned_container) {
+export function redraw_svgs(methods_divs, size, method_pinned, pinned_container) {
   // TODO: fix this when there are error messages
+  var show_compare = false;
+  // If comparison checkbox exists and is checked, show comparison
+  if (document.getElementById("comparison_checkbox")) {
+    if (document.getElementById("comparison_checkbox").checked) {
+      show_compare = true;
+    }
+  }
+  //console.log("Show compare:", show_compare);
+  var rad_val = "both";
+  var radios = document.getElementsByName("format");
+  for (var radio of radios) {
+    if (radio.checked) {
+      rad_val = radio.value;
+    }
+  }
+  //console.log("Radius:", rad_val);
   for (var method in methods_divs) {
     var imgs = methods_divs[method].querySelectorAll("svg");
     for (var img of imgs) {
       img.style.width  = size + "px";
       img.style.height = size + "px";
     }
-    var stem = methods_divs[method].querySelector("div.stem");
-    var circ = methods_divs[method].querySelector("div.circ");
+    if (show_compare){
+      var stem = methods_divs[method].querySelector("div.stem_c");
+      var circ = methods_divs[method].querySelector("div.circ_c");
+      var other_stem = methods_divs[method].querySelector("div.stem");
+      var other_circ = methods_divs[method].querySelector("div.circ");
+    }else {
+      var stem = methods_divs[method].querySelector("div.stem");
+      var circ = methods_divs[method].querySelector("div.circ");
+      var other_stem = methods_divs[method].querySelector("div.stem_c");
+      var other_circ = methods_divs[method].querySelector("div.circ_c");
+    }
     let dot = methods_divs[method].querySelector("p.dot");
     let nimgs = 0;
     if (rad_val != "circ") {
+      // If rad_val is not circ, show stem
       if (stem){
         stem.style.display = "block";
         nimgs += 1;
+      }
+      if (other_stem){
+        other_stem.style.display = "none";
       }
     } else {
       if (stem){
         stem.style.display = "none";
       }
+      if (other_stem){
+        other_stem.style.display = "none";
+      }
     }
     if (rad_val != "svg") {
+      // If rad_val is not svg, show circ
       if (circ){
         if (circ.childNodes[0].className == "error") {
           circ.style.display = "none";
@@ -121,9 +154,15 @@ export function redraw_svgs(methods_divs, size, rad_val, dot_val, method_pinned,
           nimgs += 1;
         }
       }
+      if (other_circ){
+        other_circ.style.display = "none";
+      }
     } else {
       if (circ){
         circ.style.display = "none";
+      }
+      if (other_circ){
+        other_circ.style.display = "none";
       }
     }
     if (dot) {
@@ -136,11 +175,6 @@ export function redraw_svgs(methods_divs, size, rad_val, dot_val, method_pinned,
       }
       let new_width = size * nimgs + 30;
       dot.style.width = new_width + "px";
-      if (dot_val) {
-        dot.style.display = "block";
-      } else {
-        dot.style.display = "none";
-      }
     }
   }
   // Redraw pinned method
@@ -148,23 +182,37 @@ export function redraw_svgs(methods_divs, size, rad_val, dot_val, method_pinned,
   if (method_pinned != "None") {
     var pinned_container = document.getElementById("pinned_method");
     var imgs = pinned_container.querySelectorAll("svg");
-    var nimgs = 0;
     for (var img of imgs) {
       img.style.width  = size + "px";
       img.style.height = size + "px";
     }
-    var stem = pinned_container.querySelector("div.stem");
-    var circ = pinned_container.querySelector("div.circ");
+    if (show_compare){
+      var stem = pinned_container.querySelector("div.stem_c");
+      var circ = pinned_container.querySelector("div.circ_c");
+      var other_stem = pinned_container.querySelector("div.stem");
+      var other_circ = pinned_container.querySelector("div.circ");
+    }else {
+      var stem = pinned_container.querySelector("div.stem");
+      var circ = pinned_container.querySelector("div.circ");
+      var other_stem = pinned_container.querySelector("div.stem_c");
+      var other_circ = pinned_container.querySelector("div.circ_c");
+    }
     let dot = pinned_container.querySelector("p.dot");
-    nimgs = 0;
+    let nimgs = 0;
     if (rad_val != "circ") {
       if (stem){
         stem.style.display = "block";
         nimgs += 1;
       }
+      if (other_stem){
+        other_stem.style.display = "none";
+      }
     } else {
       if (stem){
         stem.style.display = "none";
+      }
+      if (other_stem){
+        other_stem.style.display = "none";
       }
     }
     if (rad_val != "svg") {
@@ -176,9 +224,15 @@ export function redraw_svgs(methods_divs, size, rad_val, dot_val, method_pinned,
           nimgs += 1;
         }
       }
+      if (other_circ){
+        other_circ.style.display = "none";
+      }
     } else {
       if (circ){
         circ.style.display = "none";
+      }
+      if (other_circ){
+        other_circ.style.display = "none";
       }
     }
     if (dot) {
@@ -186,15 +240,12 @@ export function redraw_svgs(methods_divs, size, rad_val, dot_val, method_pinned,
         nimgs = 1;
         if (stem.childNodes[0].className == "error") {
           stem.style.display = "block";
+        }else if (other_stem.childNodes[0].className == "error") {
+          other_stem.style.display = "block";
         }
       }
       let new_width = size * nimgs + 30;
       dot.style.width = new_width + "px";
-      if (dot_val) {
-        dot.style.display = "block";
-      } else {
-        dot.style.display = "none";
-      }
     }
   }
 }

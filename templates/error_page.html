@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block head %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>RNAcomp2D</title>
+<link rel="stylesheet" href={{ url_for('static', filename='style.css') }} type="text/css">
+<link rel="shortcut icon" href="#">
+{% endblock %}
+
+{% block body %}
+<h1 class="title">Error searching sequence in RNACentral</h1>
+<p class="description"> 
+The sequence was not found in RNACentral. Please try with another sequence or 
+upload a FASTA file.
+</p>
+{% endblock %}

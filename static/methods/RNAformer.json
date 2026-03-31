@@ -1,0 +1,4 @@
+{"parameters":[
+	{"type": "number", "description": "Cycling", "value":6},
+    {"type": "radio", "description": "Model", "value": "Biophysical", "options": ["Biophysical", "BPRNA", "Intra family finetuned", "Inter family finetuned"]}
+]}

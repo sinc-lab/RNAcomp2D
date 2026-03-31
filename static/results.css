@@ -64,6 +64,11 @@ p {
   --unselected-font: #000000;
   --unselected-font-hover: #666666;
   --unselected-font-active: #404040;
+  --correct-nt: #008CFF;
+  --incorrect-nt: #F34213;
+  --true-positive-edge: #008CFF;
+  --false-positive-edge: #F34213;
+  --false-negative-edge: #C8C8C8;
 }
 
 body {
@@ -366,18 +371,19 @@ p.dot {
     font-size: 12px;
 }
 
-p.f1 {
+p.f1, p.sen, p.ppv {
   font-size: 14px;
   font-weight: bold;
 }
 
-div.f1 {
+div.metrics {
   font-size: 14px;
   font-weight: bold;
   margin: 5px 0px 5px 0px;
   display: flex;
-  align-items: right;
-  gap: 5px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 /****************
@@ -409,13 +415,11 @@ footer {
   width: 100vw;
   margin: 0px;
   padding: 0px;
-  /*border-top: 1px solid var(--shadow);*/
   background-color: var(--background);
   box-shadow: 0px 0px 10px 0px var(--shadow);
   display: grid;
-  grid-template-columns: 79vw 19vw;
+  grid-template-columns: 79vw 17vw 4vw;
   justify-content: space-between;
-  gap: 10px;
 }
 
 div#sequence_info {
@@ -489,3 +493,73 @@ div#sequence {
   align-items: center;
   gap: 8px;
 }
+
+#help_container {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#help_title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--secondary);
+  color: var(--secondary-font);
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+#help_text {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  right: 10px;
+  z-index: 100;
+  width: max-content;
+  background-color: var(--secondary-background);
+  box-shadow: 0px 0px 5px 0px var(--shadow);
+  padding: 10px;
+}
+
+#help_container:hover #help_text {
+  display: block;
+}
+
+.help_item {
+  display: flex;
+  align-items: left;
+  margin: 5px 0px 5px 0px;
+  gap: 5px;
+}
+
+.color_box {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.correct_nt {
+  background-color: var(--correct-nt);
+}
+
+.incorrect_nt {
+  background-color: var(--incorrect-nt);
+}
+
+.true_positive_edge {
+  background-color: var(--true-positive-edge);
+}
+
+.false_positive_edge {
+  background-color: var(--false-positive-edge);
+}
+
+.false_negative_edge {
+  background-color: var(--false-negative-edge);
+}
+

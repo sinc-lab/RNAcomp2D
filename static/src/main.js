@@ -44,10 +44,11 @@ async function submitForm(text_area, file_input, methods_parameters,
 
   if (rnacentral_id != "") {
     //console.log(rnacentral_id);
-    var json = await fetchRnacentral(rnacentral_id);
+    //var json = await fetchRnacentral(rnacentral_id);
     //console.log(json);
-    sequence = json["sequence"];
-    rnacentral_structure = json["secondary_structure"];
+    //sequence = json["sequence"];
+    //rnacentral_structure = json["secondary_structure"];
+    sequence = "rna";
   }
 
   if (sequence == "") {
@@ -74,7 +75,6 @@ async function submitForm(text_area, file_input, methods_parameters,
     "sequence": sequence,
     "methods": selected_methods,
     "rnacentral_id": rnacentral_id,
-    "rnacentral_structure": rnacentral_structure,
     "user_structure": data2submit["user_structure"],
     "other_structures": data2submit["other_structures"],
     "other_methods": data2submit["other_methods"]
@@ -104,8 +104,9 @@ async function submitForm(text_area, file_input, methods_parameters,
 ////////////////////////////////////////////////////////////////////////
 //const methods = ["RNAfold", "RNAstructure", "LinearFold", 
 //                 "LinearPartition", "sincFold", "UFold", "REDfold"];
-const methods = ["RNAfold", "RNAstructure", "LinearFold", "LinearPartition",
-  "sincFold", "UFold", "REDfold"];
+const methods = ["RNAfold", "RNAstructure", "LinearFold", "LinearPartition", 
+"CONTRAfold", "IPknot", "sincFold", "UFold", "REDfold", "RNAformer", 
+"SPOT-RNA2"];
 var methods_parameters = {};
 
 for (var meth of methods) {
@@ -160,6 +161,13 @@ for (var div of methods_divs) {
 var edit_img = document.getElementsByClassName("edit_img");
 for (var img of edit_img) {
   img.addEventListener("click", (e) => editMethod(e, methods_parameters));
+}
+
+var unselected_methods = ["SPOT-RNA2"];
+//var unselected_methods = ["SPOT-RNA2"];
+for (var meth of unselected_methods) {
+  var div = document.getElementById(meth);
+  div.querySelector(".selected_label").click();
 }
 
 // Open RNAcentral dialog

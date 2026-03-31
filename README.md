@@ -26,9 +26,13 @@ moment, the following methods are available:
 - RNAstructure ([paper](https://doi.org/10.1186/1471-2105-11-129))
 - LinearFold ([paper](https://doi.org/10.1093/bioinformatics/btz375))
 - LinearPartition ([paper](https://doi.org/10.1093/bioinformatics/btaa460))
+- CONTRAfold ([paper](https://doi.org/10.1093/bioinformatics/btl246))
+- IPknot ([paper](https://doi.org/10.1093/bioinformatics/btr215))
 - sincFold ([paper](https://doi.org/10.1093/bib/bbae271))
 - UFold ([paper](https://doi.org/10.1093/nar/gkab1074))
 - REDfold ([paper](https://doi.org/10.1186/s12859-023-05238-8))
+- RNAformer ([preprint](https://doi.org/10.1101/2024.02.12.579881))
+- SPOT-RNA2 ([paper](https://doi.org/10.1093/bioinformatics/btab165))
 
 If reference structure is available, it will be shown in the
 results page with the predicted structures of the selected methods.
