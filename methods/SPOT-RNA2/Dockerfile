@@ -1,0 +1,47 @@
+FROM python:3.7-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN apt-get update && apt-get install -y \
+    wget \
+    unzip \
+    python3 \
+    python3-pip \
+    build-essential \
+    libgomp1 \
+    libstdc++6 \
+    libglib2.0-0 \
+    ca-certificates \
+    cpanminus \
+    gawk \
+    git \
+    mafft \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN cpanm Graph
+
+COPY . /SPOT-RNA2
+
+WORKDIR /SPOT-RNA2
+
+RUN tar -xvzf infernal-*.tar.gz && rm infernal-*.tar.gz
+
+RUN tar -xvzf ncbi-blast-*+-x64-linux.tar.gz && rm ncbi-blast-*+-x64-linux.tar.gz
+
+RUN git clone "https://github.com/sokrypton/GREMLIN_CPP" && cd GREMLIN_CPP && g++ -O3 -std=c++0x -o gremlin_cpp gremlin_cpp.cpp -fopenmp && cd ../
+RUN git clone 'https://github.com/LinearFold/LinearPartition.git' && cd LinearPartition/ && make && cd ../
+
+# Instalar dependencias Python de SPOT-RNA2
+RUN pip3 install numpy scipy pandas biopython
+
+RUN pip3 install -r requirements.txt
+
+# Evitar recompilaciones innecesarias
+ENV OMP_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
+
+RUN chmod +x /SPOT-RNA2/run_spotrna2_remote.sh
+
+# Entrypoint to run SPOT-RNA2 with BLAST remote
+ENTRYPOINT ["bash", "/SPOT-RNA2/run_spotrna2_remote.sh"]

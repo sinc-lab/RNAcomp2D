@@ -304,6 +304,7 @@ source.onmessage = (event) => {
       methods_divs[method].querySelector(".unpinned").addEventListener(
         "click",
         (e) => {
+          console.log("Pinning " + e.target.parentElement.parentElement.parentElement.id);
           method_pinned = pin_method(
             e.target.parentElement.parentElement.parentElement.id, 
             method_pinned, pinned_container, methods_divs);
