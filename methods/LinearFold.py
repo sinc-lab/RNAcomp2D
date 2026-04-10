@@ -39,7 +39,7 @@ def run_method(sequence, params, temp_dir, ref=None):
         draw_val1 = ut.draw("LinearFold", temp_dir, color_str)
         draw_val2 = ut.draw_circ("LinearFold", temp_dir)
         if draw_val1.returncode != 0 or draw_val2.returncode != 0:
-            return "Sequence folded, but drawing failed"
+            return "Sequence folded incorrectly, drawing failed"
     else:
         return "LinearFold failed"
     return "OK"

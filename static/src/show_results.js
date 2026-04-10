@@ -65,6 +65,16 @@ var wait_ref = false;
 // Set checkbox callback
 document.getElementById("comparison_checkbox").addEventListener(
   "change", () => {
+    var help_button_container = document.getElementById("help_title");
+    // If checkbox is checked, enable help button changing its class to 
+    // "enabled"
+    if (help_button_container.classList.contains("disabled")) {
+      help_button_container.classList.remove("disabled");
+      help_button_container.classList.add("enabled");
+    } else {
+      help_button_container.classList.remove("enabled");
+      help_button_container.classList.add("disabled");
+    }
     redraw_svgs(methods_divs, size, method_pinned, pinned_container);
   });
 
@@ -88,8 +98,7 @@ for (var method in methods_divs) {
 const help_container = document.getElementById("help_text");
 if (compute_f1) {
   help_container.innerHTML = `
-      <h1>Legend for comparisons</h1>
-      <h2>Nucleotides colors</h2>
+      <b>Nucleotides color</b>
       <div class="help_item">
         <span class="color_box correct_nt"></span>
         Correct against reference structure
@@ -98,28 +107,46 @@ if (compute_f1) {
         <span class="color_box incorrect_nt"></span>
         Incorrect against reference structure
       </div>
-      <h2>Base pairs colors</h2>
+      <b>Base-pairs colors</b>
       <div class="help_item">
         <span class="color_box true_positive_edge"></span>
-        Base pair predicted correctly
+        Predicted correctly
       </div>
       <div class="help_item">
         <span class="color_box false_positive_edge"></span>
-        Base pair predicted incorrectly
+        Predicted incorrectly
       </div>
       <div class="help_item">
         <span class="color_box false_negative_edge"></span>
-        Base pair not predicted
+        Not predicted
       </div>
       <div class="help_item">
-        Note: color strength is proportional to the time the base pair was
-        predicted across all methods
+        Note: the color intensity of connections is <br>
+        proportional to how many times the base-pair <br>
+        was predicted by the methods.
       </div>`;
 } else {
-  help_container.innerHTML = `Color strength of base pairs on circular plot 
-  (when show comparisons is checked) is proportional to the time the base pair 
-  was predicted across all methods`;
+  help_container.innerHTML = `
+  Color intensity of connections on the circular plot <br>
+  is proportional to how many times the base-pair was <br>
+  predicted across all methods.`;
 }
+
+help_container.style.display = "none";
+const help_button = document.getElementById("help_title");
+help_button.classList.add("disabled");
+help_button.addEventListener("mouseenter", () => {
+  var shw_comparison = document.getElementById("comparison_checkbox");
+  if (shw_comparison) {
+    if (shw_comparison.checked) {
+      help_container.style.display = "block";
+    }
+  }
+});
+
+help_button.addEventListener("mouseleave", () => {
+  help_container.style.display = "none";
+});
 
 var ref_bp = [];
 
@@ -326,9 +353,11 @@ source.onmessage = (event) => {
           pinned_container.querySelector(".stem_c").innerHTML = data[method]["svg_c"];
         }
       } else {
-        methods_divs[method].querySelector(".stem_c").innerHTML = "<div class='error'>There was an error drawing the colored structure</div>";
+        // Copy error message from the stem
+        var error = methods_divs[method].querySelector(".stem").innerHTML;
+        methods_divs[method].querySelector(".stem_c").innerHTML = error;
         if (method == method_pinned) {
-          pinned_container.querySelector(".stem_c").innerHTML = "<div class='error'>There was an error drawing the colored structure</div>";
+          pinned_container.querySelector(".stem_c").innerHTML = error;
         }
       }
       if (data[method]["circ_c"] != "not found") {

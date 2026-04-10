@@ -26,11 +26,11 @@ SESSIONS = {}
 BASE_TEMP_DIR = '/tmp/RNAcomp2D_sessions'
 os.makedirs(BASE_TEMP_DIR, exist_ok=True)
 
-TIME_STATS_FILE = "time_stats.txt"
-if os.path.exists(TIME_STATS_FILE):
-    os.remove(TIME_STATS_FILE)
-with open(TIME_STATS_FILE, "w") as f:
-    f.write("method,time,seq_len,return\n")
+#TIME_STATS_FILE = "time_stats.txt"
+#if os.path.exists(TIME_STATS_FILE):
+#    os.remove(TIME_STATS_FILE)
+#with open(TIME_STATS_FILE, "w") as f:
+#    f.write("method,time,seq_len,return\n")
 
 # Middleware to set SCRIPT_NAME
 class PrefixMiddleware:
@@ -141,17 +141,17 @@ def runMethods(seq, methods, session_id, ref):
             methodname = method
         with open(f"{TEMP_DIR}/temps/{method}_status.txt", "w") as f:
             f.write("running")
-        start = time.time()
+        #start = time.time()
         func = getattr(mt, methodname, None)
         if func is not None:
             val = func.run_method(seq, params, TEMP_DIR, ref)
         else:
             val = mt.Other.run_method(seq, params, TEMP_DIR, ref)
-        end = time.time()
-        print(f"Method {method} returned {val} in {end - start:.3f} seconds",
-              f"for a sequence of length {len(seq)}")
-        with open(TIME_STATS_FILE, "a") as f:
-            f.write(f"{method},{end - start},{len(seq)},{val}\n")
+        #end = time.time()
+        #print(f"Method {method} returned {val} in {end - start:.3f} seconds",
+        #      f"for a sequence of length {len(seq)}")
+        #with open(TIME_STATS_FILE, "a") as f:
+        #    f.write(f"{method},{end - start},{len(seq)},{val}\n")
         if val == "OK":
             with open(f"{TEMP_DIR}/temps/{method}_status.txt", "w") as f:
                 f.write("OK")

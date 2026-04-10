@@ -94,7 +94,7 @@ def run_method(sequence, params, temp_dir, ref=None):
         draw_val1 = ut.draw("SPOT-RNA2", temp_dir, color_str)
         draw_val2 = ut.draw_circ("SPOT-RNA2", temp_dir)
         if draw_val1.returncode != 0 or draw_val2.returncode != 0:
-            return "Sequence folded, but drawing failed"
+            return "Sequence folded incorrectly, drawing failed"
         return "OK"
     except Exception as e:
         return f"SPOT-RNA2 failed: {e}"

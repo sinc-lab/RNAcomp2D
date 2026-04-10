@@ -418,7 +418,7 @@ footer {
   background-color: var(--background);
   box-shadow: 0px 0px 10px 0px var(--shadow);
   display: grid;
-  grid-template-columns: 79vw 17vw 4vw;
+  grid-template-columns: 85vw auto 4vw;
   justify-content: space-between;
 }
 
@@ -486,6 +486,12 @@ div#sequence {
   padding: 10px;
   background-color: var(--secondary-background);
   box-shadow: 0px 0px 5px 0px var(--shadow);
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 #cite_link {
@@ -507,11 +513,19 @@ div#sequence {
   display: flex;
   align-items: center;
   gap: 5px;
-  background-color: var(--secondary);
-  color: var(--secondary-font);
   font-size: 16px;
   padding: 5px;
   border-radius: 10px;
+}
+
+#help_title.disabled {
+  background-color: var(--secondary);
+  color: var(--secondary-font);
+}
+
+#help_title.enabled {
+  background-color: var(--primary);
+  color: var(--primary-font);
 }
 
 #help_text {
@@ -524,10 +538,6 @@ div#sequence {
   background-color: var(--secondary-background);
   box-shadow: 0px 0px 5px 0px var(--shadow);
   padding: 10px;
-}
-
-#help_container:hover #help_text {
-  display: block;
 }
 
 .help_item {
