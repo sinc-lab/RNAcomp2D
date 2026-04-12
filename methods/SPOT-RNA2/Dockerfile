@@ -29,7 +29,6 @@ RUN wget -O utils/models_ckps.tar.xz 'https://www.dropbox.com/s/udzcsva76lh5wvq/
 RUN tar -xvf utils/models_ckps.tar.xz -C utils/ && rm utils/models_ckps.tar.xz
 
 RUN wget 'eddylab.org/infernal/infernal-1.1.3-linux-intel-gcc.tar.gz' && tar -xvzf infernal-*.tar.gz && rm infernal-*.tar.gz
-RUN tar -xvzf infernal-*.tar.gz && rm infernal-*.tar.gz
 
 RUN wget 'ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-*+-x64-linux.tar.gz'
 RUN tar -xvzf ncbi-blast-*+-x64-linux.tar.gz && rm ncbi-blast-*+-x64-linux.tar.gz

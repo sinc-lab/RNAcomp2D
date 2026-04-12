@@ -83,4 +83,5 @@ def run_method(sequence, params, temp_dir, ref=None):
             return "Sequence folded incorrectly, drawing failed"
         return "OK"
     else:
+        print(val.stderr)
         return "Error running RNAformer"
