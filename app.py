@@ -17,7 +17,7 @@ args = parser.parse_args()
 
 app = Flask(__name__)
 if args.use_proxy:
-    app_root = '/RNAcomp2D'
+    app_root = '/rnacomp2d/'
     app.config['APPLICATION_ROOT'] = app_root
 else:
     app_root = ''

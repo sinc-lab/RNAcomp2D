@@ -52,11 +52,16 @@ paste it in the input box):
 		<textarea name="seq_string" id="seq_string" rows=3 
 			value=""></textarea><br />
         <!-- Sequence input file -->
-		Or upload a FASTA format file:
-		<input type="file" name="seq_file" id="seq_file" 
-		accept=".fasta,.txt,.fas,.fna,.fa">
-        <button id="clear_file" class="secondary small" hidden>Clear file</button>
-        <div id="error-file" style="display: none"></div>
+        <div id="file_input_container" style="flex-direction: column">
+          Or upload a FASTA format file:
+          <input type="file" name="seq_file" id="seq_file" 
+                                             accept=".fasta,.txt,.fas,.fna,.fa">
+          <button id="clear_file" class="secondary small" hidden>Clear file</button>
+          <a id="example_link"
+             href="https://github.com/sinc-lab/RNAcomp2D/tree/main/examples"
+             target="_blank">Download examples</a>
+          <div id="error-file" style="display: none"></div>
+        </div>
         <!-- Sequence input RNACentral -->
 		<div id="rnacentral_button_container">
 			Or select one from RNAcentral database:

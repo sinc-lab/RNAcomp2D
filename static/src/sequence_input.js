@@ -23,6 +23,7 @@ function checkStructure(structure) {
 
 function getSequenceFromFasta(fasta) {
   var lines = fasta.split("\n");
+  // If first line is not a fasta header, return error
   if (lines[0][0] != ">") {
     var error = document.getElementById("error-file");
     error.style.display = "block";
@@ -31,88 +32,100 @@ function getSequenceFromFasta(fasta) {
             one.`;
     return "error";
   }
-  var sequence = ""; var users_structure = ""; var other_structures = [];
-  var other_methods = [];
-  var last_line = -1;
-  for (var i = 1; i < lines.length; i++) {
-    if (lines[i][0] == ">") {
-      // End of sequence, start of reference or other structure
-      last_line = i;
-      break;
-    }
-    if (lines[i] == "") {
-      // Ignore empty lines
-      continue;
-    }
-    sequence += lines[i].replace(/\s/g, "").replace(/\t/g, 
-      "").replace(/\n/g, "").toUpperCase().replace(/T/g, "U");
-  }
-  // If there is a reference structure or other structures, get them
-  if (last_line != -1) {
-    var inputs_dict = {};
-    var input_header = "";
-    for (var i = last_line; i < lines.length; i++) {
-      if (lines[i] == "") {
-        // Ignore empty lines
-        continue;
-      }
-      if (lines[i][0] == ">") {
-        // Start of new input
-        input_header = lines[i].replace(">", "")
-        inputs_dict[input_header] = "";
-        continue;
-      }
-      // Only read input if it is a dot-bracket structure
-      if (checkStructure(lines[i])) {
-        inputs_dict[input_header] += lines[i].replace(/\s/g, "").replace(/\t/g, 
-          "").replace(/\n/g, "");
-      }
-    }
-
-    // Check if input is a reference structure or other structure
-    for (var input_header in inputs_dict) {
-      var input = inputs_dict[input_header];
-      if (input_header.toLowerCase().includes("reference")) {
-        users_structure = input;
-      } else {
-        other_structures.push(input);
-        other_methods.push(input_header);
-      }
-    }
-  }
-  if (sequence.length == 0) {
-    var error = document.getElementById("error-file");
-    error.style.display = "block";
-    error.innerHTML = `Please check the file format and ensure it is in 
-            FASTA format. Try uploading the file again or use a different 
-            one.`;
-    sequence = "error";
-  } else {
-    if (users_structure.length != 0 && sequence.length != users_structure.length) {
+  var names_read = []; var sequences_read = []; var structures_read = [];
+  var reading_sequence = false; var reading_structure = false;
+  // Read sequence and structure from fasta file. We know that first line is a
+  // fasta header, so start reading a name
+  for (var line of lines) {
+    if (line[0] == ">" && reading_sequence == false) {
+      var name = line.slice(1, line.length).trim();
+      names_read.push(name);
+      // Add empty sequence and start reading sequence
+      sequences_read.push(""); reading_sequence = true; reading_structure = false;
+    } else if (line[0] == ">" && reading_sequence == true) {
+      // ERROR: More than one sequence in file
       var error = document.getElementById("error-file");
       error.style.display = "block";
-      error.innerHTML = `Please check structure provided and ensure it is the 
-            same length as the sequence.`;
-      sequence = "error";
-    }
-    if (other_structures.length != 0) {
-      for (var i = 0; i < other_structures.length; i++) {
-        if (other_structures[i].length != sequence.length) {
+      error.innerHTML = `There is an error in the file. Please check the format and upload the file again. See examples provided for more information.`;
+      return "error";
+    } else if (reading_sequence == true) {
+      var seq_part = line.trim();
+      seq_part = seq_part.toUpperCase().replace(/T/g, "U").replace(/\s/g, "")
+        .replace(/\t/g, "").replace(/\n/g, "");
+      // Check if sequence is valid
+      if (checkSequence(seq_part) == false) {
+        // If sequence is not valid, but is a structure, start reading structure
+        if (checkStructure(seq_part) == true) {
+          reading_structure = true; reading_sequence = false;
+          structures_read.push(seq_part);
+          continue;
+        } else {
+          // ERROR: There is an error in a sequence
           var error = document.getElementById("error-file");
           error.style.display = "block";
-          error.innerHTML = `Please check structures provided and ensure they 
-            are the same length as the sequence.`;
-          sequence = "error";
-          break;
+          error.innerHTML = `There is an error in a sequence. Please check the 
+          file and try uploading the file again.`;
+          return "error";
         }
+      } else {
+        // Add sequence part to last sequence
+        sequences_read[sequences_read.length-1] += seq_part;
       }
-    }else {
-      other_structures = "";
-      other_methods = "";
+    } else if (reading_structure == true) {
+      var struct_part = line.trim();
+      struct_part = struct_part.replace(/\s/g, "").replace(/\t/g, "")
+        .replace(/\n/g, "");
+      // Check if structure is valid
+      if (checkStructure(struct_part) == false) {
+        // ERROR: There is an error in a structure
+        var error = document.getElementById("error-file");
+        error.style.display = "block";
+        error.innerHTML = `There is an error in a structure. Please check the 
+        file and try uploading the file again.`;
+        return "error";
+      } else {
+        // Add structure part to last structure
+        structures_read[structures_read.length-1] += struct_part;
+      }
+    }
+  }
+  // If there is no structure, only accept one name and one sequence
+  if (structures_read.length == 0) {
+    if (names_read.length > 1 || sequences_read.length > 1) {
+      var error = document.getElementById("error-file");
+      error.style.display = "block";
+      error.innerHTML = `There is more than one sequence in the file.`;
+      return "error";
+    } else {
+      // Return the sequence only
+      var data2submit = {"sequence": sequences_read[0], "user_structure": "",
+        "other_structures": [], "other_methods": []};
+      return data2submit;
+    }
+  }
+  // Check if all list of names, sequences and structures are the same length
+  if (names_read.length != sequences_read.length ||
+      names_read.length != structures_read.length) {
+    var error = document.getElementById("error-file");
+    error.style.display = "block";
+    error.innerHTML = `There is an error in the file. Please check the format and upload the file again. See examples provided for more information.`;
+    return "error";
+  }
+  // If everything is ok, check if there is a reference structure
+  var sequence = sequences_read[0];
+  //var sequence = "error";
+  var users_structure=""; var other_methods=[]; var other_structures=[];
+  for (var i = 0; i < sequences_read.length; i++) {
+    if (names_read[i].toLowerCase().includes("reference")) {
+      users_structure = structures_read[i];
+    } else {
+      other_methods.push(names_read[i]);
+      other_structures.push(structures_read[i]);
     }
   }
   var data2submit = {"sequence": sequence, "user_structure": users_structure,
     "other_structures": other_structures, "other_methods": other_methods};
+  console.log(data2submit);
   return data2submit;
 }
 
