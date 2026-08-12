@@ -17,26 +17,19 @@ Improved RNA Secondary Structure and Tertiary Base-pairing Prediction using Evol
 
 The recent discovery of numerous non-coding RNAs (long non-coding RNAs, in particular) has transformed our perception about the roles of RNAs in living organisms. Our ability to understand them, however, is hampered by our inability to solve their secondary and tertiary structures in high resolution efficiently by existing experimental techniques. Computational prediction of RNA secondary structure, on the other hand, has received much-needed improvement, recently, through deep learning of a large approximate data, followed by transfer learning with gold-standard base-pairing structures from high-resolution 3-D structures. Here, we expand this single-sequence-based learning to the use of evolutionary profiles and mutational coupling.
 
-|![](./docs/SPOTRNA2_pipeline.png)
-|----|
-| <p align="center"> <b>Figure 1:</b> (A) Inputted one dimensional (1-D) and two dimensional (2-D) features employed in SPOT-RNA2 (L is the RNA sequence length; BP is base-pair; CSS is consensus secondary structure). (B) An example of the model architecture of SPOT-RNA2. (C) The schematic diagram for model pre-training by the bpRNA data set (TR0) and transfer learning by PDB data set (TR1).|
 
 Results
 ----
 The new method allows large improvement not only in canonical base-pairs (RNA secondary structures) but more so in base-pairing associated with tertiary interactions such as pseudoknots, noncanonical and lone base-pairs. In particular, it is highly accurate for those RNAs of more than 1000 homologous sequences by achieving > 0.8 F1-score (harmonic mean of sensitivity and precision) for 14/16 RNAs tested. The method can also significantly improve base-pairing prediction by incorporating artificial but functional homologous sequences generated from deep mutational scanning without any modification. The fully automatic method should provide the scientific community a new powerful tool to capture not only the secondary structure but also tertiary base-pairing information for building three-dimensional models. It also highlights the future of accurately solving the base-pairing structure by using a large number of natural and/or artificial homologous sequences.
 
 
-|![](./docs/benchmark_results.png)
-|----|
-| <p align="center"> <b>Figure 2:</b> Distribution of F1-scores for individual RNAs on the combined test sets TS1, TS2, and TS3 given by various methods as labeled. On each box, the central mark indicates the median, and the bottom and top edges of the box indicate the 25th and 75th percentiles, respectively. The outliers are plotted individually by using the “+” symbol.|
-
 
 ## System Requirments
 
-**Hardware Requirments:**
+**Hardware Requirements:**
 It is recommended that your system should have 32 GB RAM, 500 GB disk space to support the in-memory operations for RNA sequence length less than 500. Multiple CPU threads are also recommended as the MSA generating process is computationally expensive.
 
-**Software Requirments:**
+**Software Requirements:**
 * [Python3.6](https://docs.python-guide.org/starting/install3/linux/)
 * [Perl-5.4 or later](https://www.perl.org/get.html)
 * [virtualenv](https://virtualenv.pypa.io/en/latest/installation/) or [Anaconda](https://anaconda.org/anaconda/virtualenv)
