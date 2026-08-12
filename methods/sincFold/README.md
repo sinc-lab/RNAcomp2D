@@ -102,6 +102,10 @@ then call the training and testing functions
 
 Using a GPU for training is recommended (with the option '-d cuda'). The complete process may take several hours using a GPU.
 
+## Citation
+
+If you use our model, please cite our work: 
+
 ```bibtex
 @article{sincFold2024,
   author       = {Bugnon, L. A. and Di Persia, L. and Gerard, M. and Raad, J. and 
