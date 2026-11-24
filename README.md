@@ -3,9 +3,9 @@
 **RNAcomp2D** is a web application for RNA secondary structure prediction and
 comparison using multiple methods. You can try it out at the [web
 server](https://sinc.unl.edu.ar/web-demo/rnacomp2d/)). For more information,
-check out and cite our [paper](https://www.biorxiv.org/content/10.1101/2025.10.08.681167v1):
-"RNAcomp2D: a web visualization tool for comparing multiple predictions of RNA secondary structure",
-Rosario Vitale, Diego H. Milone, Georgina Stegmayer, (under review) 2026.
+check out and cite our [paper](https://doi.org/10.1093/bioinformatics/btag841):
+"RNAcomp2D: a web tool to execute multiple methods and visually compare predictions of RNA secondary structure",
+Rosario Vitale, Diego H. Milone, Georgina Stegmayer, 2026.
 
 RNAcomp2D allows you to upload a sequence or search it on
 [RNAcentral](https://rnacentral.org/). If secondary structure is available on
